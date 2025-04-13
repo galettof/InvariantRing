@@ -1,4 +1,4 @@
-# Invariant Ring Project Ideas (Minneapolis 23)
+# Invariant Ring Project Ideas (Tulane 2025)
 
 Link to the Google Drive mentioned a few times below https://drive.google.com/drive/folders/1HvltRLSA588_vF6ELm0muBBKowxnRkPF?usp=sharing
 
