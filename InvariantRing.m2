@@ -13,8 +13,8 @@ newPackage(
         Date => "July 8, 2022",
         Authors => {
 	    {Name => "Luigi Ferraro", 
-		 Email => "lferraro@ttu.edu", 
-		 HomePage => "http://www.math.ttu.edu/~lferraro/"
+		 Email => "luigi.ferraro@utrgv.edu", 
+		 HomePage => "https://faculty.utrgv.edu/luigi.ferraro/"
 		 },
              {Name => "Federico Galetto", 
 		 Email => "f.galetto@csuohio.edu", 
