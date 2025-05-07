@@ -857,7 +857,9 @@ document {
 
 document {
 	Key => {definingIdeal,
-	     (definingIdeal, RingOfInvariants)},
+	     (definingIdeal, RingOfInvariants),
+	     [definingIdeal, Variable]
+	     },
 	
 	Headline => "presentation of a ring of invariants as polynomial ring modulo the defining ideal",
 	
