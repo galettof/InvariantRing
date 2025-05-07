@@ -75,7 +75,8 @@ document {
 		},
 	    {BOLD "2.2: ", "changed input of ", TO permutationMatrix,
 		", minor documentation and internal code changes."
-		}
+		},
+	    {BOLD "2.3: ", "minor documentation updates."}
 	    }
 	}
     
