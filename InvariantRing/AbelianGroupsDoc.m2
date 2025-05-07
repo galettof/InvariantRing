@@ -103,7 +103,8 @@ document {
 
 document {
 	Key => { equivariantHilbertSeries,
-	    (equivariantHilbertSeries, DiagonalAction)
+	    (equivariantHilbertSeries, DiagonalAction),
+	    [equivariantHilbertSeries, Order]
 	    },
 	Headline => "equivariant Hilbert series for a diagonal action",
 	Usage => "equivariantHilbertSeries D",
