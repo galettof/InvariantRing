@@ -11,15 +11,17 @@
 document {
 	Key => {diagonalAction, 
 	    (diagonalAction, Matrix, PolynomialRing),
+		(diagonalAction, Matrix, ZZ, PolynomialRing),
 	    (diagonalAction, Matrix, List, PolynomialRing),
 	    (diagonalAction, Matrix, Matrix, List, PolynomialRing)
 	    },
 	Headline => "diagonal group action via weights",
-	Usage => "diagonalAction(W, R), diagonalAction(W, d, R), diagonalAction(W1, W2, d, R)",
+	Usage => "diagonalAction(W, R), diagonalAction(W, z, R), diagonalAction(W, d, R), diagonalAction(W1, W2, d, R)",
 	Inputs => {
 	    	"W" => Matrix => {"of weights of the diagonal group action"},
 		"W1" => Matrix => {"of weights for the torus action"},
 		"W2" => Matrix => {"of weights for the finite abelian action"},
+		"z" => ZZ => {"of the order of an elementary abelian group"},
 	    	"d" => List => {"of orders of cyclic abelian factors in the 
 		    decomposition of the diagonal group"},
 		"R" => PolynomialRing => {"on which the group acts"}
@@ -67,8 +69,8 @@ document {
 	    },
         	
 	EXAMPLE {
-	    "R = QQ[x_1..x_4]",
-	    "W = matrix{{0,1,-1,1},{1,0,-1,-1}}",
+	    "R = QQ[x_1..x_4];",
+	    "W = matrix{{0,1,-1,1},{1,0,-1,-1}};",
 	    "T = diagonalAction(W, R)"
 		},
 	    
@@ -78,13 +80,14 @@ document {
 	    },
 	
 	EXAMPLE {
-	    "R = QQ[x_1..x_3]",
-	    "d = {3,3}",
-	    "W = matrix{{1,0,1},{0,1,1}}",
-	    "A = diagonalAction(W, d, R)",
-		},
+	    "R = QQ[x_1..x_3];",
+	    "d = {2,5}; z = 3;",
+	    "W = matrix{{1,0,1},{0,1,1}};",
+		"A = diagonalAction(W, d, R)",
+		"B = diagonalAction(W, z, R)"
+		}
     
-	    }
+}
 
 document {
 	Key => {DiagonalAction},
