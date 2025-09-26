@@ -248,7 +248,7 @@ invariants = method(Options => {
 invariants DiagonalAction := List => o -> D -> (
     d := cyclicFactors D;
     --*-* If elementary, then use elementary generation method *-*--
-    if (o.Strategy == "Default") and all(D.cyclicFactors, i -> D.cyclicFactors#0 == i) then return elementaryInvariants D;
+    if (o.Strategy == "Default") and d =!= {} and all(D.cyclicFactors, i -> D.cyclicFactors#0 == i) then return elementaryInvariants D;
     --*-* Otherwise, continue with regular method *-*--
     (W1, W2) := weights D;
     R := ring D;
