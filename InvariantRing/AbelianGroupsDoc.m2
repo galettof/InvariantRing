@@ -157,7 +157,7 @@ document {
 	    "T = diagonalAction(W, R)",
 	    "equivariantHilbertSeries T",
 	    "S = equivariantHilbertSeries(T, Order => 7)",
-	    "sub(S, {z_0 => 0, z_1 => 0})"
+	    "sub(S, {ζ_0 => 0, ζ_1 => 0})"
 		},
 	 
 	    }
