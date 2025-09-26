@@ -88,8 +88,21 @@ document {
 	    "W = matrix{{1,0,1},{0,1,1}};",
 		"A = diagonalAction(W, d, R)",
 		"B = diagonalAction(W, z, R)"
-		}
+		},
     
+    	PARA {
+	    "Here is an example of a diagonal action by the product of
+	     a two-dimensional torus with a cyclic group of order 3 
+	    acting on a two-dimensional vector space:"
+	},
+    
+	EXAMPLE {
+	    "R = QQ[x_1, x_2]",
+	    "d = {3}",
+	    "W1 = matrix{{1,-1}, {-1,1}}",
+	    "W2 = matrix {{1,0}}",
+	    "D = diagonalAction(W1, W2, d, R)"
+		}
 }
 
 document {
