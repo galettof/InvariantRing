@@ -75,8 +75,11 @@ document {
 		},
 	    
     	PARA {
-	    "Here is an example of a product of two cyclic groups of order 3 
-	    acting on a three-dimensional vector space:"
+	    "Here are examples with products of cyclic groups
+	    acting on a three-dimensional vector space.
+	    The orders of the cyclic factors can be passed as
+	    a list of integers or as a single integer when they are
+	    all the same."
 	    },
 	
 	EXAMPLE {
