@@ -47,7 +47,7 @@ diagonalAction (Matrix, Matrix, List, PolynomialRing) := DiagonalAction => (W1, 
     ----- - Creates the object - --!--
     r := numRows W1;
     g := numRows W2;
-    diagVariable := getSymbol "diagVariable";
+    diagVariable := getSymbol "z";
     C := ZZ[Variables           => r + g,
             VariableBaseName    => diagVariable,
 	        MonomialOrder       => {GroupLex => r,GroupLex => g},
