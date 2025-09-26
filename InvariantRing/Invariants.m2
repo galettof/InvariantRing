@@ -111,119 +111,236 @@ reynoldsOperator (RingElement, DiagonalAction) := RingElement => (f, D) -> sum s
 
 -------------------------------------------
 
+-------------------------------------------
+--- Elementary Invariants Methods ---------
+-------------------------------------------
+
+-- Checks if a list is completely 0
+isZero := L -> (
+    for i in L do if (i != 0) then return false;
+    return true;
+)
+-- Reduces a monomial by all other monomials in a list. 
+-- Returns: 1 if it is to be removed
+--          2 if it is minimal and can't be removed
+reduceit := (l, L) -> (
+    for a in L do (
+        if (a == l) then return 1;
+        killit := true;
+        for i to #a - 1 do if (l#i < a#i) then killit = false;
+        if killit then (
+            l = l - a;
+            if isZero(l) then return 1;
+        );
+    );
+    return 2;
+)
+-- Checks if a given seed is minimal.
+-- Returns: 0 if m is not minimal
+--          1 if l is not minimal
+--          2 if m is minimal
+seedminimal := (m, L) -> (
+    for l to #L-1 do (
+        mmin := true;
+        lmin := true;
+        for i to #m - 1 when (mmin or lmin) do (
+            if (m_i > L#l_i) then mmin = false;
+            if (L#l_i > m_i) then lmin = false;
+        );
+        if lmin then return 0;
+        if mmin then return reduceit(L#l - m, L);
+    );
+    return 2;
+)
+
+-->-- Method for p x p group with representative weight matrix --<--
+elementaryInvariants := D -> (
+    
+    W := D.weights_1;
+    d := (D.cyclicFactors)#0;
+    R := ring D;
+    --------------------------
+    -->-- generate seeds --<--
+    n := numColumns W; m := numRows W;
+    -->-- find submatrix with nonzero determinant --<--
+    subVars := matrix{{0}}; colList := {};
+    mList := toList (0..(m-1));
+    for i to n - m do (
+        rod := submatrix(W, mList, toList (i..(i + m - 1)));
+        if (determinant rod != 0) then (
+            subVars = rod;
+            colList = toList (i..(i + m - 1));
+            break;
+        );
+    );
+    -->-- return error if no nonzero submatrix determinant exists --<--
+    if (subVars == matrix{{0}}) then (
+        error ("No invariants for this weight matrix.\n");
+        return {};
+    );
+    seedList := {};
+    -->-- Creates all the representative exponent vectors in accordance with the algorithm --<--
+    for v in toList(set(toList (0..(n-1))) - set(colList)) do (
+        wColumns := sort({v} | colList); tempVec := {}; signFlip := 1;
+        for i in wColumns do (
+            e := for j from 0 to n-1 list (if j == i then 1 else 0);
+            subM := submatrix(W, mList, sort(toList(set(wColumns) - set({i}))));
+            tempVec = tempVec | {signFlip * (determinant subM) * e};
+            signFlip = signFlip * -1;
+        );
+        seedList = seedList | {sum tempVec};
+    );
+    ------------------------
+    -->-- expand seeds --<--
+    gR := gens R;
+    ind := numgens R - 1;
+    seedList = for l in seedList list apply(l, x -> ((x % d) + d) % d);
+    newList := seedList;
+    trashList := seedList | {apply(ind + 1, i -> 0)};
+    -->-- Expands each of the seeds in accordance with the representative exponent vectors --<--
+    -->-- The monomials are represented via their exponent vectors as lists in m2 --<--
+    for i from 1 to (d) do (
+            for m when m < #newList do (       
+            for n to #newList - 1 do (
+                m' := (newList#m)*i;
+                n' := newList#n;
+                m' = (m' + n') % d;
+                if (not isZero(m')) and (not any(trashList, t -> (m' == t))) then (
+                    result := seedminimal(m', newList);
+                    if (result == 1) then (
+                        newList = replace(n, m', newList);
+                        m = m - 1;
+                    )
+                    else if (result == 2) then newList = newList | {m'}
+                    else trashList = trashList | {m'};
+                );
+            );
+        );
+    );
+    -->-- Then, we add the pure powers to the list --<--
+    for i from 0 to (numgens R - 1) do (
+        newList = newList | {for k to numgens R - 1 list (if i == k then d else 0)};
+    );
+    polyList := {};
+    -->-- Then, we turn each of the exponent vectors into their polynomials in the Ring --<--
+    for i in newList do (
+        n := 1;
+        for j to #i - 1 do (n = n * (((gens R)_j)^(i_j)));
+        polyList = polyList | {n};
+    );
+
+    return sort polyList;
+)
+
+-------------------------------------------
+--- invariants for DiagonalAction ---------
+-------------------------------------------
+
 invariants = method(Options => {
 	Strategy => "Default",
 	UseCoefficientRing => false,
 	DegreeBound => infinity,
 	DegreeLimit => {},
 	SubringLimit => infinity
-	})
+	}
+)
 
 invariants DiagonalAction := List => o -> D -> (
+    d := cyclicFactors D;
+    --*-* If elementary, then use elementary generation method *-*--
+    if (o.Strategy == "Default") and all(D.cyclicFactors, i -> D.cyclicFactors#0 == i) then return elementaryInvariants D;
+    --*-* Otherwise, continue with regular method *-*--
     (W1, W2) := weights D;
     R := ring D;
     kk := coefficientRing R;
     p := char kk;
-    d := cyclicFactors D;
     r := rank D;
     if p > 0 and o.UseCoefficientRing then (
-	q := kk#order;
-	if any(d, j -> q%j =!= 1) then (
-	    print "-- Diagonal action is not defined over the given coefficient ring. \n-- Returning invariants over an infinite extension field over which the action is defined."
-	    )
-	else (
-	    D' := diagonalAction(W1||W2, apply(r, i -> q - 1)|d, R);
-	    return invariants D'
-	    )
-    	);
+        q := kk#order;
+        if any(d, j -> q%j =!= 1) then (
+            print "-- Diagonal action is not defined over the given coefficient ring. \n-- Returning invariants over an infinite extension field over which the action is defined.";
+        )
+        else (
+            D' := diagonalAction(W1||W2, apply(r, i -> q - 1)|d, R);
+            return invariants D';
+        )
+    );
     R = kk[R_*, MonomialOrder => GLex];
     g := numgens D;
     n := dim D;
     mons := R_*;
     local C, local S, local U;
     local v, local m, local v', local u;
-    
     if g > 0 then (
-	t := product d;
-	
-	reduceWeight := w -> vector apply(g, i -> w_i%d#i);
-	
-	C = apply(n, i -> reduceWeight W2_i);
-	
-	S = new MutableHashTable from apply(C, w -> w => {});
-	scan(#mons, i -> S#(reduceWeight W2_i) = S#(reduceWeight W2_i)|{mons#i});
-	U = R_*;
-	
-	while  #U > 0 do(
-	    m = min U; 
-	    v = first exponents m;
-	    k := max positions(v, i -> i > 0);
-	    v = reduceWeight(W2*(vector v));
-	    
-	    while k < n do(
-	    	u = m*R_k;
-	    	v' = reduceWeight(v + W2_k);
-	    	if (not S#?v') then S#v' = {};
-	    	if all(S#v', m' -> u%m' =!= 0_R) then (
-		    S#v' = S#v'|{u};
-		    if first degree u < t then U = U | {u}
-		    );
-	    	k = k + 1;
-	    	);
-	    U = delete(m, U);
-	    );
-    	if S#?(0_(ZZ^g)) then mons = S#(0_(ZZ^g)) else mons = {}
-    	);
+        t := product d;
+        reduceWeight := w -> vector apply(g, i -> w_i%d#i);
+        C = apply(n, i -> reduceWeight W2_i);
+        S = new MutableHashTable from apply(C, w -> w => {});
+        scan(#mons, i -> S#(reduceWeight W2_i) = S#(reduceWeight W2_i)|{mons#i});
+        U = R_*;
+        while  #U > 0 do(
+            m = min U; 
+            v = first exponents m;
+            k := max positions(v, i -> i > 0);
+            v = reduceWeight(W2*(vector v));
+            while k < n do(
+                u = m*R_k;
+                v' = reduceWeight(v + W2_k);
+                if (not S#?v') then S#v' = {};
+                if all(S#v', m' -> u%m' =!= 0_R) then (
+                    S#v' = S#v'|{u};
+                    if first degree u < t then U = U | {u}
+                );
+                k = k + 1;
+            );
+            U = delete(m, U);
+        );
+        if S#?(0_(ZZ^g)) then mons = S#(0_(ZZ^g)) else mons = {}
+    );
     if r == 0 then return apply(mons, m -> sub(m, ring D) );
-    
     W1 = W1*(transpose matrix (mons/exponents/first));
     if o.Strategy == "Polyhedra" then (
-	if r == 1 then C = convexHull W1 else C = convexHull( 2*r*W1|(-2*r*W1) );
-	C = (latticePoints C)/vector;
-	)
+        if r == 1 then C = convexHull W1 else C = convexHull( 2*r*W1|(-2*r*W1) );
+        C = (latticePoints C)/vector;
+    )
     else (
-	if r == 1 then C = (normaliz(transpose W1, "polytope"))#"gen" 
-	else C = (normaliz(transpose (2*r*W1|(-2*r*W1)), "polytope"))#"gen";
-	C = transpose C_(apply(r, i -> i));
-	C = apply(numColumns C, j -> C_j)
-	);
-    
+        if r == 1 then C = (normaliz(transpose W1, "polytope"))#"gen" 
+        else C = (normaliz(transpose (2*r*W1|(-2*r*W1)), "polytope"))#"gen";
+        C = transpose C_(apply(r, i -> i));
+        C = apply(numColumns C, j -> C_j)
+    );
     S = new MutableHashTable from apply(C, w -> w => {});
     scan(#mons, i -> S#(W1_i) = S#(W1_i)|{mons#i});
     U = new MutableHashTable from S;
-    
     nonemptyU := select(keys U, w -> #(U#w) > 0);
-    while  #nonemptyU > 0 do(
-	v = first nonemptyU;
-	m = first (U#v);
-	
-	scan(#mons, i -> (
-		u := m*mons#i;
-        	v' := v + W1_i;
-        	if ((U#?v') and all(S#v', m' -> (
-			    if u%m' =!= 0_R then true
-			    else if g > 0 then (
-				m'' := u//m';
-			    	v'' := reduceWeight(W2*(vector first exponents m''));
-			    	v'' =!= 0_(ZZ^g)
-				)
-			    else false
-			    )
-			)
-		    ) 
-		then( 
-                    S#v' = S#v'|{u};
-                    U#v' = U#v'|{u};
-		    )
-	    	)
-	    );
-	U#v = delete(m, U#v);
-	nonemptyU = select(keys U, w -> #(U#w) > 0)
-	);
+        while  #nonemptyU > 0 do(
+        v = first nonemptyU;
+        m = first (U#v);
+        
+        scan(#mons, i -> (
+            u := m*mons#i;
+            v' := v + W1_i;
+            if ((U#?v') and all(S#v', m' -> (
+                if u%m' =!= 0_R then true
+                else if g > 0 then (
+                    m'' := u//m';
+                    v'' := reduceWeight(W2*(vector first exponents m''));
+                    v'' =!= 0_(ZZ^g)
+                )
+                else false
+            ))) then ( 
+                S#v' = S#v'|{u};
+                U#v' = U#v'|{u};
+            )
+        ));
+        U#v = delete(m, U#v);
+        nonemptyU = select(keys U, w -> #(U#w) > 0)
+    );
     
     if S#?(0_(ZZ^r)) then mons = S#(0_(ZZ^r)) else mons = {};
     return apply(mons, m -> sub(m, ring D) )
-    )
+
+)
 
 
 -------------------------------------------
