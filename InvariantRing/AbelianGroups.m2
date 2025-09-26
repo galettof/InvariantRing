@@ -156,7 +156,7 @@ equivariantHilbertSeries DiagonalAction := op -> T -> (
 	)
     else (
 	    equivariantHilbertPartial(T,ord-1)
-	);
+	)
 )
 
 -- computes equivariant hilbert series as rational function
