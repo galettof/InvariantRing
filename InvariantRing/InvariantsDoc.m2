@@ -932,7 +932,9 @@ document {
 	    }
 	
 document {
-	Key => {(hilbertSeries, RingOfInvariants)},
+	Key => {(hilbertSeries, RingOfInvariants),
+	    [hilbertSeries, Order],
+	    [hilbertSeries, Reduce]},
 	
 	Headline => "Hilbert series of the invariant ring",
 	
