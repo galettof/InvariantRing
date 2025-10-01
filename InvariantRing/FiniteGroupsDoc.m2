@@ -72,7 +72,8 @@ document {
 	}
 
 document {
-	Key => {(generators, FiniteGroupAction)},
+	Key => {(generators, FiniteGroupAction),
+	    [generators, CoefficientRing]},
 	Headline => "generators of a finite group",
 	Usage => "generators G",
 	Inputs => {
