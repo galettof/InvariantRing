@@ -318,15 +318,6 @@ document {
 	    "elapsedTime invariants S4",
 	    "elapsedTime invariants(S4, Strategy => \"LinearAlgebra\")"
 	},
-    
-    	PARA {
-	    "For a diagonal action, the computation of invariants relies on
-	    finding integral points in a convex hull constructed
-	    from a weight matrix. By default, the package ",  TO Normaliz,
-	    " is used for finding integral points. It is also possible
-	    to use the package ", TO Polyhedra, " for finding integral points
-	    by using the option ", TT "Strategy => \"Polyhedra\"", "."
-	    },
 	
 	SeeAlso => {
 	    diagonalAction,
