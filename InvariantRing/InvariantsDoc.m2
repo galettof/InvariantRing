@@ -424,7 +424,7 @@ document {
 	    [invariants, UseCoefficientRing], [invariantRing, UseCoefficientRing], UseCoefficientRing
 	    },
 	Headline => "option to compute invariants over the given coefficient ring",
-	Usage => "invariants G",
+	Usage => "invariants D",
 	Inputs => {"D" => DiagonalAction},
 	Outputs => {
 		"L" => List => {"a minimal set of generating invariants for the group action"}
