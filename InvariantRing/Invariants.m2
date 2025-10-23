@@ -301,7 +301,7 @@ invariants DiagonalAction := List => o -> D -> (
     );
     if r == 0 then return apply(mons, m -> sub(m, ring D) );
     W1 = W1*(transpose matrix (mons/exponents/first));
-    if o.Strategy == "Polyhedra" then (
+    if o.UsePolyhedra then (
         if r == 1 then C = convexHull W1 else C = convexHull( 2*r*W1|(-2*r*W1) );
         C = (latticePoints C)/vector;
     )
