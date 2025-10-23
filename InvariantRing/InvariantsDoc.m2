@@ -484,6 +484,37 @@ document {
 
 document {
 	Key => {
+	    [invariants, UsePolyhedra], UsePolyhedra
+	    },
+	Headline => "use Polyhedra package for invariants of tori",
+	Usage => "invariants D",
+	Inputs => {"D" => DiagonalAction},
+	Outputs => {
+		"L" => List => {"a minimal set of generating invariants for the group action"}
+		},
+	
+	PARA {
+	    "This function is provided by the package ", TO InvariantRing, "."
+	    },
+	
+	PARA {
+	    "For a diagonal action, the computation of invariants relies on
+	    finding integral points in a convex hull constructed
+	    from a weight matrix. By default, the package ",  TO Normaliz,
+	    " is used for finding integral points. It is also possible
+	    to use the package ", TO Polyhedra, " for finding integral points
+	    by passing the option ", TT "UsePolyhedra => true", "."
+	    },
+    
+    	SeeAlso => {
+	    diagonalAction,
+	    invariants,
+	    invariantRing
+	    }	
+	}
+
+document {
+	Key => {
 	    (invariants, FiniteGroupAction, ZZ),
 	    (invariants, FiniteGroupAction, List),
 	    },

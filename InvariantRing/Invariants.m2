@@ -239,6 +239,7 @@ elementaryInvariants := D -> (
 invariants = method(Options => {
 	Strategy => "Default",
 	UseCoefficientRing => false,
+	UsePolyhedra => false,
 	DegreeBound => infinity,
 	DegreeLimit => {},
 	SubringLimit => infinity

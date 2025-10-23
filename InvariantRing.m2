@@ -100,6 +100,7 @@ export {
     "reynoldsOperator",	       	     	  
     "RingOfInvariants",	       	  
     "UseCoefficientRing",
+    "UsePolyhedra",
     
     --Hawes.m2    	      	      	  
     "hironakaDecomposition",   	  
