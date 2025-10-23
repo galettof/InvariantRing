@@ -475,7 +475,7 @@ document {
 
 document {
 	Key => {
-	    [invariants, UsePolyhedra], UsePolyhedra
+	    [invariants, UsePolyhedra], [invariantRing, UsePolyhedra], UsePolyhedra
 	    },
 	Headline => "use Polyhedra package for invariants of tori",
 	Usage => "invariants D",

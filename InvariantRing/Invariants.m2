@@ -16,6 +16,7 @@ RingOfInvariants = new Type of HashTable
 invariantRing = method(Options => {
 	Strategy => "Default",
 	UseCoefficientRing => false,
+	UsePolyhedra => false,
 	DegreeBound => infinity
 	})
 
