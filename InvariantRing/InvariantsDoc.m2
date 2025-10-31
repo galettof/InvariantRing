@@ -240,6 +240,15 @@ document {
 	   ". Thesis (Ph.D.)-University of Michigan. 2019. ISBN: 978-1392-76291-2. pp 29-34."}
         },   
     
+       PARA {
+	    "Version 2.4 includes a faster algorithm to compute invariants
+	    of elementary abelian groups. For more information, see:"
+	     },
+	 
+        UL { 
+	    {HREF{"https://github.com/gordonovak/algorithms"}}
+        },   
+    
     	PARA {
 	    "Here is an example of a one-dimensional torus acting on a 
 	    two-dimensional vector space:"
