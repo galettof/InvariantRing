@@ -250,7 +250,17 @@ invariants = method(Options => {
 invariants DiagonalAction := List => o -> D -> (
     d := cyclicFactors D;
     --*-* If elementary, then use elementary generation method *-*--
-    if (o.Strategy == "Default") and d =!= {} and all(D.cyclicFactors, i -> D.cyclicFactors#0 == i) then return elementaryInvariants D;
+    -- as of October 2025, the elementary generation method is used by default when:
+    -- i) there is no torus action: zero((D.weights)_0)
+    -- ii) there are cyclic factors: d =!= {}
+    -- iii) all cyclic factors have the same order: all(d, i -> d#0 == i)
+    -- users can fallback to previous method with Strategy=>"DerksenGandini"
+    if (o.Strategy =!= "DerksenGandini") and
+    zero((D.weights)_0) and d =!= {} and all(d, i -> d#0 == i)
+    then (
+	print("\nUsing elementary generation method:\n"); -- for debugging purposes
+	return elementaryInvariants D;
+	);
     --*-* Otherwise, continue with regular method *-*--
     (W1, W2) := weights D;
     R := ring D;
