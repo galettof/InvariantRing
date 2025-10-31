@@ -327,6 +327,13 @@ document {
 	    "elapsedTime invariants S4",
 	    "elapsedTime invariants(S4, Strategy => \"LinearAlgebra\")"
 	},
+
+	PARA {
+	    "Version 2.4 introduces a faster algorithm to compute invariants
+	    of elementary abelian groups, which are automatically detected.
+	    To use the general purpose algorithm instead, pass the option ",
+	    TT "Strategy=>\"DerksenGandini\"", "."
+	    },
 	
 	SeeAlso => {
 	    diagonalAction,
