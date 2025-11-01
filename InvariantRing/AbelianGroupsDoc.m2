@@ -102,6 +102,19 @@ document {
 	    "W1 = matrix{{1,-1}, {-1,1}}",
 	    "W2 = matrix {{1,0}}",
 	    "D = diagonalAction(W1, W2, d, R)"
+		},
+    
+    	PARA {
+	    "Finally, a diagonal action may be constructed with a single
+	    weights matrix obtained by vertically stacking the weights
+	    matrix for the torus action on top of the weight matrix for
+	    the finite abelian action. The following redefines the same
+	    action as in the previous example."
+	},
+    
+	EXAMPLE {
+	    "W = W1 || W2",
+	    "diagonalAction(W, d, R)"
 		}
 }
 
