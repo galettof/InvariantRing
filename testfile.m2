@@ -1,5 +1,7 @@
+needsPackage("InvariantRing");
 load "seedGenExpansion.m2";
-needsPackage("InvariantRing")
+load "Invariants.m2";
+
 
 gapeit = method();
 gapeit(ZZ) := (p) -> (
@@ -36,10 +38,15 @@ soundit(ZZ) := (n) -> (
 eifulltower = method();
 eifulltower(ZZ) := (x) -> (
     p = soundit(100);
+    P = for x to numRows W - 1 list p;
     W = gapeit(p);
     R = QQ[a_1..a_(numColumns W)];
-    D = diagonalAction(W,for x to numRows W - 1 list p,R);
-    for x in genseeds(diagonalAction(W,p, R)) do (print (isInvariant (x,D)););
-    return genseeds(diagonalAction(W,p, R));
+    D = diagonalAction(W,P,R);
+    --for x in genseeds(diagonalAction(W,p, R)) do (print (isInvariant (x,D)););
+    --print("Invariants method:");
+    --print(invariants D);
+    print("Elementary Invariants Method");
+    print(elementaryInvariants(diagonalAction(W,P, R)));
+    return genseeds(diagonalAction(W,P, R));
 
 )

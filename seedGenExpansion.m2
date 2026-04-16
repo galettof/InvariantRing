@@ -13,12 +13,6 @@
 seedMinimal := (Seeds, candidate, startingIndex) -> (
 	i := startingIndex;
 	numSeeds := #Seeds;
-	print("seed minimal");
-	print(candidate);
-	print("num seeds");
-	print(#Seeds);
-	print ("start index");
-	print(startingIndex);
 	while i < numSeeds do (	-- Iterate through all seeds
 		candMinimal := true;	-- We start by assuming our candidate & seed are divisible by each other
 		seedIsMinimal := true;
@@ -34,7 +28,7 @@ seedMinimal := (Seeds, candidate, startingIndex) -> (
 		if seedIsMinimal then (		-- If our seed is exclusively less than our candidate, we:
 			newCandidate := candidate - Seeds#i; -- Reduce our candidate by our seed, as that will still be invariant
 			if (newCandidate === candidate) then (
-				i = i + 1;				-- No change → move forward to avoid infinite loop
+				i = i + 1;				-- No change: move forward to avoid infinite loop
 			)
 			else (
 				candidate = newCandidate;
@@ -68,6 +62,7 @@ genseeds(DiagonalAction) := (D) -> (
 
 	-->- Grab our variables W, R, Z from D -<--
 	W := D.weights_1;
+	
 	R := ring D;
 	Z := (D.cyclicFactors)#0;
 
@@ -78,11 +73,11 @@ genseeds(DiagonalAction) := (D) -> (
 	-->- Now, we find a n x n submatrix of W with nonzero determinant --<-
 	nonZeroSM := matrix{{0}};           -- Start with an empty submatrix (SM stands for submatrix)
 	colList = {};                       -- This empty list will track the columns we don't use for the submatrix
-	for i from 0 to (n - m - 1) do (                 -- Iterate from 0 to n - m (we don't want our matrix out of bounds)
+	for i from 0 to (n - m) do (                 -- Iterate from 0 to n - m (we don't want our matrix out of bounds)
 		candidateSM := submatrix(W, toList(i .. i+m-1));
 		if (determinant candidateSM != 0) then (
 			nonZeroSM = candidateSM;    -- If candidateSM has nonzero determinant, it is now our nonZero det submatrix
-			colList = toList(0 .. i-1) | toList(i+m .. n-m-1); -- Grabs the columns we didn't use. 
+			colList = toList(0 .. i-1) | toList(i+m .. n-1); -- Grabs the columns we didn't use. 
 			break;                      -- ends the loop
 		)
 	);
@@ -95,14 +90,15 @@ genseeds(DiagonalAction) := (D) -> (
 
 	-->- STEP 2 -<--
 	seedList := {};		                     	-- Creates a list for the seed invariants in exponent vec form
+
 	for v in colList do (                   	-- Iterates through all columns we didn't use for nonZeroSM
 		seedInvariant       := {};              -- Current seed invariant we are calculating
 		seedMatrix      := nonZeroSM | matrix(W_v);		-- Matrix we extract the seed invariant from (where W_v is our additional vector)
 		signFlip        := 1;
 		for i from 0 to m do (                 -- This loops lets us remove one of the columns from the matrix to calculate the plücker
-			plückerMatrix   := submatrix(seedMatrix, toList(0 .. i -1) | toList (i + 1 .. m));  -- Find plucker matrix
+			pluckerMatrix   := submatrix(seedMatrix, toList(0 .. i -1) | toList (i + 1 .. m));  -- Find plucker matrix
 			e               := for j from 0 to n-1 list (if j == i then 1 else 0);              -- Standard basis vector
-			seedInvariant   = seedInvariant | {signFlip * determinant(plückerMatrix) * e};      -- Calculate vector
+			seedInvariant   = seedInvariant | {signFlip * determinant(pluckerMatrix) * e};      -- Calculate vector
 			signFlip        = signFlip * -1;     -- Flip the sign after each iteration.
 		);
 		seedList = seedList | {sum seedInvariant} -- Adds the summed seed invariant vec to our list
@@ -110,6 +106,8 @@ genseeds(DiagonalAction) := (D) -> (
 
 	-- Now, seedList contains our list of seed Invariants, so we move onto expansion.
 
+	print("New seedList: ");
+	print(seedList);
 	--------------------
 	-- Seed Expansion --
 	--------------------
