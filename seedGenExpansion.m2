@@ -1,17 +1,21 @@
--------------------------------------------
 
 -------------------------------------------
 --- Elementary Invariants Methods ---------
 -------------------------------------------
 
 -->-- Function: seedMinimal --<--
--- Checks if a given candidate is minimal given the list of seeds, starting at the index, "StartingIndex"
--- Returns ({-1} | candidate) if our candidate is minimal.
--- Returns {-2} if our candidate is not minimal.
--- Returns ({-3, index}) if a seed is not minimal so we can remove it
--- Returns ({-4, index} | newSeed) if our candidate helps reduce a seed. 
-seedMinimal := (Seeds, candidate, startingIndex) -> (
-	i := startingIndex;
+-- Checks if a given candidate is minimal given the list of seeds, starting at the index, "startIndex"
+--> INPUT:   
+--           Seeds      : List[List[ZZ]] › A list of current seeds that are invariant
+--           Candidate  : List[ZZ]       › A seed that may be added to the Seeds list
+--           startIndex : ZZ             › The index in the Seeds list that you want to start minimizing from
+--> OUTPUT: 
+--           Returns ({-1} | candidate) if our candidate is minimal.
+--           Returns {-2} if our candidate is not minimal.
+--           Returns ({-3, index}) if a seed is not minimal, with the index of the seed. 
+--           Returns ({-4, index} | newSeed) if our candidate helps reduce a seed. 
+seedMinimal := (Seeds, candidate, startIndex) -> (
+	i := startIndex;
 	numSeeds := #Seeds;
 	while i < numSeeds do (	-- Iterate through all seeds
 		candMinimal := true;	-- We start by assuming our candidate & seed are divisible by each other
@@ -33,7 +37,7 @@ seedMinimal := (Seeds, candidate, startingIndex) -> (
 			else (
 				candidate = newCandidate;
 				if (all (candidate, i -> i == 0)) then return {-2, 0}; -- If the candidate fully reduces, we return -2.
-				i = startingIndex;		-- Reduce our index by restarting so we can test candidate again. 
+				i = startIndex;		-- Reduce our index by restarting so we can test candidate again. 
 			);
 		)
 		else if candMinimal then (	-- If our candidate is minimal, we may need to discard our seed instead.
@@ -106,8 +110,6 @@ genseeds(DiagonalAction) := (D) -> (
 
 	-- Now, seedList contains our list of seed Invariants, so we move onto expansion.
 
-	print("New seedList: ");
-	print(seedList);
 	--------------------
 	-- Seed Expansion --
 	--------------------
@@ -131,7 +133,6 @@ genseeds(DiagonalAction) := (D) -> (
 					result := minimality#0;
 					-- If result = -3 or -4, that means one of our seeds was not minimal given our candidate
 					while (result == -3 or result == -4) do (		-- So we must loop to sort out the seeds and get our candidate & seeds minimized
-						print(minimality);
 						editIndex := minimality#1;					-- minimality#2 holds the index of the seed we need to adjust.
 						if (result == -3) then (					-- {-3} -> Our seed is not minimal, so we must remove it.
 							seedList = take(seedList, editIndex) | drop(seedList, editIndex+1);
