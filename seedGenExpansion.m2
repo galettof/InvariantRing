@@ -1,4 +1,4 @@
-
+needsPackage("InvariantRing")
 -------------------------------------------
 --- Elementary Invariants Methods ---------
 -------------------------------------------
