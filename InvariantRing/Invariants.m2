@@ -173,8 +173,7 @@ seedMinimal := (Seeds, candidate, startIndex) -> (
 -->--elementaryInvariants function--<--
 --> INPUT:  D (a diagonalAction)
 --> OUTPUT: L (a list of invariants)
-elementaryInvariants = method()
-elementaryInvariants(DiagonalAction) := (D) -> (
+elementaryInvariants := D -> (
 	---------------------
 	-- Seed Generation --
 	---------------------
