@@ -428,3 +428,21 @@ assert(
      apply(P,degree)==toList(#P:{#(group D4)})
      )
 ///
+
+------------------------------------------------------------------------
+--- Tests for elementary invarianst strategy (April 2026) --------------
+------------------------------------------------------------------------
+
+-- Test 24
+-- checks that the new strategy for elementary invariants returns
+-- the same results as the previous strategy by Derksen and Gandini
+TEST ///
+p=11
+R = QQ[x_1..x_3]
+W = matrix{{1,0,1},{0,1,1}}
+L = {p,p}
+T = diagonalAction(W,L,R)
+inv = invariants(T, Strategy => "DerksenGandini")
+einv = invariants T
+assert(set inv == set einv)
+///
