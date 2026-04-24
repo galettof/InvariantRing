@@ -242,7 +242,7 @@ document {
     
        PARA {
 	    "Version 2.4 includes a new algorithm to compute invariants
-	    of elementary abelian groups. For more information, see:"
+	    of elementary abelian $p$-groups. For more information, see:"
 	     },
 	 
         UL { 
@@ -272,6 +272,15 @@ document {
 	    "W = matrix{{1,0,1},{0,1,1}}",
 	    "A = diagonalAction(W, d, R)",
 	    "invariants A"
+		},
+    
+    	PARA {
+	    "To call the new algorithm for elementary abelian $p$-groups
+	    use the option ", TT "Strategy=>\"Elementary\"" , "."
+	},
+	
+	EXAMPLE {
+	    "invariants(A,Strategy=>\"Elementary\")"
 		},
 
     	PARA {
