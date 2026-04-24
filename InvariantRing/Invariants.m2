@@ -231,7 +231,9 @@ elementaryInvariants(DiagonalAction) := (D) -> (
 	ringVars    := gens R;            -- So we don't need to call "gens" each time we need the variables of the ring
 	seedList    = for l in seedList list apply(l, x -> ((x % Z) + Z) % Z); -- Mods our seeds out by Z
 	trashList   := {0} | seedList;    -- List to keep track of duplicate invariants
-	purePowers := apply(#ringVars, i -> 0);	-- List to keep track of pure powers. 
+	purePowers := apply(#ringVars, i -> 0);	-- List to keep track of pure powers.
+	powerIndex := null; -- added by FG to fix unexported symbol error, is default to null okay?
+	
 
 	--> Starting with seed expansion <--
 	-- Note that the "drop" function is used in combination with the seedminimal function in this loop.
