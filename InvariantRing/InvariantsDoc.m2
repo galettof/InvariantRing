@@ -241,7 +241,7 @@ document {
         },   
     
        PARA {
-	    "Version 2.4 includes a faster algorithm to compute invariants
+	    "Version 2.4 includes a new algorithm to compute invariants
 	    of elementary abelian groups. For more information, see:"
 	     },
 	 
