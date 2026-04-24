@@ -338,10 +338,11 @@ document {
 	},
 
 	PARA {
-	    "Version 2.4 introduces a faster algorithm to compute invariants
-	    of elementary abelian groups, which are automatically detected.
-	    To use the general purpose algorithm instead, pass the option ",
-	    TT "Strategy=>\"DerksenGandini\"", "."
+	    "Version 2.4 introduces a new algorithm to compute invariants
+	    of elementary abelian $p$-groups.
+	    To call this algorithm, use the option ",
+	    TT "Strategy=>\"Elementary\"", "; see ",
+	    TO (invariants, DiagonalAction), " for an example."
 	    },
 	
 	SeeAlso => {
