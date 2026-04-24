@@ -328,7 +328,6 @@ invariants DiagonalAction := List => o -> D -> (
     if (o.Strategy =!= "DerksenGandini") and
     zero((D.weights)_0) and d =!= {} and all(d, i -> d#0 == i)
     then (
-	print("\nUsing elementary generation method:\n"); -- for debugging purposes
 	return elementaryInvariants D;
 	);
     --*-* Otherwise, continue with regular method *-*--
