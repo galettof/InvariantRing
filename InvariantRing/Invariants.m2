@@ -191,7 +191,7 @@ elementaryInvariants(DiagonalAction) := (D) -> (
 	-->- STEP 1 -<--
 	-->- Now, we find a n x n submatrix of W with nonzero determinant --<-
 	nonZeroSM := matrix{{0}};           -- Start with an empty submatrix (SM stands for submatrix)
-	colList = {};                       -- This empty list will track the columns we don't use for the submatrix
+	colList := {};                       -- This empty list will track the columns we don't use for the submatrix
 	for i from 0 to (n - m) do (                 -- Iterate from 0 to n - m (we don't want our matrix out of bounds)
 		candidateSM := submatrix(W, toList(i .. i+m-1));
 		if (determinant candidateSM != 0) then (
