@@ -319,18 +319,20 @@ invariants = method(Options => {
 
 invariants DiagonalAction := List => o -> D -> (
     d := cyclicFactors D;
+    (W1, W2) := weights D;
     -- As of April 2026, the elementary generation method is when
     -- called by the user with Strategy=>"Elementary", as long as:
     -- i) there is no torus action: zero((D.weights)_0)
     -- ii) there are cyclic factors: d =!= {}
     -- iii) all cyclic factors have the same order: all(d, i -> d#0 == i)
     if (o.Strategy === "Elementary") and
-    zero((D.weights)_0) and d =!= {} and all(d, i -> d#0 == i)
+    -- zero((D.weights)_0) and d =!= {} and all(d, i -> d#0 == i)
+    zero(W1) and d =!= {} and all(d, i -> d#0 == i)
+    and rank W2 == min(numRows W2,numColumns W2)
     then (
 	return elementaryInvariants D;
 	);
     --*-* Otherwise, continue with Derksen-Gandini algorithm *-*--
-    (W1, W2) := weights D;
     R := ring D;
     kk := coefficientRing R;
     p := char kk;
