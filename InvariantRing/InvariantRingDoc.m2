@@ -83,7 +83,17 @@ document {
 		},
 	    {BOLD "2.3: ", "minor documentation updates."},
 	    {BOLD "2.4: ", "a new algorithm for invariants of elementary
-		abelian groups."}
+		abelian $p$-groups."}
+	    },
+	Contributors=>{
+	    "The following people worked on the algorithm for invariants of elementary
+	    abelian $p$-groups introduced in version 2.4:
+	    Sasha Arasha,
+	    Marcus Cassell,
+	    Mal Dolorfino,
+	    Gordie Novak,
+	    Daniel Qin,
+	    and Sumner Strom."
 	    },
 	}
     
