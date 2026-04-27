@@ -201,6 +201,18 @@ elementaryInvariants := D -> (
 	);
 
 	-->- Return error if this submatrix doesn't exist --<--
+	-- Fred G: April 26, 2027; currently the Elementary strategy can only be called
+	-- if the weight matrix has maximal rank, which guarantees the existence of an
+	-- n x n submatrix with nonzero determinant, so this error is never triggered
+	-- I chose to add the maximal rank condition because the default strategy
+	-- Derksen-Gandini returns a result even when the matrix does not have maximal
+	-- rank, so this error created inconsistent outputs
+	-- Francesca suggests row-reducing the matrix then removing zero rows to ensure
+	-- we always have a matrix with maximal rank; this is okay mathematically because
+	-- the invariant rings are isomorphic, but technically it changes the action.
+	-- There is also the issue that row-reducing requires moving to QQ instead of ZZ
+	-- which may introduce denominators, so we would have to deal with that.
+	-- All of this could be considered for a later update.
 	if (nonZeroSM == matrix{{0}}) then (
 		error ("Non-zero submatrix of this weight matrix could not be found.\n");
 		return {};
@@ -231,7 +243,7 @@ elementaryInvariants := D -> (
 	seedList    = for l in seedList list apply(l, x -> ((x % Z) + Z) % Z); -- Mods our seeds out by Z
 	trashList   := {0} | seedList;    -- List to keep track of duplicate invariants
 	purePowers := apply(#ringVars, i -> 0);	-- List to keep track of pure powers.
-	powerIndex := null; -- added by FG to fix unexported symbol error, is default to null okay?
+	powerIndex := null; -- added by FG to fix unexported symbol error
 	
 
 	--> Starting with seed expansion <--
