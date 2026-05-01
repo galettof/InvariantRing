@@ -240,6 +240,15 @@ document {
 	   ". Thesis (Ph.D.)-University of Michigan. 2019. ISBN: 978-1392-76291-2. pp 29-34."}
         },   
     
+       PARA {
+	    "Version 2.4 includes a new algorithm to compute invariants
+	    of elementary abelian $p$-groups. For more information, see:"
+	     },
+	 
+        UL { 
+	    {HREF{"https://github.com/gordonovak/algorithms"}}
+        },   
+    
     	PARA {
 	    "Here is an example of a one-dimensional torus acting on a 
 	    two-dimensional vector space:"
@@ -264,9 +273,18 @@ document {
 	    "A = diagonalAction(W, d, R)",
 	    "invariants A"
 		},
+    
+    	PARA {
+	    "To call the new algorithm for elementary abelian $p$-groups
+	    use the option ", TT "Strategy=>\"Elementary\"" , "."
+	},
+	
+	EXAMPLE {
+	    "invariants(A,Strategy=>\"Elementary\")"
+		},
 
     	PARA {
-	    "Here is an example of a diagoanl action by the product of
+	    "Here is an example of a diagonal action by the product of
 	     a two-dimensional torus with a cyclic group of order 3 
 	    acting on a two-dimensional vector space:"
 	},
@@ -318,14 +336,13 @@ document {
 	    "elapsedTime invariants S4",
 	    "elapsedTime invariants(S4, Strategy => \"LinearAlgebra\")"
 	},
-    
-    	PARA {
-	    "For a diagonal action, the computation of invariants relies on
-	    finding integral points in a convex hull constructed
-	    from a weight matrix. By default, the package ",  TO Normaliz,
-	    " is used for finding integral points. It is also possible
-	    to use the package ", TO Polyhedra, " for finding integral points
-	    by using the option ", TT "Strategy => \"Polyhedra\"", "."
+
+	PARA {
+	    "Version 2.4 introduces a new algorithm to compute invariants
+	    of elementary abelian $p$-groups.
+	    To call this algorithm, use the option ",
+	    TT "Strategy=>\"Elementary\"", "; see ",
+	    TO (invariants, DiagonalAction), " for an example."
 	    },
 	
 	SeeAlso => {
@@ -433,7 +450,7 @@ document {
 	    [invariants, UseCoefficientRing], [invariantRing, UseCoefficientRing], UseCoefficientRing
 	    },
 	Headline => "option to compute invariants over the given coefficient ring",
-	Usage => "invariants G",
+	Usage => "invariants D",
 	Inputs => {"D" => DiagonalAction},
 	Outputs => {
 		"L" => List => {"a minimal set of generating invariants for the group action"}
@@ -473,6 +490,37 @@ document {
 	
 	EXAMPLE {
 	    "invariantRing T"
+	    },
+    
+    	SeeAlso => {
+	    diagonalAction,
+	    invariants,
+	    invariantRing
+	    }	
+	}
+
+document {
+	Key => {
+	    [invariants, UsePolyhedra], [invariantRing, UsePolyhedra], UsePolyhedra
+	    },
+	Headline => "use Polyhedra package for invariants of tori",
+	Usage => "invariants D",
+	Inputs => {"D" => DiagonalAction},
+	Outputs => {
+		"L" => List => {"a minimal set of generating invariants for the group action"}
+		},
+	
+	PARA {
+	    "This function is provided by the package ", TO InvariantRing, "."
+	    },
+	
+	PARA {
+	    "For a diagonal action, the computation of invariants relies on
+	    finding integral points in a convex hull constructed
+	    from a weight matrix. By default, the package ",  TO Normaliz,
+	    " is used for finding integral points. It is also possible
+	    to use the package ", TO Polyhedra, " for finding integral points
+	    by passing the option ", TT "UsePolyhedra => true", "."
 	    },
     
     	SeeAlso => {
@@ -932,7 +980,9 @@ document {
 	    }
 	
 document {
-	Key => {(hilbertSeries, RingOfInvariants)},
+	Key => {(hilbertSeries, RingOfInvariants),
+	    [hilbertSeries, Order],
+	    [hilbertSeries, Reduce]},
 	
 	Headline => "Hilbert series of the invariant ring",
 	

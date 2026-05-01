@@ -32,6 +32,10 @@ document {
 		HREF{"https://deepblue.lib.umich.edu/handle/2027.42/151589","Ideals of Subspace Arrangements"}, 
 	   	". Thesis (Ph.D.)-University of Michigan. 2019. ISBN: 978-1392-76291-2. pp 29-34."
 		},
+	    {"A new algorithm for invariants of elementary abelian groups by Arasha, Cassell, Dolorfino, Gandini, Novak, Qin, and Strom. See ",
+		HREF{"https://github.com/gordonovak/algorithms"}, 
+	   	" for more information."
+		},
 	    {"King's algorithm and the linear algebra method for invariants of finite groups: ",
 		"Derksen, H. & Kemper, G. (2015). ",
 		HREF{"https://link.springer.com/book/10.1007%2F978-3-662-48422-7","Computational Invariant Theory"}, 
@@ -76,8 +80,20 @@ document {
 	    {BOLD "2.2: ", "changed input of ", TO permutationMatrix,
 		", minor documentation and internal code changes."
 		},
-	    {BOLD "2.3: ", "minor documentation updates."}
-	    }
+	    {BOLD "2.3: ", "minor documentation updates."},
+	    {BOLD "2.4: ", "a new algorithm for invariants of elementary
+		abelian $p$-groups."}
+	    },
+	Contributors=>{
+	    "The following people worked on the algorithm for invariants of elementary
+	    abelian $p$-groups introduced in version 2.4:
+	    Sasha Arasha,
+	    Marcus Cassell,
+	    Mal Dolorfino,
+	    Gordie Novak,
+	    Daniel Qin,
+	    and Sumner Strom."
+	    },
 	}
     
 document {

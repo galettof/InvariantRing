@@ -167,7 +167,10 @@ W1 = matrix{{1,0,-1},{0,1,-1}}
 W2 = matrix{{0,1,1},{1,0,1}}
 d = {3,3}
 D = diagonalAction(W1,W2,d,R)
-degRing = degreesRing D
+-- get degree variable
+T = (degreesRing D)_0
+-- get torus character variables
+z = gens coefficientRing degreesRing D
 e = equivariantHilbertSeries D
 assert(value denominator e === 
     1+(-z_0*z_3-z_1*z_2-z_0^(-1)*z_1^(-1)*z_2*z_3)*T+(z_0*z_1*z_
@@ -200,7 +203,10 @@ TEST ///
 R = QQ[x_1..x_4]
 W = matrix{{0,1,-1,1},{1,0,-1,-1}}
 D = diagonalAction(W, R)
-degRing = degreesRing D
+-- get degree variable
+T = (degreesRing D)_0
+-- get torus character variables
+z = gens coefficientRing degreesRing D
 e = equivariantHilbertSeries D
 assert(value denominator e ===
     1+(-z_0-z_0*z_1^(-1)-z_1-z_0^(-1)*z_1^(-1))*T+(z_0^2*z_1^(-1
@@ -242,7 +248,10 @@ R = QQ[x_1..x_3]
 d = {3,3}
 W = matrix{{1,0,1},{0,1,1}}
 D = diagonalAction(W, d, R)
-degRing = degreesRing D
+-- get degree variable
+T = (degreesRing D)_0
+-- get torus character variables
+z = gens coefficientRing degreesRing D
 e = equivariantHilbertSeries D
 assert(value denominator e ===
     1+(-z_0*z_1-z_0-z_1)*T+(z_0^2*z_1+z_0*z_1^2+z_0*z_1)*T^2-z_0
@@ -427,4 +436,22 @@ assert(
 assert(
      apply(P,degree)==toList(#P:{#(group D4)})
      )
+///
+
+------------------------------------------------------------------------
+--- Tests for elementary invarianst strategy (April 2026) --------------
+------------------------------------------------------------------------
+
+-- Test 24
+-- checks that the new strategy for elementary invariants returns
+-- the same results as the previous strategy by Derksen and Gandini
+TEST ///
+p=11
+R = QQ[x_1..x_3]
+W = matrix{{1,0,1},{0,1,1}}
+L = {p,p}
+T = diagonalAction(W,L,R)
+inv = invariants T
+einv = invariants(T, Strategy => "Elementary")
+assert(set inv == set einv)
 ///
