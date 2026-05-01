@@ -1,5 +1,5 @@
 -*
-   Copyright 2020, Luigi Ferraro, Federico Galetto,
+   Copyright 2020-2026, Luigi Ferraro, Federico Galetto,
    Francesca Gandini, Hang Huang, Matthew Mastroeni, Xianglong Ni.
 
    You may redistribute this file under the terms of the GNU General Public
@@ -10,7 +10,7 @@
 newPackage(
         "InvariantRing",
         Version => "2.4", 
-        Date => "Oct 31, 2025",
+        Date => "May 1, 2026",
         Authors => {
 	    {Name => "Luigi Ferraro", 
 		 Email => "luigi.ferraro@utrgv.edu", 
