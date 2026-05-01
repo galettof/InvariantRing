@@ -32,8 +32,7 @@ document {
 		HREF{"https://deepblue.lib.umich.edu/handle/2027.42/151589","Ideals of Subspace Arrangements"}, 
 	   	". Thesis (Ph.D.)-University of Michigan. 2019. ISBN: 978-1392-76291-2. pp 29-34."
 		},
-	    {"A new algorithm for invariants of elementary abelian groups by
-		Gandini, Novak, et al. (???????). See ",
+	    {"A new algorithm for invariants of elementary abelian groups by Arasha, Cassell, Dolorfino, Gandini, Novak, Qin, and Strom.See ",
 		HREF{"https://github.com/gordonovak/algorithms"}, 
 	   	" for more information."
 		},
