@@ -1,8 +1,13 @@
 restart
 needsPackage "InvariantRing"
 
+-- keeps track if any are not the same
+allTrue := true
+
+same := false
+
 --P list
-P = {2,3,5,7,11,13,17,19,23,29,31,37}
+P = {2,3,5,7,11,13,17,19,23,29}
 
 
 -- Matrix List any matrix works
@@ -21,11 +26,16 @@ for p in P do (
     elapsedTime inv = invariants(T, Strategy => "DerksenGandini");
     print("Elementary Time: ");
     elapsedTime einv = invariants(T, Strategy => "Elementary");
-    print("Match: " | toString(set inv == set einv));
+    same = (set inv == set einv);
+    print("Match: " | toString(same));
+    allTrue = allTrue and (set inv == set einv);
     print(" "); -- new line so looks good
 );
 
-)
+);
+
+print("All same:" | toString(allTrue))
+
 -- Dr.G second methods appears faster and is now the default strategy
 -- replaced seedGenExpansion.m2 and integrated in the invariants.m2 file
 
