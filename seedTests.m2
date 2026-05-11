@@ -1,5 +1,6 @@
 restart
-needsPackage "InvariantRing"
+installPackage "InvariantRing"
+--shows all installing messages
 
 -- keeps track if any are not the same
 allTrue := true
