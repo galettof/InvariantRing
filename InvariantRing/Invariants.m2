@@ -191,11 +191,13 @@ elementaryInvariants := D -> (
 	-->- Now, we find a n x n submatrix of W with nonzero determinant --<-
 	nonZeroSM := matrix{{0}};           -- Start with an empty submatrix (SM stands for submatrix)
 	colList := {};                       -- This empty list will track the columns we don't use for the submatrix
+	firstCol := 0;                       -- Index in W of the first column of nonZeroSM (so SM uses cols firstCol..firstCol+m-1)
 	for i from 0 to (n - m) do (                 -- Iterate from 0 to n - m (we don't want our matrix out of bounds)
 		candidateSM := submatrix(W, toList(i .. i+m-1));
 		if (determinant candidateSM != 0) then (
 			nonZeroSM = candidateSM;    -- If candidateSM has nonzero determinant, it is now our nonZero det submatrix
-			colList = toList(0 .. i-1) | toList(i+m .. n-1); -- Grabs the columns we didn't use. 
+			colList = toList(0 .. i-1) | toList(i+m .. n-1); -- Grabs the columns we didn't use.
+			firstCol = i;
 			break;                      -- ends the loop
 		)
 	);
@@ -224,11 +226,13 @@ elementaryInvariants := D -> (
 	for v in colList do (                   	-- Iterates through all columns we didn't use for nonZeroSM
 		seedInvariant       := {};              -- Current seed invariant we are calculating
 		seedMatrix      := nonZeroSM | matrix(W_v);		-- Matrix we extract the seed invariant from (where W_v is our additional vector)
+		colsInSM        := (for j from 0 to m-1 list (firstCol + j)) | {v};
 		signFlip        := 1;
 		for i from 0 to m do (                 -- This loops lets us remove one of the columns from the matrix to calculate the plücker
 			pluckerMatrix   := submatrix(seedMatrix, toList(0 .. i -1) | toList (i + 1 .. m));  -- Find plucker matrix
-			e               := for j from 0 to n-1 list (if j == i then 1 else 0);              -- Standard basis vector
-			seedInvariant   = seedInvariant | {signFlip * determinant(pluckerMatrix) * e};      -- Calculate vector
+			colInW          := colsInSM#i;                                                     -- W-column corresponding to this seedMatrix col
+			e               := for j from 0 to n-1 list (if j == colInW then 1 else 0);        
+			seedInvariant   = seedInvariant | {signFlip * determinant(pluckerMatrix) * e};   
 			signFlip        = signFlip * -1;     -- Flip the sign after each iteration.
 		);
 		seedList = seedList | {sum seedInvariant} -- Adds the summed seed invariant vec to our list
@@ -239,68 +243,64 @@ elementaryInvariants := D -> (
 	--------------------
 	-- Seed Expansion --
 	--------------------
-	ringVars    := gens R;            -- So we don't need to call "gens" each time we need the variables of the ring
-	seedList    = for l in seedList list apply(l, x -> ((x % Z) + Z) % Z); -- Mods our seeds out by Z
-	trashList   := {0} | seedList;    -- List to keep track of duplicate invariants
-	purePowers := apply(#ringVars, i -> 0);	-- List to keep track of pure powers.
-	powerIndex := null; -- added by FG to fix unexported symbol error
-	
+	ringVars := gens R;
 
-	--> Starting with seed expansion <--
-	-- Note that the "drop" function is used in combination with the seedminimal function in this loop.
-	-- This is because seed minimal appends a "result" and "index" value to the beginning of a seed.
-	-- Thus by saying drop(candidate, 2), we get rid of those information values. 
-	for s when s < #seedList do (		-- We use a "when" loop here because size of newList will change
-		startingSeed := seedList#s;
-		for k to #seedList - 1 do (		-- We can use a static loop here because we won't add any elements in here. 
-			for p from 1 to (Z - 1) do (
-				candidateSeed := (seedList#k) * p;					-- Put our seed to the power of p.
-				candidateSeed = (startingSeed + candidateSeed) % Z;	-- Multiply two seeds & mod out by Z.
-				if (not all(candidateSeed, i -> i == 0) and not any(trashList, t -> (candidateSeed == {t}))) then (
-					minimality := seedMinimal(seedList, candidateSeed, 0);
-					result := minimality#0;
-					-- If result = -3 or -4, that means one of our seeds was not minimal given our candidate
-					while (result == -3 or result == -4) do (		-- So we must loop to sort out the seeds and get our candidate & seeds minimized
-						editIndex := minimality#1;					-- minimality#2 holds the index of the seed we need to adjust.
-						if (result == -3) then (					-- {-3} -> Our seed is not minimal, so we must remove it.
-							seedList = take(seedList, editIndex) | drop(seedList, editIndex+1);
-						)
-						else if (result == -4) then (				-- {-4} -> We found a reduction for our seed, so we must replace the old one. 
-							newSeed := drop(minimality, 2);
-							seedList = replace(editIndex, newSeed, seedList); -- Replace our old seed with the new one.
-							if (number(newSeed, e -> e != 0) == 1) then ( -- Check if our seed is a pure power of some kind. 
-								powerIndex = position(newSeed, e -> e != 0);
-								purePowers = replace(powerIndex, newSeed#powerIndex, purePowers);
-							);
-							
-						);
-						--> Then we call our seedMinimal function again, this time starting from the editIndex to save time.
-						minimality = seedMinimal(seedList, candidateSeed, editIndex+1);
-						result = minimality#0;
-					);
-					
-					if (result == -1) then (	-- If our candidate is minimal, we add it to the seed list. 
-						newCandSeed := drop(minimality, 2);
-						candidateSeed = newCandSeed;
-						if (number(newCandSeed, e -> e != 0) == 1) then ( -- check if seed is pure power of some kind
-							powerIndex = position(newCandSeed, e -> e != 0);
-							if (powerIndex =!= null and powerIndex < #purePowers) then (
-								purePowers = replace(powerIndex, newCandSeed#powerIndex, purePowers);
-							);
-						);
-						seedList = append(seedList, newCandSeed);	-- Add our seed to the list. 
-					);
-					-- If our result is -2, we do nothing because our candidate is bunk.
-				);
-				trashList = append(trashList, candidateSeed)  -- Always add our candidate to the trashList for efficiency.
-			);
+	-- our seeds are a Z basis 
+	seedList = for l in seedList list apply(l, x -> ((x % Z) + Z) % Z); --mod p
+
+	p := Z;                              
+	t := #seedList;                      
+	olsonBound := m * (p - 1) + 1;       
+
+	divides := (b, a) -> all(#a, j -> b#j <= a#j);
+
+	--> enumerate (c_1,...,c_t) in \ZZ/p\ZZ --
+
+	-- I use flatten to remove the {} entereies because the vec are stores in {} too so it prunes it kinda
+	candidates := flatten for i from 1 to p^t - 1 list (
+		-- Turn the integer into a vector 
+		c := for j from 0 to t - 1 list ((i // p^j) % p);
+		
+
+		cand := for k from 0 to n - 1 list (
+			-- sum over seeds component-wise with wights in c then mod p
+			(sum for j from 0 to t - 1 list (c#j) * (seedList#j#k)) % p
 		);
+		deg := sum cand;
+		-- check olson bound
+		if deg > 0 and deg <= olsonBound then {cand} else {}
 	);
 
+	-- seeds might be above olsons bound
+	candidates = candidates | seedList;
+
 	--> Then we add the pure powers to the list, checking if they are minimal via. our purePowers list.
-	for i from 0 to (#ringVars - 1) do (
-		if (Z % (purePowers#i) != 0 ) then (
-			seedList = seedList | {for k to (#ringVars - 1) list (if i == k then Z else 0)};
+	candidates = candidates | for i from 0 to #ringVars - 1 list (
+		for j from 0 to #ringVars - 1 list (if i == j then p else 0)
+	);
+
+	
+	-- make minimal
+
+	-- remove duplicates
+	candidates = unique candidates;
+
+	-- makes {2, 1, 4} into {7, {2, 1, 4}} so we can sort by degree sum
+	candidates = apply(candidates, a -> {sum a, a});
+
+	-- sorts it by degree sum
+	candidates = sort candidates;
+
+	-- {7, {2, 1, 4}} back into {2, 1, 4}
+	candidates = apply(candidates, q -> q#1);
+
+	-- Now we sorted by degree sum we check if they divide (divides function is a iniquality since we dividing powers)
+	-- seed list is grown seeds
+	seedList = {};
+	for a in candidates do (
+		-- if no seeds in the list divide our canidate then its a valid seed so we add it
+		if not any(seedList, b -> divides(b, a)) then (
+			seedList = append(seedList, a);
 		);
 	);
 
