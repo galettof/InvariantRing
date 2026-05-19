@@ -174,120 +174,120 @@ seedMinimal := (Seeds, candidate, startIndex) -> (
 --> INPUT:  D (a diagonalAction)
 --> OUTPUT: L (a list of invariants)
 elementaryInvariants := D -> (
-	---------------------
-	-- Seed Generation --
-	---------------------
+    ---------------------
+    -- Seed Generation --
+    ---------------------
 
-	-->- Grab our variables W, R, Z from D -<--
-	W := D.weights_1;
-	
-	R := ring D;
-	Z := (D.cyclicFactors)#0;
+    -->- Grab our variables W, R, Z from D -<--
+    W := D.weights_1;
+    
+    R := ring D;
+    Z := (D.cyclicFactors)#0;
 
-	-->- Find our m and n from the weight matrix -<--
-	n := numColumns W; m := numRows W;
+    -->- Find our m and n from the weight matrix -<--
+    n := numColumns W; m := numRows W;
 
-	-->- STEP 1 -<--
-	-->- Now, we find a n x n submatrix of W with maximal rank --<-
-	-- compute RREF of weight matrix
-	rref := reducedRowEchelonForm promote(W,QQ);
-	-- find columns containing pivots, remove nulls from zero rows
-	cols := delete(null, apply(entries rref, r -> position(r, i -> i == 1)) );
-	nonZeroSM := submatrix(W,cols); -- the submatrix
-	colList := toList( set(0..n-1) - set(cols) ); -- columns without pivots
-	firstCol := first cols; -- first column of submatrix
+    -->- STEP 1 -<--
+    -->- Now, we find a n x n submatrix of W with maximal rank --<-
+    -- compute RREF of weight matrix
+    rref := reducedRowEchelonForm promote(W,QQ);
+    -- find columns containing pivots, remove nulls from zero rows
+    cols := delete(null, apply(entries rref, r -> position(r, i -> i == 1)) );
+    nonZeroSM := submatrix(W,cols); -- the submatrix
+    colList := toList( set(0..n-1) - set(cols) ); -- columns without pivots
+    firstCol := first cols; -- first column of submatrix
 
-	-->- STEP 2 -<--
-	-- Creates a list for the seed invariants in exponent vec form
+    -->- STEP 2 -<--
+    -- Creates a list for the seed invariants in exponent vec form
 
-	seedList := for v in colList list (                   	-- Iterates through all columns we didn't use for nonZeroSM
-	    seedMatrix      := nonZeroSM | matrix(W_v);		-- Matrix we extract the seed invariant from (where W_v is our additional vector)
-	    colsInSM        := (for j from 0 to m-1 list (firstCol + j)) | {v};
-	    -- Current seed invariant we are calculating
-	    seedInvariant := for i from 0 to m list (                 -- This loops lets us remove one of the columns from the matrix to calculate the plücker
-		pluckerMatrix   := submatrix(seedMatrix, toList(0 .. i -1) | toList (i + 1 .. m));  -- Find plucker matrix
-		colInW          := colsInSM#i;                                                     -- W-column corresponding to this seedMatrix col
-		e               := for j from 0 to n-1 list (if j == colInW then 1 else 0);        
-		(-1)^i * determinant(pluckerMatrix) * e
-		);
-	    sum seedInvariant -- Adds the summed seed invariant vec to our list
+    seedList := for v in colList list (                   	-- Iterates through all columns we didn't use for nonZeroSM
+	seedMatrix      := nonZeroSM | matrix(W_v);		-- Matrix we extract the seed invariant from (where W_v is our additional vector)
+	colsInSM        := (for j from 0 to m-1 list (firstCol + j)) | {v};
+	-- Current seed invariant we are calculating
+	seedInvariant := for i from 0 to m list (                 -- This loops lets us remove one of the columns from the matrix to calculate the plücker
+	    pluckerMatrix   := submatrix(seedMatrix, toList(0 .. i -1) | toList (i + 1 .. m));  -- Find plucker matrix
+	    colInW          := colsInSM#i;                                                     -- W-column corresponding to this seedMatrix col
+	    e               := for j from 0 to n-1 list (if j == colInW then 1 else 0);        
+	    (-1)^i * determinant(pluckerMatrix) * e
 	    );
-
-	-- Now, seedList contains our list of seed Invariants, so we move onto expansion.
-
-	--------------------
-	-- Seed Expansion --
-	--------------------
-	ringVars := gens R;
-
-	-- our seeds are a Z basis 
-	seedList = for l in seedList list apply(l, x -> ((x % Z) + Z) % Z); --mod p
-
-	p := Z;                              
-	t := #seedList;                      
-	olsonBound := m * (p - 1) + 1;       
-
-	divides := (b, a) -> all(#a, j -> b#j <= a#j);
-
-	--> enumerate (c_1,...,c_t) in \ZZ/p\ZZ --
-
-	-- I use flatten to remove the {} entereies because the vec are stores in {} too so it prunes it kinda
-	candidates := flatten for i from 1 to p^t - 1 list (
-		-- Turn the integer into a vector 
-		c := for j from 0 to t - 1 list ((i // p^j) % p);
-		
-
-		cand := for k from 0 to n - 1 list (
-			-- sum over seeds component-wise with wights in c then mod p
-			(sum for j from 0 to t - 1 list (c#j) * (seedList#j#k)) % p
-		);
-		deg := sum cand;
-		-- check olson bound
-		if deg > 0 and deg <= olsonBound then {cand} else {}
+	sum seedInvariant -- Adds the summed seed invariant vec to our list
 	);
 
-	-- seeds might be above olsons bound
-	candidates = candidates | seedList;
+    -- Now, seedList contains our list of seed Invariants, so we move onto expansion.
 
-	--> Then we add the pure powers to the list, checking if they are minimal via. our purePowers list.
-	candidates = candidates | for i from 0 to #ringVars - 1 list (
-		for j from 0 to #ringVars - 1 list (if i == j then p else 0)
+    --------------------
+    -- Seed Expansion --
+    --------------------
+    ringVars := gens R;
+
+    -- our seeds are a Z basis 
+    seedList = for l in seedList list apply(l, x -> ((x % Z) + Z) % Z); --mod p
+
+    p := Z;                              
+    t := #seedList;                      
+    olsonBound := m * (p - 1) + 1;       
+
+    divides := (b, a) -> all(#a, j -> b#j <= a#j);
+
+    --> enumerate (c_1,...,c_t) in \ZZ/p\ZZ --
+
+    -- I use flatten to remove the {} entereies because the vec are stores in {} too so it prunes it kinda
+    candidates := flatten for i from 1 to p^t - 1 list (
+	-- Turn the integer into a vector 
+	c := for j from 0 to t - 1 list ((i // p^j) % p);
+    
+
+	cand := for k from 0 to n - 1 list (
+	    -- sum over seeds component-wise with wights in c then mod p
+	    (sum for j from 0 to t - 1 list (c#j) * (seedList#j#k)) % p
+	    );
+	deg := sum cand;
+	-- check olson bound
+	if deg > 0 and deg <= olsonBound then {cand} else {}
 	);
 
-	
-	-- make minimal
+    -- seeds might be above olsons bound
+    candidates = candidates | seedList;
 
-	-- remove duplicates
-	candidates = unique candidates;
-
-	-- makes {2, 1, 4} into {7, {2, 1, 4}} so we can sort by degree sum
-	candidates = apply(candidates, a -> {sum a, a});
-
-	-- sorts it by degree sum
-	candidates = sort candidates;
-
-	-- {7, {2, 1, 4}} back into {2, 1, 4}
-	candidates = apply(candidates, q -> q#1);
-
-	-- Now we sorted by degree sum we check if they divide (divides function is a iniquality since we dividing powers)
-	-- seed list is grown seeds
-	seedList = {};
-	for a in candidates do (
-		-- if no seeds in the list divide our canidate then its a valid seed so we add it
-		if not any(seedList, b -> divides(b, a)) then (
-			seedList = append(seedList, a);
-		);
+    --> Then we add the pure powers to the list, checking if they are minimal via. our purePowers list.
+    candidates = candidates | for i from 0 to #ringVars - 1 list (
+	for j from 0 to #ringVars - 1 list (if i == j then p else 0)
 	);
 
-	-->-- Now, we turn each of the exponent vectors into their polynomials in the ring. --<--
-	polyList := {};
-	for i in seedList do (
-		n := 1;
-		for j to #i - 1 do (n = n * (((ringVars)#j)^(i#j)));
-		polyList = polyList | {n};
+    
+    -- make minimal
+
+    -- remove duplicates
+    candidates = unique candidates;
+
+    -- makes {2, 1, 4} into {7, {2, 1, 4}} so we can sort by degree sum
+    candidates = apply(candidates, a -> {sum a, a});
+
+    -- sorts it by degree sum
+    candidates = sort candidates;
+
+    -- {7, {2, 1, 4}} back into {2, 1, 4}
+    candidates = apply(candidates, q -> q#1);
+
+    -- Now we sorted by degree sum we check if they divide (divides function is a iniquality since we dividing powers)
+    -- seed list is grown seeds
+    seedList = {};
+    for a in candidates do (
+	-- if no seeds in the list divide our canidate then its a valid seed so we add it
+	if not any(seedList, b -> divides(b, a)) then (
+	    seedList = append(seedList, a);
+	    );
 	);
-	
-	return polyList; -- Return our list
+
+    -->-- Now, we turn each of the exponent vectors into their polynomials in the ring. --<--
+    polyList := {};
+    for i in seedList do (
+	n := 1;
+	for j to #i - 1 do (n = n * (((ringVars)#j)^(i#j)));
+	polyList = polyList | {n};
+	);
+    
+    return polyList; -- Return our list
 )
 
 -------------------------------------------
