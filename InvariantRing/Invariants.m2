@@ -266,14 +266,14 @@ elementaryInvariants := D -> (
 
     -- Now we sorted by degree sum, we check if they divide (divides function checks an inequality)
     -- seed list is grown seeds
-    seedList = {};
-    seedList = for a in candidates list (
+    seedList = new MutableList from {};
+    for a in candidates do (
 	-- if no seeds in the list divide our canidate then its a valid seed so we add it
-	if not any(seedList, b -> divides(b, a)) then a
+	if not any(#seedList, i -> divides(seedList#i, a)) then seedList#(#seedList) = a;
 	);
 
     -->-- Now, we turn each of the exponent vectors into their polynomials in the ring. --<--
-    polyList := for i in seedList list (
+    polyList := for i in toList seedList list (
 	n := 1;
 	for j to #i - 1 do (n = n * (((ringVars)#j)^(i#j)));
 	n
