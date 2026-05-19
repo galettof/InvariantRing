@@ -306,7 +306,7 @@ invariants DiagonalAction := List => o -> D -> (
     -- iv) the weight matrix has maximal rank: rank W2 == min(numRows W2,numColumns W2)
     -- the old strategy can be used with the option Strategy=>"DerksenGandini"
     if (o.Strategy =!= "DerksenGandini") and
-    zero(W1) and d =!= {} and and isPrime d#0 and all(d, i -> d#0 == i)
+    zero(W1) and d =!= {} and isPrime d#0 and all(d, i -> d#0 == i)
     and rank W2 == min(numRows W2,numColumns W2)
     then (
 	return elementaryInvariants D;
