@@ -189,6 +189,9 @@ elementaryInvariants := D -> (
 
 	-->- STEP 1 -<--
 	-->- Now, we find a n x n submatrix of W with nonzero determinant --<-
+	-* FG commented out this code
+	-- it only checks submatrices with consecutive columns
+	-- plus we can use linear algebra to do better
 	nonZeroSM := matrix{{0}};           -- Start with an empty submatrix (SM stands for submatrix)
 	colList := {};                       -- This empty list will track the columns we don't use for the submatrix
 	firstCol := 0;                       -- Index in W of the first column of nonZeroSM (so SM uses cols firstCol..firstCol+m-1)
@@ -200,7 +203,16 @@ elementaryInvariants := D -> (
 			firstCol = i;
 			break;                      -- ends the loop
 		)
+
 	);
+	*-
+	-- compute RREF of weight matrix
+	rref := reducedRowEchelonForm promote(W,QQ);
+	-- find columns containing pivots, remove nulls from zero rows
+	cols := delete(null, apply(entries rref, r -> position(r, i -> i == 1)) );
+	nonZeroSM := submatrix(W,cols);
+	colList := toList( set(0..n-1) - set(cols) );
+	firstCol := first cols;
 
 	-->- Return error if this submatrix doesn't exist --<--
 	-- Fred G: April 26, 2027; currently the Elementary strategy can only be called
