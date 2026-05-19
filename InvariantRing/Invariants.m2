@@ -201,16 +201,14 @@ elementaryInvariants := D -> (
 	-- Creates a list for the seed invariants in exponent vec form
 
 	seedList := for v in colList list (                   	-- Iterates through all columns we didn't use for nonZeroSM
-	    seedInvariant       := {};              -- Current seed invariant we are calculating
 	    seedMatrix      := nonZeroSM | matrix(W_v);		-- Matrix we extract the seed invariant from (where W_v is our additional vector)
 	    colsInSM        := (for j from 0 to m-1 list (firstCol + j)) | {v};
-	    signFlip        := 1;
-	    for i from 0 to m do (                 -- This loops lets us remove one of the columns from the matrix to calculate the plücker
+	    -- Current seed invariant we are calculating
+	    seedInvariant := for i from 0 to m list (                 -- This loops lets us remove one of the columns from the matrix to calculate the plücker
 		pluckerMatrix   := submatrix(seedMatrix, toList(0 .. i -1) | toList (i + 1 .. m));  -- Find plucker matrix
 		colInW          := colsInSM#i;                                                     -- W-column corresponding to this seedMatrix col
 		e               := for j from 0 to n-1 list (if j == colInW then 1 else 0);        
-		seedInvariant   = seedInvariant | {signFlip * determinant(pluckerMatrix) * e};   
-		signFlip        = signFlip * -1;     -- Flip the sign after each iteration.
+		(-1)^i * determinant(pluckerMatrix) * e
 		);
 	    sum seedInvariant -- Adds the summed seed invariant vec to our list
 	    );
