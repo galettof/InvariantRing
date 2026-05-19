@@ -370,6 +370,10 @@ invariants DiagonalAction := List => o -> D -> (
         C = transpose C_(apply(r, i -> i));
         C = apply(numColumns C, j -> C_j)
     );
+    -- sort elements of convex hull to ensure consistency across sources
+    -- vectors are turned to lists for sorting, then back to vectors
+    C = apply(sort apply(C,entries), vector);
+    -- begin Derksen's algorithm for tori
     S = new MutableHashTable from apply(C, w -> w => {});
     scan(#mons, i -> S#(W1_i) = S#(W1_i)|{mons#i});
     U = new MutableHashTable from S;
