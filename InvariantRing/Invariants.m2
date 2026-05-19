@@ -188,49 +188,14 @@ elementaryInvariants := D -> (
 	n := numColumns W; m := numRows W;
 
 	-->- STEP 1 -<--
-	-->- Now, we find a n x n submatrix of W with nonzero determinant --<-
-	-* FG commented out this code
-	-- it only checks submatrices with consecutive columns
-	-- plus we can use linear algebra to do better
-	nonZeroSM := matrix{{0}};           -- Start with an empty submatrix (SM stands for submatrix)
-	colList := {};                       -- This empty list will track the columns we don't use for the submatrix
-	firstCol := 0;                       -- Index in W of the first column of nonZeroSM (so SM uses cols firstCol..firstCol+m-1)
-	for i from 0 to (n - m) do (                 -- Iterate from 0 to n - m (we don't want our matrix out of bounds)
-		candidateSM := submatrix(W, toList(i .. i+m-1));
-		if (determinant candidateSM != 0) then (
-			nonZeroSM = candidateSM;    -- If candidateSM has nonzero determinant, it is now our nonZero det submatrix
-			colList = toList(0 .. i-1) | toList(i+m .. n-1); -- Grabs the columns we didn't use.
-			firstCol = i;
-			break;                      -- ends the loop
-		)
-
-	);
-	*-
+	-->- Now, we find a n x n submatrix of W with maximal rank --<-
 	-- compute RREF of weight matrix
 	rref := reducedRowEchelonForm promote(W,QQ);
 	-- find columns containing pivots, remove nulls from zero rows
 	cols := delete(null, apply(entries rref, r -> position(r, i -> i == 1)) );
-	nonZeroSM := submatrix(W,cols);
-	colList := toList( set(0..n-1) - set(cols) );
-	firstCol := first cols;
-
-	-->- Return error if this submatrix doesn't exist --<--
-	-- Fred G: April 26, 2027; currently the Elementary strategy can only be called
-	-- if the weight matrix has maximal rank, which guarantees the existence of an
-	-- n x n submatrix with nonzero determinant, so this error is never triggered
-	-- I chose to add the maximal rank condition because the default strategy
-	-- Derksen-Gandini returns a result even when the matrix does not have maximal
-	-- rank, so this error created inconsistent outputs
-	-- Francesca suggests row-reducing the matrix then removing zero rows to ensure
-	-- we always have a matrix with maximal rank; this is okay mathematically because
-	-- the invariant rings are isomorphic, but technically it changes the action.
-	-- There is also the issue that row-reducing requires moving to QQ instead of ZZ
-	-- which may introduce denominators, so we would have to deal with that.
-	-- All of this could be considered for a later update.
-	if (nonZeroSM == matrix{{0}}) then (
-		error ("Non-zero submatrix of this weight matrix could not be found.\n");
-		return {};
-	);
+	nonZeroSM := submatrix(W,cols); -- the submatrix
+	colList := toList( set(0..n-1) - set(cols) ); -- columns without pivots
+	firstCol := first cols; -- first column of submatrix
 
 	-->- STEP 2 -<--
 	seedList := {};		                     	-- Creates a list for the seed invariants in exponent vec form
