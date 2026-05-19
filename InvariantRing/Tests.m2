@@ -104,6 +104,8 @@ T1 = diagonalAction(matrix {{-3, -1, 1, 2}}, R1)
 invariants1 =  set {x_2*x_3, x_2^2*x_4, x_1*x_3*x_4, x_1*x_2*x_4^2, x_1^2*x_4^3, x_1*x_3^3}
 assert(first weights T1 === matrix{{-3, -1, 1, 2}})
 assert(set invariants T1 === invariants1)
+m = product apply(gens R1,{2,3,4,1}, (v,d) -> v^d)
+assert(not isInvariant(m, T1))
 -- abelian group only
 T2 = diagonalAction(matrix{{1,1,1,1},{1,1,0,0}}, {5,5}, R1)
 invariants2 =  set {x_4^5, x_3*x_4^4, x_3^2*x_4^3, x_3^3*x_4^2, x_3^5, x_3^4*x_4, x_2^5,
@@ -111,6 +113,7 @@ invariants2 =  set {x_4^5, x_3*x_4^4, x_3^2*x_4^3, x_3^3*x_4^2, x_3^5, x_3^4*x_4
 assert(last weights T2 === matrix{{1,1,1,1},{1,1,0,0}})
 assert(set invariants T2 === invariants2)
 assert(set invariants(T2,Strategy=>"DerksenGandini") === invariants2)
+assert(isInvariant(m, T2))
 ///
 
 -- Test 9
