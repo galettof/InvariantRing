@@ -377,30 +377,32 @@ invariants DiagonalAction := List => o -> D -> (
     S = new MutableHashTable from apply(C, w -> w => {});
     scan(#mons, i -> S#(W1_i) = S#(W1_i)|{mons#i});
     U = new MutableHashTable from S;
-    nonemptyU := select(keys U, w -> #(U#w) > 0);
-        while  #nonemptyU > 0 do(
-        v = first nonemptyU;
-        m = first (U#v);
-        
-        scan(#mons, i -> (
-            u := m*mons#i;
-            v' := v + W1_i;
-            if ((U#?v') and all(S#v', m' -> (
-                if u%m' =!= 0_R then true
-                else if g > 0 then (
-                    m'' := u//m';
-                    v'' := reduceWeight(W2*(vector first exponents m''));
-                    v'' =!= 0_(ZZ^g)
-                )
-                else false
-            ))) then ( 
-                S#v' = S#v'|{u};
-                U#v' = U#v'|{u};
-            )
-        ));
-        U#v = delete(m, U#v);
-        nonemptyU = select(keys U, w -> #(U#w) > 0)
-    );
+    while any(values U, u -> #u > 0) do(
+	-- Derksen does not specify which key vector to pick
+	-- for consistency, pick first available from convex hull
+	v = first select(1,C, w -> #(U#w) > 0);
+	-- Derksen does not specify which monomial to pick
+	-- min seems to be the right one for minimal invariants
+	m = min (U#v);
+    
+	scan(#mons, i -> (
+		u := m*mons#i;
+		v' := v + W1_i;
+		if ((U#?v') and all(S#v', m' -> (
+			    if u%m' =!= 0_R then true
+			    else if g > 0 then (
+				m'' := u//m';
+				v'' := reduceWeight(W2*(vector first exponents m''));
+				v'' =!= 0_(ZZ^g)
+				)
+			    else false
+			    ))) then ( 
+		    S#v' = S#v'|{u};
+		    U#v' = U#v'|{u};
+		    )
+		));
+	U#v = delete(m, U#v);
+	);
     
     if S#?(0_(ZZ^r)) then mons = S#(0_(ZZ^r)) else mons = {};
     return apply(mons, m -> sub(m, ring D) )
