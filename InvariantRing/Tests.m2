@@ -65,6 +65,7 @@ R = QQ[x_1]
 T = diagonalAction(matrix{{1}}, {2}, R)
 invariants0 = set {R_0^2}
 assert(set invariants T === invariants0)
+assert(set invariants(T,Strategy=>"DerkesenGandini") === invariants0)
 assert(isInvariant(R_0^2, T))
 ///
 
