@@ -173,6 +173,7 @@ seedMinimal := (Seeds, candidate, startIndex) -> (
 *-
 
 -->--elementaryInvariants function--<--
+-- unexported, called with invariants(D,Strategy=>"Elementary");
 --> INPUT:  D (a diagonalAction)
 --> OUTPUT: L (a list of invariants)
 elementaryInvariants := D -> (
@@ -182,7 +183,6 @@ elementaryInvariants := D -> (
 
     -->- Grab our variables W, R, Z from D -<--
     W := D.weights_1;
-    
     R := ring D;
     Z := (D.cyclicFactors)#0;
 
@@ -200,9 +200,10 @@ elementaryInvariants := D -> (
 
     -->- STEP 2 -<--
     -- Creates a list for the seed invariants in exponent vec form
-
-    seedList := for v in colList list (                   	-- Iterates through all columns we didn't use for nonZeroSM
-	seedMatrix      := nonZeroSM | matrix(W_v);		-- Matrix we extract the seed invariant from (where W_v is our additional vector)
+    -- Iterates through all columns we didn't use for nonZeroSM
+    seedList := for v in colList list (
+	-- Matrix we extract the seed invariant from (where W_v is our additional vector)
+	seedMatrix      := nonZeroSM | matrix(W_v);
 	colsInSM        := pivs | {v};
 	-- Current seed invariant we are calculating
 	-- This loops lets us remove one of the columns from the matrix to calculate the plücker
@@ -214,7 +215,6 @@ elementaryInvariants := D -> (
 	    );
 	sum seedInvariant -- Adds the summed seed invariant vec to our list
 	);
-
     -- Now, seedList contains our list of seed Invariants, so we move onto expansion.
 
     --------------------
@@ -224,21 +224,16 @@ elementaryInvariants := D -> (
 
     -- our seeds are a Z basis 
     seedList = for l in seedList list apply(l, x -> ((x % Z) + Z) % Z); --mod p
-
     p := Z;                              
     t := #seedList;                      
     olsonBound := m * (p - 1) + 1;       
-
     divides := (b, a) -> all(#a, j -> b#j <= a#j);
 
     --> enumerate (c_1,...,c_t) in \ZZ/p\ZZ --
-
     -- I use flatten to remove the {} entries because the vec are stored in {} too so it prunes it
     candidates := flatten for i from 1 to p^t - 1 list (
 	-- Turn the integer into a vector 
 	c := for j from 0 to t - 1 list ((i // p^j) % p);
-    
-
 	cand := for k from 0 to n - 1 list (
 	    -- sum over seeds component-wise with wights in c then mod p
 	    (sum for j from 0 to t - 1 list (c#j) * (seedList#j#k)) % p
@@ -255,10 +250,8 @@ elementaryInvariants := D -> (
     candidates = candidates | for i from 0 to #ringVars - 1 list (
 	for j from 0 to #ringVars - 1 list (if i == j then p else 0)
 	);
-
     
     -- make minimal
-
     -- remove duplicates
     candidates = unique candidates;
 
