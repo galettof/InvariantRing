@@ -231,7 +231,7 @@ elementaryInvariants := D -> (
 
     --> enumerate (c_1,...,c_t) in \ZZ/p\ZZ --
 
-    -- I use flatten to remove the {} entereies because the vec are stores in {} too so it prunes it kinda
+    -- I use flatten to remove the {} entries because the vec are stored in {} too so it prunes it
     candidates := flatten for i from 1 to p^t - 1 list (
 	-- Turn the integer into a vector 
 	c := for j from 0 to t - 1 list ((i // p^j) % p);
@@ -242,14 +242,14 @@ elementaryInvariants := D -> (
 	    (sum for j from 0 to t - 1 list (c#j) * (seedList#j#k)) % p
 	    );
 	deg := sum cand;
-	-- check olson bound
+	-- check Olson's bound
 	if deg > 0 and deg <= olsonBound then {cand} else {}
 	);
 
-    -- seeds might be above olsons bound
+    -- seeds might be above Olson's bound
     candidates = candidates | seedList;
 
-    --> Then we add the pure powers to the list, checking if they are minimal via. our purePowers list.
+    --> Then we add the pure powers to the list, checking if they are minimal via our purePowers list.
     candidates = candidates | for i from 0 to #ringVars - 1 list (
 	for j from 0 to #ringVars - 1 list (if i == j then p else 0)
 	);
@@ -269,7 +269,7 @@ elementaryInvariants := D -> (
     -- {7, {2, 1, 4}} back into {2, 1, 4}
     candidates = apply(candidates, q -> q#1);
 
-    -- Now we sorted by degree sum we check if they divide (divides function is a iniquality since we dividing powers)
+    -- Now we sorted by degree sum, we check if they divide (divides function checks an inequality)
     -- seed list is grown seeds
     seedList = {};
     for a in candidates do (
