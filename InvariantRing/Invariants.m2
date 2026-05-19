@@ -117,18 +117,19 @@ reynoldsOperator (RingElement, DiagonalAction) := RingElement => (f, D) -> sum s
 --- Elementary Invariants Methods ---------
 -------------------------------------------
 
-
+-*
 -->-- Function: seedMinimal --<--
+-- auxiliary unexported function for elementaryInvariants
 -- Checks if a given candidate is minimal given the list of seeds, starting at the index, "startIndex"
 --> INPUT:   
---           Seeds      : List[List[ZZ]] › A list of current seeds that are invariant
---           Candidate  : List[ZZ]       › A seed that may be added to the Seeds list
---           startIndex : ZZ             › The index in the Seeds list that you want to start minimizing from
+--    Seeds      : List[List[ZZ]] › A list of current seeds that are invariant
+--    Candidate  : List[ZZ]       › A seed that may be added to the Seeds list
+--    startIndex : ZZ             › The index in the Seeds list that you want to start minimizing from
 --> OUTPUT: 
---           Returns ({-1} | candidate) if our candidate is minimal.
---           Returns {-2} if our candidate is not minimal.
---           Returns ({-3, index}) if a seed is not minimal, with the index of the seed. 
---           Returns ({-4, index} | newSeed) if our candidate helps reduce a seed. 
+--    Returns ({-1} | candidate) if our candidate is minimal.
+--    Returns {-2} if our candidate is not minimal.
+--    Returns ({-3, index}) if a seed is not minimal, with the index of the seed. 
+--    Returns ({-4, index} | newSeed) if our candidate helps reduce a seed. 
 seedMinimal := (Seeds, candidate, startIndex) -> (
 	i := startIndex;
 	numSeeds := #Seeds;
@@ -169,6 +170,7 @@ seedMinimal := (Seeds, candidate, startIndex) -> (
 	);
 	return {-1, 0} | candidate ;
 )
+*-
 
 -->--elementaryInvariants function--<--
 --> INPUT:  D (a diagonalAction)
