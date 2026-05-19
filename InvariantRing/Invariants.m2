@@ -271,13 +271,7 @@ elementaryInvariants := D -> (
 
     -- Now we sorted by degree sum, we check if they divide (divides function checks an inequality)
     -- seed list is grown seeds
-    seedList = {};
-    for a in candidates do (
-	-- if no seeds in the list divide our canidate then its a valid seed so we add it
-	if not any(seedList, b -> divides(b, a)) then (
-	    seedList = append(seedList, a);
-	    );
-	);
+    seedList = select(candidates, a -> not any(seedList, b -> divides(b, a)) );
 
     -->-- Now, we turn each of the exponent vectors into their polynomials in the ring. --<--
     polyList := {};
