@@ -275,12 +275,13 @@ document {
 		},
     
     	PARA {
-	    "To call the new algorithm for elementary abelian $p$-groups
-	    use the option ", TT "Strategy=>\"Elementary\"" , "."
+	    "The example above uses the new algorithm for elementary abelian $p$-groups
+	    introduced in version 2.4. To call the older general-purpose algorithm,
+	    use the option ", TT "Strategy=>\"DerksenGandini\"" , "."
 	},
 	
 	EXAMPLE {
-	    "invariants(A,Strategy=>\"Elementary\")"
+	    "invariants(A,Strategy=>\"DerksenGandini\")"
 		},
 
     	PARA {
@@ -340,8 +341,11 @@ document {
 	PARA {
 	    "Version 2.4 introduces a new algorithm to compute invariants
 	    of elementary abelian $p$-groups.
-	    To call this algorithm, use the option ",
-	    TT "Strategy=>\"Elementary\"", "; see ",
+	    As of version 2.5, this is the default strategy when applicable,
+	    i.e., when there is no torus action, all cyclic factors have the
+	    same prime order, and the weight matrix has maximal rank.
+	    To call the older general-purpose algorithm, use the option ",
+	    TT "Strategy=>\"DerksenGandini\"", "; see ",
 	    TO (invariants, DiagonalAction), " for an example."
 	    },
 	
