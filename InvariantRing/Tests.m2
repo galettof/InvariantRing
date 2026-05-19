@@ -74,6 +74,7 @@ R = QQ[x_1..x_3]
 T = diagonalAction(matrix{{1,0,1},{0,1,1}}, {3,3}, R)
 invariants1 = set {x_3^3, x_2^3, x_1^3, x_1*x_2*x_3^2, x_1^2*x_2^2*x_3}
 assert(set invariants T === invariants1)
+assert(set invariants(T,Strategy=>"DerkesenGandini") === invariants1)
 ///
 
 -- Test 6
