@@ -299,13 +299,13 @@ invariants = method(Options => {
 invariants DiagonalAction := List => o -> D -> (
     d := cyclicFactors D;
     (W1, W2) := weights D;
-    -- As of April 2026, the elementary generation method is when
-    -- called by the user with Strategy=>"Elementary", as long as:
+    -- As of May 2026, the elementary generation method is default, as long as:
     -- i) there is no torus action: zero(W1)
     -- ii) there are cyclic factors: d =!= {}
     -- iii) all cyclic factors have the same order: all(d, i -> d#0 == i)
     -- iv) the weight matrix has maximal rank: rank W2 == min(numRows W2,numColumns W2)
-    if (o.Strategy === "Elementary") and
+    -- the old strategy can be used with the option Strategy=>"DerksenGandini"
+    if (o.Strategy =!= "DerksenGandini") and
     zero(W1) and d =!= {} and all(d, i -> d#0 == i)
     and rank W2 == min(numRows W2,numColumns W2)
     then (
