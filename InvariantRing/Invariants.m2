@@ -274,11 +274,10 @@ elementaryInvariants := D -> (
     seedList = select(candidates, a -> not any(seedList, b -> divides(b, a)) );
 
     -->-- Now, we turn each of the exponent vectors into their polynomials in the ring. --<--
-    polyList := {};
-    for i in seedList do (
+    polyList := for i in seedList list (
 	n := 1;
 	for j to #i - 1 do (n = n * (((ringVars)#j)^(i#j)));
-	polyList = polyList | {n};
+	n
 	);
     
     return polyList; -- Return our list
