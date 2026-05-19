@@ -192,21 +192,21 @@ elementaryInvariants := D -> (
     -- compute RREF of weight matrix
     rref := reducedRowEchelonForm promote(W,QQ);
     -- find columns containing pivots, remove nulls from zero rows
-    cols := delete(null, apply(entries rref, r -> position(r, i -> i == 1)) );
-    nonZeroSM := submatrix(W,cols); -- the submatrix
-    colList := toList( set(0..n-1) - set(cols) ); -- columns without pivots
-    firstCol := first cols; -- first column of submatrix
+    pivs := delete(null, apply(entries rref, r -> position(r, i -> i == 1)) );
+    nonZeroSM := submatrix(W,pivs); -- the submatrix
+    colList := toList( set(0..n-1) - set(pivs) ); -- columns without pivots
 
     -->- STEP 2 -<--
     -- Creates a list for the seed invariants in exponent vec form
 
     seedList := for v in colList list (                   	-- Iterates through all columns we didn't use for nonZeroSM
 	seedMatrix      := nonZeroSM | matrix(W_v);		-- Matrix we extract the seed invariant from (where W_v is our additional vector)
-	colsInSM        := (for j from 0 to m-1 list (firstCol + j)) | {v};
+	colsInSM        := pivs | {v};
 	-- Current seed invariant we are calculating
-	seedInvariant := for i from 0 to m list (                 -- This loops lets us remove one of the columns from the matrix to calculate the plücker
-	    pluckerMatrix   := submatrix(seedMatrix, toList(0 .. i -1) | toList (i + 1 .. m));  -- Find plucker matrix
-	    colInW          := colsInSM#i;                                                     -- W-column corresponding to this seedMatrix col
+	-- This loops lets us remove one of the columns from the matrix to calculate the plücker
+	seedInvariant := for i from 0 to m list (
+	    pluckerMatrix   := submatrix'(seedMatrix, {i});  -- Find plucker matrix
+	    colInW          := colsInSM#i;                   -- W-column corresponding to this seedMatrix col
 	    e               := for j from 0 to n-1 list (if j == colInW then 1 else 0);        
 	    (-1)^i * determinant(pluckerMatrix) * e
 	    );
