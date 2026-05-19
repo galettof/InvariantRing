@@ -326,7 +326,7 @@ invariants DiagonalAction := List => o -> D -> (
             return invariants D';
         )
     );
-    R = kk[R_*, MonomialOrder => GLex];
+    --R = kk[R_*, MonomialOrder => GLex];
     g := numgens D;
     n := dim D;
     mons := R_*;

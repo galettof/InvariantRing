@@ -109,6 +109,7 @@ R2 = QQ[x_1..x_4]
 T2 = diagonalAction(matrix{{0,1,-1,1},{1,0,-1,-1}}, R2)
 invariants2 = set {x_1*x_2*x_3,x_1^2*x_3*x_4}
 assert(set invariants T2 === invariants2)
+assert(isInvariant(x_1^4*x_2^2*x_3^3*x_4 + x_1^5*x_2*x_3^3*x_4^2,T2))
 ///
      
      
