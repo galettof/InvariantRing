@@ -145,7 +145,7 @@ texMath DiagonalAction := D -> (
         else weightMatrix = last D.weights;
 	)
     else weightMatrix = first D.weights;
-    (texMath D.ring) | "\\curvearrowleft" | torus | "\\text{ via }" | (texMath weightMatrix)
+    (texMath D.ring) | "\\curvearrowleft" | torus | cyclicGroups | "\\text{ via }" | (texMath weightMatrix)
 )
 
 
