@@ -37,7 +37,9 @@ finiteAction (Matrix, PolynomialRing) := FiniteGroupAction => (g, R) -> finiteAc
 
 
 
-net FiniteGroupAction := G -> (net G.ring)|" <- "|(net G.generators)
+--net of FiniteGroupAction object
+net FiniteGroupAction := G -> (net G.ring)|" <- "|
+    horizontalJoin( {"<"} | mingle(apply(G.generators,net),toList(G.numgens-1:", ")) | {">"})
 
 generators FiniteGroupAction := opts -> G -> G.generators
 
