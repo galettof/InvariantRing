@@ -57,8 +57,11 @@ net RingOfInvariants := S -> (
 
 texMath RingOfInvariants := S -> (
     G := gens S;
-    texString := (texMath coefficientRing ambient S) | "\\left[" |
-    concatenate mingle(apply(G, g -> texMath g),toList(#G-1:", ")) | "\\right]";
+    texString := (texMath coefficientRing ambient S);
+    if #G != 0 then (
+	texString |= "\\left[" |
+	concatenate mingle(apply(G, g -> texMath g),toList(#G-1:", ")) | "\\right]";
+	);
     if not zero ideal ambient S then (
 	L := (ideal ambient S)_*;
 	texString |= " / \\left(" |
