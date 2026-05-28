@@ -1,5 +1,5 @@
 # InvariantRing
-[Macaulay2](https://macaulay2.com) package for computing invariants of group actions on rings.
+[Macaulay2](https://macaulay2.com) package for computing invariants of linear group actions on rings.
 For an overview, see [The InvariantRing package for Macaulay2](https://msp.org/jsag/2024/14-1/p02.xhtml).
 
 ## History
