@@ -5,6 +5,7 @@ For an overview, see [The InvariantRing package for Macaulay2](https://msp.org/j
 ## History
 - The first version of this package was developed by Thomas Hawes. See [Computing the invariant ring of a finite group](https://msp.org/jsag/2013/5-1/p03.xhtml) for more details.
 - Version 2.0 was developed by Luigi Ferraro, Federico Galetto, Francesca Gandini, Hang Huang, Matthew Mastroeni and Xianglong Ni during the 2020 [Macaulay2 Workshop at Cleveland State University](https://math.galetto.org/m2csu/).
+- See [Releases](https://github.com/galettof/InvariantRing/releases) for later versions. The current maintainer is Federico Galetto.
 
 # Using InvariantRing
 - The InvariantRing package is included in the official Macaulay2 distribution, so it can be used out of the box in a [local installation](https://github.com/Macaulay2/M2/wiki) or in a [Macaulay2Web server](https://macaulay2.com/TryItOut/).
