@@ -4,6 +4,14 @@ The article [The InvariantRing package for Macaulay2](https://msp.org/jsag/2024/
 Luigi Ferraro, Federico Galetto, Francesca Gandini, Hang Huang, Matthew Mastroeni and Xianglong Ni
 contains an overview of the package.
 
+# Using InvariantRing
+The InvariantRing package is included in the official Macaulay2 distribution, so it can be used out of the box in a [local installation](https://github.com/Macaulay2/M2/wiki) or in a [Macaulay2Web server](https://macaulay2.com/TryItOut/). To start using InvariantRing, issue the command
+
+`needsPackage "InvariantRing"`
+
+in a running session of Macaulay2.
+The folder `sampleCode` in this repository contains examples of computations that can be performed using this package.
+
 # Macaulay2 (M2)-codespace
 Codespace setup for Macaulay2 (M2)
 
