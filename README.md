@@ -1,8 +1,8 @@
 # InvariantRing
-Macaulay2 package for computing invariants of group actions on polynomial rings.
-For an overview of the package, please consult [arXiv:2010.15331](https://arxiv.org/abs/2010.15331).
-
-More information about Macaulay2 available at [macaulay2.com](http://macaulay2.com).
+[Macaulay2](https://macaulay2.com) package for computing invariants of group actions on rings.
+The article [The InvariantRing package for Macaulay2](https://msp.org/jsag/2024/14-1/p02.xhtml) by
+Luigi Ferraro, Federico Galetto, Francesca Gandini, Hang Huang, Matthew Mastroeni and Xianglong Ni
+contains an overview of the package.
 
 # Macaulay2 (M2)-codespace
 Codespace setup for Macaulay2 (M2)
