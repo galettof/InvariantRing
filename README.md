@@ -5,12 +5,21 @@ Luigi Ferraro, Federico Galetto, Francesca Gandini, Hang Huang, Matthew Mastroen
 contains an overview of the package.
 
 # Using InvariantRing
-The InvariantRing package is included in the official Macaulay2 distribution, so it can be used out of the box in a [local installation](https://github.com/Macaulay2/M2/wiki) or in a [Macaulay2Web server](https://macaulay2.com/TryItOut/). To start using InvariantRing, issue the command
+- The InvariantRing package is included in the official Macaulay2 distribution, so it can be used out of the box in a [local installation](https://github.com/Macaulay2/M2/wiki) or in a [Macaulay2Web server](https://macaulay2.com/TryItOut/).
+- Thanks to Al Ashir Intisar and Francesca Gandini, you can also run Macaulay2 + InvariantRing in a codespace, which is good for small computations or to start writing code directly from your browser. To do so:
+  1. [fork this repository](https://github.com/galettof/InvariantRing/fork);
+  2. switch to the desired branch from the top left dropdown menu;
+  3. click the **<> Code** button at the top right;
+  4. select **Codespaces** and click the **Create codespace on ...** button.
+  
+  For a more detailed how-to with pictures, please see [fragandi/M2-codespace](https://github.com/fragandi/M2-codespace).
+
+To start using InvariantRing, issue the command
 
 `needsPackage "InvariantRing"`
 
 in a running session of Macaulay2.
-The folder `sampleCode` in this repository contains examples of computations that can be performed using this package.
+The `examples` folder in this repository contains examples of computations that can be performed using this package.
 
 # Macaulay2 (M2)-codespace
 Codespace setup for Macaulay2 (M2)
