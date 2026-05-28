@@ -18,7 +18,11 @@ To start using InvariantRing, issue the command
 
 `needsPackage "InvariantRing"`
 
-in a running session of Macaulay2.
+in a running session of Macaulay2, then issue
+
+`viewHelp "InvariantRing"`
+
+to view the documentation.
 The `examples` folder in this repository contains examples of computations that can be performed using this package.
 
 # Macaulay2 (M2)-codespace
