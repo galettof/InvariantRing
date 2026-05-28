@@ -1,7 +1,10 @@
 # InvariantRing
 [Macaulay2](https://macaulay2.com) package for computing invariants of group actions on rings.
-For an overview, see [The InvariantRing package for Macaulay2](https://msp.org/jsag/2024/14-1/p02.xhtml) by
-Luigi Ferraro, Federico Galetto, Francesca Gandini, Hang Huang, Matthew Mastroeni and Xianglong Ni.
+For an overview, see [The InvariantRing package for Macaulay2](https://msp.org/jsag/2024/14-1/p02.xhtml).
+
+## History
+- The first version of this package was developed by Thomas Hawes. See [Computing the invariant ring of a finite group](https://msp.org/jsag/2013/5-1/p03.xhtml) for more details.
+- Version 2.0 was developed by Luigi Ferraro, Federico Galetto, Francesca Gandini, Hang Huang, Matthew Mastroeni and Xianglong Ni during the 2020 [Macaulay2 Workshop at Cleveland State University](https://math.galetto.org/m2csu/).
 
 # Using InvariantRing
 - The InvariantRing package is included in the official Macaulay2 distribution, so it can be used out of the box in a [local installation](https://github.com/Macaulay2/M2/wiki) or in a [Macaulay2Web server](https://macaulay2.com/TryItOut/).
