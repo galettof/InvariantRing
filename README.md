@@ -1,92 +1,44 @@
 # InvariantRing
-Macaulay2 package for computing invariants of group actions on polynomial rings.
-For an overview of the package, please consult [arXiv:2010.15331](https://arxiv.org/abs/2010.15331).
+[Macaulay2](https://macaulay2.com) package for computing invariants of linear group actions on rings.
+For an overview, see [The InvariantRing package for Macaulay2](https://msp.org/jsag/2024/14-1/p02.xhtml).
 
-More information about Macaulay2 available at [macaulay2.com](http://macaulay2.com).
+## History
+- The first version of this package was developed by Thomas Hawes. See [Computing the invariant ring of a finite group](https://msp.org/jsag/2013/5-1/p03.xhtml) for more details.
+- Version 2.0 was developed by Luigi Ferraro, Federico Galetto, Francesca Gandini, Hang Huang, Matthew Mastroeni and Xianglong Ni during the 2020 [Macaulay2 Workshop at Cleveland State University](https://math.galetto.org/m2csu/).
+- See [Releases](https://github.com/galettof/InvariantRing/releases) for later versions. The current maintainer is [Federico Galetto](https://math.galetto.org).
 
-# Macaulay2 (M2)-codespace
-Codespace setup for Macaulay2 (M2)
+# Using InvariantRing
 
-## 🚀 How to Create Your Own M2-Codespace Repository
+## Getting started
 
-There are two easy ways to set up your own Macaulay2-enabled Codespace:
+- The InvariantRing package is included in the official Macaulay2 distribution, so it can be used out of the box in a [local installation](https://github.com/Macaulay2/M2/wiki) or in a [Macaulay2Web server](https://macaulay2.com/TryItOut/).
+- Thanks to Al Ashir Intisar and Francesca Gandini, you can also run Macaulay2 + InvariantRing in a codespace, which is good for small computations or to start writing code directly from your browser without installation. To do so:
+  1. [fork this repository](https://github.com/galettof/InvariantRing/fork);
+  2. switch to the desired branch from the top left dropdown menu;
+  3. click the **<> Code** button at the top right;
+  4. select **Codespaces** and click the **Create codespace on ...** button.
+  
+  For a more detailed how-to with pictures, please see [fragandi/M2-codespace](https://github.com/fragandi/M2-codespace).
 
-### ✅ Option 1: Fork This Repository
+## Documentation
 
-1. Visit [galettof/InvariantRing](https://github.com/galettof/InvariantRing) or [fragandi/M2-codespace](https://github.com/fragandi/M2-codespace).
+To start using InvariantRing, issue the command
 
-2. Click **"Fork"** (top-right) to copy it to your GitHub account.
+`needsPackage "InvariantRing"`
 
-<p align="center">
-  <img src="image_files/fork_repo.png" alt="alt text" width="750" style="border: 2px solid #4CAF50; border-radius: 8px;"/>
-</p>
+in a running session of Macaulay2, then issue
 
-3. Open your new forked repository and click **"Code" → "Create codespace on main"**.
+`viewHelp "InvariantRing"`
 
-<p align="center">
-  <img src="image_files/create_codespace.png" alt="alt text" width="750" style="border: 2px solid #4CAF50; border-radius: 8px;"/>
-</p>
+to view the documentation (also available on the [M2 website](https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/InvariantRing/html/index.html)).
+The `examples` folder in this repository contains examples of computations that can be performed using this package.
 
-You're ready to start using Macaulay2 in your own Codespace!
+# Contributing to InvariantRing
 
----
+## Feature requests and development
 
-### 🛠️ Option 2: Set Up a Fresh Repository Manually
+If you have suggestions for new features or if you would like to implement new features yourself, please open a new issue with the 'Feature request' template. Once the request is evaluated, a new feature branch will be created and any progress will be tracked in the discussions for that issue so that others are kept informed of current development status. To develop code for the new feature, please fork the repository and then issue a pull request against the feature branch when you are done.
 
-1. Create a new GitHub repository in your account.
-2. Copy the entire `.devcontainer/` folder from [galettof/InvariantRing](https://github.com/galettof/InvariantRing) or [fragandi/M2-codespace](https://github.com/fragandi/M2-codespace) into your repo.
-3. (Recommended) Also copy the following for a smoother experience:
-   - The `M2codes/` folder (Macaulay2 example files)
-   - The `image_files` folder and `README.md` file (for guidance and troubleshooting)
-4. Push your changes and create a Codespace from the repository.
+## Reporting a bug
 
-This option gives you more flexibility to customize your setup while keeping the essential Macaulay2 environment.
-
-## Checking if Codespace Was Set Up Properly
-
-1. **Reload the VS Code window** to apply all settings:
-   - Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
-   - Search for and select: `Reload Window`
-
-   Or run this in the Command Palette:
-
-
-2. **Fix Macaulay2 executable path errors**:
-If you see an error like “Cannot find Macaulay2 executable”, it's likely caused by conflicting user settings.
-
-- To confirm this executable path error
-- Go to the extension settings as shown in the image below:
-<p align="center">
-  <img src="image_files/extension_settings.png" alt="alt text" width="750" style="border: 2px solid #4CAF50; border-radius: 8px;"/>
-</p>
-<p align="center">
-  <img src="image_files/extension_executable_path.png" alt="alt text" width="750" style="border: 2px solid #4CAF50; border-radius: 8px;"/>
-</p>
-
-- If your path is different than what it shows in the image above try the step below:
-
-👉 To fix this, **turn off Settings Sync** in VS Code:
-
-- Open the Command Palette (`Cmd/Ctrl + Shift + P`)
-- Search for:  
-  ```
-  > Settings Sync: Turn Off
-  ```
-
-- Confirm when prompted.
-- Reload the window or delete the existing codespace and create a new one if necessary.
-
-3. **Check the Codespace creation log** to confirm Macaulay2 was installed correctly:
-- Open the Command Palette (`Cmd/Ctrl + Shift + P`)
-- Search for and select: `Codespaces: View Creation Log`
-- Look for confirmation messages like:
-  ```
-  ✅ Macaulay2 installed successfully!
-  ```
-
-
-✅ Following all these steps ensures that only the settings configured in this repository are applied and Macaulay2 is ready to use inside your Codespace.
-
-
-## Macaulay2 documentation website: 
-- Visit: [The Macaulay2 Language](https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/Macaulay2Doc/html/___The_sp__Macaulay2_splanguage.html)
+If you encounter a bug with the code in the InvariantRing package, please open a new issue in this repository (not the Macaulay2 repository) using the 'Bug report' template.

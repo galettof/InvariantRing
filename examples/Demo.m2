@@ -1,8 +1,7 @@
-installPackage "InvariantRing" -- runs all checks
-viewHelp "InvariantRing" -- opens documentation in browser
+-- this file showcases many invariants computations
+-- that were introduced in version 2.0 of InvariantRing
 
---no invariants example
---SL2 acting on C^2
+-- no invariants example, SL2 acting on C^2
 restart
 needsPackage "InvariantRing"
 B = QQ[a,b,c,d]
@@ -31,8 +30,7 @@ hilbertSeries S
 -- equivariant Hilbert series of polynomial ring
 equivariantHilbertSeries T
 
-
--- S_2 as a linearly reductive action
+-- S_2 as a linearly reductive action, Example 4.1.10 in Derksen-Kemper
 restart
 needsPackage "InvariantRing"
 S = QQ[z]
@@ -43,7 +41,7 @@ X = linearlyReductiveAction(A,M,R)
 isInvariant(a,X)
 invariants X
 
--- invariants of binary quadrics
+-- invariants of binary quadrics, Example 4.1.12 in Derksen-Kemper
 restart
 needsPackage "InvariantRing"
 S = QQ[a,b,c,d]
@@ -56,7 +54,6 @@ hilbertIdeal L
 invariants L
 invariants(L,4)
 invariants(L,5)
-
 
 -- invariants of binary quartics
 restart
@@ -105,10 +102,10 @@ L = apply({[2,1,3,4],[2,3,4,1]},permutationMatrix);
 S4 = finiteAction(L,R)
 elapsedTime invariants S4
 elapsedTime invariants(S4,Strategy=>"LinearAlgebra")
+-- primary and secondary invariants from v1.0 of the package
 elapsedTime p=primaryInvariants S4
 elapsedTime secondaryInvariants(p,S4)
 elapsedTime hironakaDecomposition(S4)
-
 
 -- invariant of 2x2 matrices of ternary linear forms
 -- takes a bit of time but computes on Fred's computer
@@ -123,6 +120,7 @@ G2 = transpose genericMatrix(S,b_(1,1),2,2)
 G3 = transpose genericMatrix(S,c_(1,1),2,2)
 R = QQ[x_(1,1,1)..x_(3,2,2)]
 L=linearlyReductiveAction(I,G1**G2**G3,R)
+-- next command takes a couple minutes
 elapsedTime H=hilbertIdeal(L,SubringLimit=>1);
 needsPackage "Resultants"
 A=R[u,v,w]
@@ -175,12 +173,10 @@ g = promote(genericMatrix(S,2,2),A)
 -- get corresponding action of 1x4 matrix of variables
 G = reshape(A^1,A^4,g*Y*inverse(g)) // (vars A)
 G = lift(map(A^4,A^4,G),S)
-
 R = QQ[x_(1,1)..x_(2,2)]
 L=linearlyReductiveAction(I,G,R)
 elapsedTime H=hilbertIdeal(L)
 elapsedTime invariants L
-
 
 -- 3x3 conjugation invariants
 restart
@@ -201,5 +197,5 @@ L=linearlyReductiveAction(I,G,R)
 elapsedTime H=hilbertIdeal(L)
 elapsedTime invariants(L,1)
 elapsedTime invariants(L,2)
-elapsedTime invariants(L,3)
--- adding a comment to make it easier to rebase
+-- invariants of degree 3 take over ten minutes
+-- elapsedTime invariants(L,3)
