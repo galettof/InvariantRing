@@ -33,6 +33,12 @@ in a running session of Macaulay2, then issue
 to view the documentation.
 The `examples` folder in this repository contains examples of computations that can be performed using this package.
 
+# Contributing to InvariantRing
+
+## Feature requests and development
+
+If you have suggestions for new features or if you would like to implement new features yourself, please open a new issue with the 'Feature request' template. Once the request is evaluated, a new feature branch will be created and any progress will be tracked in the discussions for that issue so that others are kept informed of current development status. To develop code for the new feature, please fork the repository and then issue a pull request against the feature branch when you are done.
+
 ## Reporting a bug
 
 If you encounter a bug, please open a new issue in this repository using the 'Bug report' template.
