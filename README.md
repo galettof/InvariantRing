@@ -41,4 +41,4 @@ If you have suggestions for new features or if you would like to implement new f
 
 ## Reporting a bug
 
-If you encounter a bug, please open a new issue in this repository using the 'Bug report' template.
+If you encounter a bug with the code in the InvariantRing package, please open a new issue in this repository (not the Macaulay2 repository) using the 'Bug report' template.
