@@ -197,4 +197,5 @@ L=linearlyReductiveAction(I,G,R)
 elapsedTime H=hilbertIdeal(L)
 elapsedTime invariants(L,1)
 elapsedTime invariants(L,2)
-elapsedTime invariants(L,3)
+-- invariants of degree 3 take over ten minutes
+-- elapsedTime invariants(L,3)
