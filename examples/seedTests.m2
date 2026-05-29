@@ -22,7 +22,7 @@ for W in {
     } do (
     R = QQ[x_1..x_(numgens source W)];
     for p in P do (
-	print((numgens target W) | "X" | (numgens source W) | " Matrix, with p = " | p); 
+	print((numgens target W) | "X" | (numgens source W) | " Matrix, with p = " | toString(p)); 
 	L = {p,p};
 	T = diagonalAction(W,L,R);
 	print("DerksenGandini Time: ");
