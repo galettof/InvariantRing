@@ -8,14 +8,19 @@ For an overview, see [The InvariantRing package for Macaulay2](https://msp.org/j
 - See [Releases](https://github.com/galettof/InvariantRing/releases) for later versions. The current maintainer is [Federico Galetto](https://math.galetto.org).
 
 # Using InvariantRing
+
+## Getting started
+
 - The InvariantRing package is included in the official Macaulay2 distribution, so it can be used out of the box in a [local installation](https://github.com/Macaulay2/M2/wiki) or in a [Macaulay2Web server](https://macaulay2.com/TryItOut/).
-- Thanks to Al Ashir Intisar and Francesca Gandini, you can also run Macaulay2 + InvariantRing in a codespace, which is good for small computations or to start writing code directly from your browser. To do so:
+- Thanks to Al Ashir Intisar and Francesca Gandini, you can also run Macaulay2 + InvariantRing in a codespace, which is good for small computations or to start writing code directly from your browser without installation. To do so:
   1. [fork this repository](https://github.com/galettof/InvariantRing/fork);
   2. switch to the desired branch from the top left dropdown menu;
   3. click the **<> Code** button at the top right;
   4. select **Codespaces** and click the **Create codespace on ...** button.
   
   For a more detailed how-to with pictures, please see [fragandi/M2-codespace](https://github.com/fragandi/M2-codespace).
+
+## Documentation
 
 To start using InvariantRing, issue the command
 
