@@ -32,3 +32,7 @@ in a running session of Macaulay2, then issue
 
 to view the documentation.
 The `examples` folder in this repository contains examples of computations that can be performed using this package.
+
+## Reporting a bug
+
+If you encounter a bug, please open a new issue in this repository using the 'Bug report' template.
