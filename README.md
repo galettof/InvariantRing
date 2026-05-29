@@ -30,7 +30,7 @@ in a running session of Macaulay2, then issue
 
 `viewHelp "InvariantRing"`
 
-to view the documentation.
+to view the documentation (also available on the [M2 website](https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/InvariantRing/html/index.html)).
 The `examples` folder in this repository contains examples of computations that can be performed using this package.
 
 # Contributing to InvariantRing
