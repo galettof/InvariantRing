@@ -67,12 +67,16 @@ export {
     "FiniteGroupAction",
     "DiagonalAction",
     "LinearlyReductiveAction",
+    "PermutationAction",
     
     --FiniteGroups.m2    	      	  
     "finiteAction",    	       	      	  
     "group",	    	    	  
     "isAbelian",    	    	  
-    "permutationMatrix",          
+    "permutationMatrix",
+    "permutationAction",
+    "specialMonomials",
+    "orbitSum",     
     "schreierGraph",	    	  
     "words",
     
