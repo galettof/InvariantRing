@@ -75,8 +75,6 @@ export {
     "isAbelian",    	    	  
     "permutationMatrix",
     "permutationAction",
-    "specialMonomials",
-    "orbitSum",     
     "schreierGraph",	    	  
     "words",
     
