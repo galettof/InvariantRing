@@ -199,12 +199,120 @@ permutationMatrix (ZZ, List) := Matrix => opts -> (n, p) -> product apply(p, c -
 
 permutationMatrix List := Matrix => opts -> p -> permutationMatrix(max (p/max), p)
 	     
-	 
-	
 
+-- Permutation action is finite group action whose generators are permutations in one-line notation.
 
+PermutationAction = new Type of FiniteGroupAction
 
+-- helper to recover one line notation from a permutation matrix:
+oneLineFromMatrix = M -> apply(entries transpose M, col -> (position(col, e -> e == 1)) + 1)
 
+permutationAction = method(Options => {Variable => "x", EntryMode => "one-line"})
+
+permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -> (
+	if not isField coefficientRing R then ( --check if field
+	    error "permutationAction: Expected a polynomial ring over a field."
+	);
+        n := numgens R;
+	P = apply(P, p -> (
+		if opts.EntryMode == "cycle" then (
+			oneLineFromMatrix permutationMatrix(n, p) -- p is a list of cycles
+		)
+		else (
+			if not instance(p, List) or sort p =!= toList(1..#p) then (
+				error "permutationAction: expected each permutation to be a rearrangement of {1,...,k} in one-line notation."
+			);
+			if #p > n then (
+				error "permutationAction: expected permutations moving at most as many points as there are variables."	
+			);
+			p | toList(#p+1..n) -- Extend the permutation to the number of variables.
+		)
+		));
+	K := coefficientRing R;
+	new PermutationAction from {
+		cache => new CacheTable,
+		(symbol ring) => R,
+		-- Turn list into array then turn into matrices over K
+		(symbol generators) => apply(P, p -> sub(permutationMatrix new Array from p, K)),
+		(symbol numgens) => #P,
+		(symbol permutations) => P
+		}
+)
+
+-- constructor overload with no ring given, default to QQ[x_1..x_n]
+
+permutationAction (List) := PermutationAction => opts -> P -> (
+	n := max apply(P, p -> #p);
+	x := getSymbol opts.Variable;
+	R := QQ(monoid[x_1..x_n]);
+	permutationAction(P, R)
+)
+
+--net of PermutationAction object showing permutations not matrices
+net PermutationAction := A -> (net A.ring)|" <- "|
+	horizontalJoin( {"<"} | mingle(apply(A.permutations, net), toList(A.numgens-1:", ")) | {">"})
+
+--tex of net of PermutationAction object
+
+texMath PermutationAction := A -> (texMath A.ring) |"\\curvearrowleft" |
+	"\\left\\langle" |
+	(concatenate mingle(apply(A.permutations, texMath), toList(A.numgens-1:","))) |
+	"\\right\\rangle"
+
+-- find all special exponents, namely sorted ascending with first entry 0 and no jumps larger than 1
+
+specialExponents = n -> (
+	L := {{0}}; -- list of exponent vectors
+	for i from 2 to n do (
+		-- either add 1 or repeat last entry, flatten removes the nesting
+		L = flatten apply(L, v ->  {v | {last v}, v | {last v + 1}}
+	)
+	);
+	L
+)
+
+-- find the orbit of a vector v
+-- we do this by applying the generators to v and all new vectors until we get everything
+orbitExponents = (A, v) -> (
+	P := A.permutations; -- get permutations
+	seen := new MutableHashTable from {v => true}; -- "found set": hash table gives quick membership checks
+	toUpdate := {v}; -- vectors found but we still need to apply generators to
+	local h;
+	while #toUpdate > 0 do (
+		h = first toUpdate;
+		toUpdate = drop(toUpdate, 1); -- drop h from toUpdate
+		scan(P, p -> (
+			w := apply(p, i -> h#(i-1)); -- apply the action
+			if not seen#?w then (
+				seen#w = true;
+				toUpdate = toUpdate | {w}
+			)
+		));
+	);
+	keys seen -- return the vectors in the hashtable
+)
+
+-- exported methods
+
+specialMonomials = method()
+--returns all special monomials in the ring
+specialMonomials PermutationAction := List => A -> (
+	R := ring A;
+	flatten apply(specialExponents numgens R, v -> 
+		if sum v == 0 then {} -- this would give 1 	
+		else apply(unique permutations v, i -> R_i)
+	)
+)
+
+orbitSum = method()
+
+orbitSum (RingElement, PermutationAction) := RingElement => (r, A) -> (
+	R := ring A;
+	if not instance(r, R) then error "orbitSum: Expected an element of the ring being acted on.";
+	if #(terms r) =!= 1 then error "orbitSum: Expected a monomial.";
+
+	sum(orbitExponents(A, flatten exponents r), i-> R_i)
+) 
 
 
 
