@@ -260,7 +260,8 @@ texMath PermutationAction := A -> (texMath A.ring) |"\\curvearrowleft" |
 	"\\right\\rangle"
 
 -- find all special exponents, namely sorted ascending with first entry 0 and no jumps larger than 1
-
+-- FG: could be cached, but initial tests suggests overhead of recomputing
+-- is negligible
 specialExponents = n -> (
 	L := {{0}}; -- list of exponent vectors
 	for i from 2 to n do (
