@@ -310,7 +310,7 @@ orbitSum (RingElement, PermutationAction) := RingElement => (r, A) -> (
 	R := ring A;
 	if not instance(r, R) then error "orbitSum: Expected an element of the ring being acted on.";
 	if #(terms r) =!= 1 then error "orbitSum: Expected a monomial.";
-
+        -- the orbit sum construction ignores coefficients
 	sum(orbitExponents(A, flatten exponents r), i-> R_i)
 ) 
 
