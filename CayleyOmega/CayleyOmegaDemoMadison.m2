@@ -1,3 +1,0 @@
--- Macaulay2 Workshop Madison Demo
--- Cayley Omega Process
--- 
