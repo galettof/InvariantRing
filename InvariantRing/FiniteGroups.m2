@@ -220,10 +220,10 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
 		)
 		else (
 			if not instance(p, List) or sort p =!= toList(1..#p) then (
-				error "permutationAction: expected each permutation to be a rearrangement of {1,...,k} in one-line notation."
+				error "permutationAction: expected permutations of {1,...,k}, for some k, in one-line notation."
 			);
 			if #p > n then (
-				error "permutationAction: expected permutations moving at most as many points as there are variables."	
+				error "permutationAction: expected permutations of {1,...,n} with n less than the number of variables."	
 			);
 			p | toList(#p+1..n) -- Extend the permutation to the number of variables.
 		)
