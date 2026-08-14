@@ -295,10 +295,13 @@ orbitExponents = (A, v) -> (
 	keys seen -- return the vectors in the hashtable
 )
 
--- exported methods
+-- FG: the next two methods are not exported
+-- they are also not used by invariants computations
+-- the were likely used for debugging and can still be
+-- exported by doing 'debug InvariantRing'
 
 specialMonomials = method()
---returns all special monomials in the ring
+-- returns all special monomials in the ring
 specialMonomials PermutationAction := List => A -> (
 	R := ring A;
 	flatten apply(specialExponents numgens R, v -> 
@@ -308,7 +311,7 @@ specialMonomials PermutationAction := List => A -> (
 )
 
 orbitSum = method()
-
+-- return the orbit sum of a monomial
 orbitSum (RingElement, PermutationAction) := RingElement => (r, A) -> (
 	R := ring A;
 	if not instance(r, R) then error "orbitSum: Expected an element of the ring being acted on.";
