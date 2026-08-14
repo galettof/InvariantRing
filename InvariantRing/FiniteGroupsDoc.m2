@@ -385,3 +385,19 @@ document {
 	SeeAlso => {group, schreierGraph, words}
 	    
 	    }
+
+document {
+	Key => {PermutationAction},
+	
+	Headline => "the class of all permutation actions",
+	
+	"This class is provided by the package ", TO InvariantRing,".",
+	
+	PARA {
+	    	TT "PermutationAction", " is the class of all finite
+		permutation group actions on polynomial rings for the
+		purpose of computing invariants.
+		It is created using ", TO "permutationAction", " and
+                it is a subclass of ", TO "FiniteGroupAction", "."
+	    },
+	}
