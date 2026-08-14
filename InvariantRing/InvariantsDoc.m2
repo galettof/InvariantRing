@@ -143,16 +143,19 @@ document {
 
 	PARA {
 	    "This function is provided by the package ", TO InvariantRing, 
-	    ". This function can be used to compute the generating invariants of a diagonal group action, finite group action or linearly reductive group action.
-	    It can also be used to compute a basis of a graded component of the invariant ring. 
-	    Below is a list of the many ways to use this function:"
+	    ". This function can be used to compute the generating invariants of a
+            diagonal, finite, permutation or linearly reductive group action.
+	    It can also be used to compute a basis of a graded component of the
+            invariant ring. Below is a list of the many ways to use this function:"
 	    },
 	UL{
 	    {TO (invariants, FiniteGroupAction), ": computes the generating invariants of a finite group action"},
+	    {TO (invariants, PermutationAction), ": computes the generating invariants of a permutation action"},
 	    {TO (invariants, DiagonalAction), ": computes the generating invariants of a diagonal group action"},
 	    {TO (invariants, LinearlyReductiveAction), ": computes the generating invariants of a linearly reductive action"},
-	    {TO (invariants, FiniteGroupAction, ZZ)," or ", TO (invariants, FiniteGroupAction, List), ": computes a basis for graded component of the invariant ring of a finite group action"},
-	    {TO (invariants, LinearlyReductiveAction, ZZ)," or ", TO (invariants, LinearlyReductiveAction, List), ": computes a basis for graded component of the invariant ring of a linearly reductive group action"},
+	    {TO (invariants, FiniteGroupAction, ZZ)," or ", TO (invariants, FiniteGroupAction, List), ": computes a basis for a graded component of the invariant ring of a finite group action"},
+	    {TO (invariants, PermutationAction, ZZ), ": computes a basis for a graded component of the invariant ring of a finite group action"},
+	    {TO (invariants, LinearlyReductiveAction, ZZ)," or ", TO (invariants, LinearlyReductiveAction, List), ": computes a basis for a graded component of the invariant ring of a linearly reductive group action"},
 	    },
     
     	SeeAlso => {
@@ -1020,3 +1023,54 @@ document {
 		},
 	    }
 
+
+document {
+	Key => {
+	    (invariants, PermutationAction),
+	    },
+	Headline => "computes the generating invariants of a permutation action",
+	Usage => "invariants P",
+	Inputs => {
+	    "P" => PermutationAction,
+	    },
+	Outputs => {
+		"L" => List => {"a minimal set of generating invariants for the group action"}
+		},
+	PARA {
+	    "This function is provided by the package ", TO InvariantRing, "."
+	    },
+	PARA {
+	    "It implements Göbel's method for computing invariants of permutation
+            actions, which says the generating invariants are the orbit sums
+            of special monomials together with the product of the variables;
+            for more details, see Chapter 4 of M. D. Neusel, ",
+            EM "Invariant theory", ", AMS 2007. ",
+            "This method outputs a minimal generating set."
+	    },
+
+        PARA {
+	    "The following example computes a minimal set of generating invariants
+            for the defining permutation action of the symmetric group ",
+            TEX ///$\mathfrak{S}_4$///, "."
+	    },
+    	EXAMPLE {
+	    "R = QQ[x_1..x_4]",
+            "P = permutationAction({{2,1},{2,3,4,1}}, R)",
+	    "elapsedTime netList invariants P"
+	},
+
+        PARA {
+	    "This method can be significantly faster than the general method
+            used for finite group actions."
+	    },
+    	EXAMPLE {
+            "G = finiteAction(P.generators, ring P)",
+	    "elapsedTime netList invariants G"
+	},
+    
+    	SeeAlso => {
+	    finiteAction,
+	    invariantRing, 
+	    isInvariant
+	    }	
+	}
