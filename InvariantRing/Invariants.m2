@@ -644,6 +644,12 @@ invariants PermutationAction := List => o -> A -> (
 -- independent, giving a basis with no further reduction needed.
 invariants(PermutationAction, ZZ) := List => o -> (A, d) -> (
     R := ring A;
+    if char(R) != 0 then (
+        b := #(group A);
+        if b % char(R) == 0 then (
+            error "invariants: Not implemented in the modular case";
+            )
+        );
     mons := flatten entries basis(d, R);
     seen := new MutableHashTable;
     candidates := {};
