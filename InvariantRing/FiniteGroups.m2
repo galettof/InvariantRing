@@ -274,9 +274,12 @@ specialExponents = n -> (
 -- find the orbit of a vector v
 -- we do this by applying the generators to v and all new vectors until we get everything
 orbitExponents = (A, v) -> (
-	P := A.permutations; -- get permutations
-	seen := new MutableHashTable from {v => true}; -- "found set": hash table gives quick membership checks
-	toUpdate := {v}; -- vectors found but we still need to apply generators to
+        -- get permutations
+	P := A.permutations;
+        -- "found set": hash table gives quick membership checks
+	seen := new MutableHashTable from {v => true};
+        -- vectors found but we still need to apply generators to
+	toUpdate := {v};
 	local h;
 	while #toUpdate > 0 do (
 		h = first toUpdate;
