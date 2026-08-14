@@ -588,7 +588,7 @@ invariants(FiniteGroupAction, ZZ) := List => o -> (G,d) -> (
 --Goebel's algorithm
 invariants PermutationAction := List => o -> A -> (
     -- if user wants the method for arbitrary finite groups
-    if o.Strategy == "Finite" then lookup(invariants, FiniteGroupAction) A
+    if o.Strategy == "Finite" then (o >> (lookup(invariants, FiniteGroupAction))) A
     -- otherwise use orbit sums, aka, Göbel's method
     else (
         R := ring A;
