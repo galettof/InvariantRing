@@ -609,7 +609,6 @@ invariants PermutationAction := List => o -> A -> (
                     )
                 ))
         );
-
     -- add in x_1 * x_2 * ... * x_n, the product of all variables
     candidates = append(candidates, product gens R);
     -- Goebel's algorithm gives a generating set, but not a minimal one,
