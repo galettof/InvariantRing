@@ -585,20 +585,22 @@ invariants(FiniteGroupAction, ZZ) := List => o -> (G,d) -> (
 -- special monomials are monomials whose exponents, when sorted in ascending order,
 -- start at 0 and increase by at most 1 at each step.
 
---Goebel's algorithem 
+--Goebel's algorithm
 invariants PermutationAction := List => o -> A -> (
 	R := ring A;
-	b := #(group A);
-        if ( char(R) != 0 and b % char(R) == 0 ) then (
+        if char(R) != 0 then (
+            b := #(group A);
+            if b % char(R) == 0 then (
                 error "invariants: Not implemented in the modular case";
-        );
+                )
+            );
 	-- one orbit sum per orbit of special monomials
 	candidates := {};
         -- we track which special monomial already belong to a computed orbit 
 	seen := new MutableHashTable; --keep hashtable of seen list
 	scan(specialExponents numgens R, v -> 
 	if sum v > 0 then scan(unique permutations v, i -> (
-		if not seen#?i then ( -- if not seen then calculate orbit and add to vec to seen and monomial to candidates 
+		if not seen#?i then ( -- if not seen then calculate orbit and add to vec to seen and monomial to candidates
 			orb := orbitExponents(A, i);
 			scan(orb, j -> seen#j = true);
 			candidates = append(candidates, sum(orb, g -> R_g))
