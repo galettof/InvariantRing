@@ -154,7 +154,7 @@ document {
 	    {TO (invariants, DiagonalAction), ": computes the generating invariants of a diagonal group action"},
 	    {TO (invariants, LinearlyReductiveAction), ": computes the generating invariants of a linearly reductive action"},
 	    {TO (invariants, FiniteGroupAction, ZZ)," or ", TO (invariants, FiniteGroupAction, List), ": computes a basis for a graded component of the invariant ring of a finite group action"},
-	    {TO (invariants, PermutationAction, ZZ), ": computes a basis for a graded component of the invariant ring of a finite group action"},
+	    {TO (invariants, PermutationAction, ZZ), ": computes a basis for a graded component of the invariant ring of a permutation action"},
 	    {TO (invariants, LinearlyReductiveAction, ZZ)," or ", TO (invariants, LinearlyReductiveAction, List), ": computes a basis for a graded component of the invariant ring of a linearly reductive group action"},
 	    },
     
@@ -1069,8 +1069,49 @@ document {
 	},
     
     	SeeAlso => {
-	    finiteAction,
+	    permutationAction,
 	    invariantRing, 
 	    isInvariant
 	    }	
-	}
+        }
+
+document {
+    Key => {
+        (invariants, PermutationAction,ZZ),
+        },
+    Headline => "basis for graded component of invariant ring",
+    Usage => "invariants(P,d)",
+    Inputs => {
+        "P" => PermutationAction,
+        "d" => ZZ,
+        },
+    Outputs => {
+        "L" => List => {"an additive basis for a graded component of the ring of invariants"}
+        },
+    PARA {
+        "This function is provided by the package ", TO InvariantRing, "."
+        },
+    PARA {
+        "When called on a permutation action and a degree, it computes an
+        additive basis for the invariants of the action in the given degree.
+        The basis is given by the orbit sums in the given degree;
+        for more details, see Proposition 4.12 of M. D. Neusel, ",
+        EM "Invariant theory", ", AMS 2007. ",
+        },
+
+    PARA {
+        "The following example recovers the monomial symmetric functions
+        of degree 5 in four variables."
+        },
+    EXAMPLE {
+        "R = QQ[x_1..x_4]",
+        "P = permutationAction({{2,1},{2,3,4,1}}, R)",
+        "elapsedTime netList invariants(P,5)"
+        },
+
+    SeeAlso => {
+        permutationAction,
+        invariantRing, 
+        isInvariant
+        }	
+    }
