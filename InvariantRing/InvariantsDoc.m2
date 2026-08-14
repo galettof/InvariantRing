@@ -1043,7 +1043,10 @@ document {
 	    "It implements Göbel's method for computing invariants of permutation
             actions, which says the generating invariants are the orbit sums
             of special monomials together with the product of the variables;
-            for more details, see Chapter 4 of M. D. Neusel, ",
+            for more details, see Section 2.3.2 in ",
+            HREF {"https://fragandi.github.io/M2forall/ch-invarianttheory.html",
+                "https://fragandi.github.io/M2forall/ch-invarianttheory.html"},
+            " or Chapter 4 of M. D. Neusel, ",
             EM "Invariant theory", ", AMS 2007. ",
             "This method outputs a minimal generating set."
 	    },
