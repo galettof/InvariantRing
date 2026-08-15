@@ -323,44 +323,44 @@ document {
 	    [invariants, Strategy], [invariantRing, Strategy]
 	    },
 	Headline => "choose the strategy for computing invariants",
-	
-	PARA {
-	    "The default strategy for computing invariants of a finite
-	    group action uses the Reynolds operator, however
-	    this may be slow for large groups. Using the option ", 
-	    TT "Strategy => \"LinearAlgebra\"", " uses the linear algebra 
-	    method for computing invariants of a given degree by calling ",
-	    TO (invariants, FiniteGroupAction, ZZ), ". This may
-	    provide a speedup at lower degrees, especially if the
-	    user-provided generating set for the group is small."
-	    },
-	
-	PARA {
-	    "The following example computes the invariants of the
-	    symmetric group on 4 elements. Note that using
-	    different strategies may lead to different sets of 
-	    generating invariants."
-	    },
-	
-	EXAMPLE {
-	    "R = QQ[x_1..x_4]",
-	    "L = apply({[2, 1, 3, 4], [2, 3, 4, 1]}, permutationMatrix);",
-	    "S4 = finiteAction(L, R)",
-	    "elapsedTime invariants S4",
-	    "elapsedTime invariants(S4, Strategy => \"LinearAlgebra\")"
-	},
 
-	PARA {
-	    "Version 2.4 introduces a new algorithm to compute invariants
-	    of elementary abelian $p$-groups.
-	    As of version 2.5, this is the default strategy when applicable
-	    for a diagonal action,
-	    i.e., when there is no torus action, all cyclic factors have the
-	    same prime order, and the weight matrix has maximal rank.
-	    To call the older general-purpose algorithm, use the option ",
-	    TT "Strategy=>\"DerksenGandini\"", "; see ",
-	    TO (invariants, DiagonalAction), " for an example."
-	    },
+        PARA {
+            "Users may select different strategies when computing invariants
+            or invariant rings. For convenience, this page lists all available
+            strategies in one place. The strategies are documented in the ",
+            TT "invariants", " page for each type of action. Note that the default
+            strategy is never called explicitly but is always used when the
+            string value of ", TT "Strategy=>", " does not match one of the
+            recognized alternative options.",
+            },
+        
+        HEADER2 "Strategies for finite group actions",
+
+        UL {
+            {"King's algorithm with Reynolds operator (default)"},
+            {"Linear algebra method (", TT "Strategy => \"LinearAlgebra\"", ")"},
+            },
+        
+        HEADER2 "Strategies for permutation actions",
+
+        UL {
+            {"Göbel's method with orbit sums (default)"},
+            {"King's algorithm with Reynolds operator (",
+                TT "Strategy => \"King\"", ")"},
+            {"Linear algebra method (", TT "Strategy => \"LinearAlgebra\"", ")"},
+            },
+
+        HEADER2 "Strategies for diagonal actions",
+
+        UL {
+            {"General purpose strategy combining methods of Derksen, for tori,
+                and Gandini, for finite abelian groups (default)"},
+            {"Elementary invariants method (default strategy when there is no
+                torus action, all cyclic factors have the same prime order,
+                and the weight matrix has maximal rank; use
+                ", TT "Strategy => \"DerksenGandini\"", "
+                 for the general purpose strategy)"},
+            },
 	
 	SeeAlso => {
 	    diagonalAction,
