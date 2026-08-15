@@ -16,16 +16,19 @@ finiteAction (List, PolynomialRing) := FiniteGroupAction => (G, R) -> (
     if G === {} then (
         error "finiteAction: Expected at least one generator."
         );
+    -- check coefficient ring is a field
     if not isField coefficientRing R then (
 	error "finiteAction: Expected the second argument to be a polynomial ring over a field."
 	);
+    -- check all generators are square matrices
     if any (G, g -> not instance(g, Matrix) or numRows g =!= numColumns g) then (
 	error "finiteAction: Expected the first argument to be a list of square matrices."
 	);
-    -- if (numRows first G) =!= dim R then (error "finiteAction: Expected the number of rows of each matrix to equal the number of variables in the polynomial ring."); 
+    -- check all generators have the right size to act on ring
     if any(G, g -> (numRows g) =!= numgens R) then (
         error "finiteAction: Expected the number of rows of each matrix to equal the number of variables in the polynomial ring."
         );
+    -- check all generators are matrices defined over the coefficient ring
     try (
 	gensG := apply(G, g -> sub(g, coefficientRing R))
 	)
