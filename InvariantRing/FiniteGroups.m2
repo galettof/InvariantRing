@@ -18,7 +18,10 @@ finiteAction (List, PolynomialRing) := FiniteGroupAction => (G, R) -> (
     if any (G, g -> not instance(g, Matrix) or numRows g =!= numColumns g) then (
 	error "finiteAction: Expected the first argument to be a list of square matrices."
 	);
-    if (numRows first G) =!= dim R then (error "finiteAction: Expected the number of rows of each matrix to equal the number of variables in the polynomial ring."); 
+    -- if (numRows first G) =!= dim R then (error "finiteAction: Expected the number of rows of each matrix to equal the number of variables in the polynomial ring."); 
+    if any(G, g -> (numRows g) =!= numgens R) then (
+        error "finiteAction: Expected the number of rows of each matrix to equal the number of variables in the polynomial ring."
+        );
     try (
 	gensG := apply(G, g -> sub(g, coefficientRing R))
 	)
