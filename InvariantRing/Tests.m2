@@ -505,11 +505,12 @@ assert( zero definingIdeal invariantRing S3 )
 -- Similar to the one above but uses the dihedral group D4 over ZZ/3
 -- In this case, the Hilbert series of the invariant ring computed with
 -- two different strategies should be the same
+-- Also, tests cycle entry mode
 TEST ///
 F = ZZ/3
 R = F[w,x,y,z]
-L = {{2,3,4,1},{3,2,1,4}}
-D4 = permutationAction(L,R)
+L = {{[1,2,3,4]},{[1,3]}}
+D4 = permutationAction(L,R,EntryMode=>"cycle")
 matrixGens = set {(id_(F^4))_{1,2,3,0}, (id_(F^4))_{2,1,0,3}}
 assert( set gens D4 == matrixGens )
 inv = invariants D4
