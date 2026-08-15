@@ -479,8 +479,9 @@ assert(set inv == set einv)
 -- Test 25
 -- checks the orbit sum method for the defining action of S_3 gives
 -- a complete minimal set of generating invariants
--- We check the invariants are homogeneous of degrees 1, 2, and 3
--- Then we check they are actually invariant; note that this uses the
+-- First, we check the permutations are correctly saved as matrix
+-- Next, we check the invariants are homogeneous of degrees 1, 2, and 3
+-- Then, we check they are actually invariant; note that this uses the
 -- method inherited from FiniteGroupAction of checking invariants under
 -- the generators of the matrix groups, so it is useful here because
 -- the invariants were generated from orbit sums
@@ -490,6 +491,8 @@ assert(set inv == set einv)
 TEST ///
 L = {{2,1,3},{2,3,1}}
 P = permutationAction(L)
+matrixGens = set {(id_(QQ^3))_{1,0,2}, (id_(QQ^3))_{1,2,0}}
+assert( set gens P == matrixGens )
 inv = invariants P
 assert( all(inv,isHomogeneous) )
 t = tally apply(inv, f -> first degree f)
