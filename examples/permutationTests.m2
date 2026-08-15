@@ -8,7 +8,7 @@
     Dr. Gandini - https://fragandi.github.io/M2forall/ch-invarianttheory.html
 *-
 
-loadPackage("InvariantRing", FileName => "./InvariantRing.m2", Reload => true)
+needsPackage "InvariantRing"
 debug InvariantRing -- this lets us reach orbit sum and specialMonomials.
 
 print "-- constructor tests --";
