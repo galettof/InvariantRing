@@ -467,7 +467,7 @@ R = QQ[x_1..x_3]
 W = matrix{{1,0,1},{0,1,1}}
 L = {p,p}
 T = diagonalAction(W,L,R)
-inv = invariants T
-einv = invariants(T, Strategy => "Elementary")
+inv = invariants(T,Strategy=>"DerksenGandini")
+einv = invariants T
 assert(set inv == set einv)
 ///
