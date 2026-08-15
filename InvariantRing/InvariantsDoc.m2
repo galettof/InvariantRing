@@ -283,7 +283,12 @@ document {
     
     	PARA {
 	    "The example above uses the new algorithm for elementary abelian $p$-groups
-	    introduced in version 2.4. To call the older general-purpose algorithm,
+	    introduced in version 2.4.
+            As of version 2.5, this is the default strategy when applicable
+	    for a diagonal action,
+	    i.e., when there is no torus action, all cyclic factors have the
+	    same prime order, and the weight matrix has maximal rank.
+            To call the older general-purpose algorithm,
 	    use the option ", TT "Strategy=>\"DerksenGandini\"" , "."
 	},
 	
