@@ -1080,7 +1080,9 @@ document {
 	    "One can use the default method for finite group actions by
             passing the option ", TT "Strategy=>\"King\"", " or the linear
             algebra method by passing the option ", TT "Strategy=>\"LinearAlgebra\"",
-            ". However, Göbel's method should generally be much faster."
+            ". However, Göbel's method should generally be much faster.
+            Note that using different strategies may lead to different sets of 
+	    generating invariants."
 	    },
     	EXAMPLE {
 	    "elapsedTime netList invariants(P,Strategy=>\"King\")"
