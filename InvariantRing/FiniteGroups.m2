@@ -215,6 +215,10 @@ permutationAction = method(Options => {
     )
 
 permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -> (
+    -- check we have at least one generator
+    if P === {} then (
+        error "permutationAction: Expected at least one permutation."
+        );
     if not isField coefficientRing R then ( --check if field
         error "permutationAction: Expected a polynomial ring over a field."
         );
