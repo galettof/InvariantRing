@@ -400,7 +400,21 @@ document {
 	    "R = QQ[x_1..x_4]",
 	    "L = apply({[2, 3, 1, 4], [2, 1, 4, 3]}, permutationMatrix);",
 	    "A4 = finiteAction(L, R)",
-	    "netList invariants A4"
+	    "elapsedTime netList invariants A4"
+	},
+	PARA {
+	    "King's algorithm uses the Reynolds operator, however
+	    this may be slow for large groups. Using the option ", 
+	    TT "Strategy => \"LinearAlgebra\"", " uses the linear algebra 
+	    method for computing invariants of a given degree by calling ",
+	    TO (invariants, FiniteGroupAction, ZZ), ". This may
+	    provide a speedup at lower degrees, especially if the
+	    user-provided generating set for the group is small.
+            Note that using different strategies may lead to different sets of 
+	    generating invariants."
+	    },
+    	EXAMPLE {
+            "elapsedTime netList invariants(A4,Strategy=>\"LinearAlgebra\")"
 	},
     
     	SeeAlso => {
