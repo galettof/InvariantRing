@@ -207,7 +207,12 @@ PermutationAction = new Type of FiniteGroupAction
 -- helper to recover one line notation from a permutation matrix:
 oneLineFromMatrix = M -> apply(entries transpose M, col -> (position(col, e -> e == 1)) + 1)
 
-permutationAction = method(Options => {Variable => "x", EntryMode => "one-line"})
+permutationAction = method(Options => {
+        CoefficientRing => QQ,
+        Variable => "x",
+        EntryMode => "one-line"
+        }
+    )
 
 permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -> (
     if not isField coefficientRing R then ( --check if field
@@ -240,12 +245,19 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
         }
     )
 
--- constructor overload with no ring given, default to QQ[x_1..x_n]
+-- constructor overload with no ring
+-- gives F[x_1..x_n], where F is passed as an option
+-- note: F defaults to QQ
 
 permutationAction (List) := PermutationAction => opts -> P -> (
+    --check if optional coefficient ring is a field
+    if not isField opts.CoefficientRing then (
+        error "permutationAction: Expected a field as coefficient ring."
+        );
+    F := opts.CoefficientRing;
     n := max apply(P, p -> #p);
     x := getSymbol opts.Variable;
-    R := QQ(monoid[x_1..x_n]);
+    R := F(monoid[x_1..x_n]);
     permutationAction(P, R)
     )
 
