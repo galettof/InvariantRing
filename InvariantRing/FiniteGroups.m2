@@ -12,6 +12,10 @@ FiniteGroupAction = new Type of GroupAction
 finiteAction = method()
 
 finiteAction (List, PolynomialRing) := FiniteGroupAction => (G, R) -> (
+    -- check at least one generator is provided
+    if G === {} then (
+        error "finiteAction: Expected at least one generator."
+        );
     if not isField coefficientRing R then (
 	error "finiteAction: Expected the second argument to be a polynomial ring over a field."
 	);
