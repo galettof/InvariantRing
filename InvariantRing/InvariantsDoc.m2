@@ -1063,12 +1063,13 @@ document {
 	},
 
         PARA {
-	    "This method can be significantly faster than the general method
-            used for finite group actions."
+	    "One can use the default method for finite group actions by
+            passing the option ", TT "Strategy=>\"King\"", " or the linear
+            algebra method by passing the option ", TT "Strategy=>\"LinearAlgebra\"",
+            ". However, Göbel's method should generally be much faster."
 	    },
     	EXAMPLE {
-            "G = finiteAction(P.generators, ring P)",
-	    "elapsedTime netList invariants G"
+	    "elapsedTime netList invariants(P,Strategy=>\"King\")"
 	},
     
     	SeeAlso => {
