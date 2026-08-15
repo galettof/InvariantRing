@@ -471,3 +471,34 @@ inv = invariants T
 einv = invariants(T, Strategy => "Elementary")
 assert(set inv == set einv)
 ///
+
+------------------------------------------------------------------------
+--- Tests for PermutationAction (August 2026) --------------------------
+------------------------------------------------------------------------
+
+-- Test 25
+-- checks the orbit sum method for the defining action of S_3 gives
+-- a complete minimal set of generating invariants
+-- We check the invariants are homogeneous of degrees 1, 2, and 3
+-- Then we check they are actually invariant; note that this uses the
+-- method inherited from FiniteGroupAction of checking invariants under
+-- the generators of the matrix groups, so it is useful here because
+-- the invariants were generated from orbit sums
+-- Finally, we check the defining ideal of the invariant ring is the
+-- zero ideal, which implies the invariant ring is a polynomial ring
+-- as expected
+TEST ///
+L = {{2,1,3},{2,3,1}}
+P = permutationAction(L)
+inv = invariants P
+assert( all(inv,isHomogeneous) )
+t = tally apply(inv, f -> first degree f)
+assert( t === new Tally from {1 => 1, 2 => 1, 3 => 1} )
+assert( all(inv, f -> isInvariant(f,P)) )
+assert( zero definingIdeal invariantRing P )
+///
+
+-- Test 26
+TEST ///
+
+///
