@@ -471,3 +471,54 @@ inv = invariants(T,Strategy=>"DerksenGandini")
 einv = invariants T
 assert(set inv == set einv)
 ///
+
+------------------------------------------------------------------------
+--- Tests for PermutationAction (August 2026) --------------------------
+------------------------------------------------------------------------
+
+-- Test 25
+-- checks the orbit sum method for the defining action of S_3 gives
+-- a complete minimal set of generating invariants
+-- First, we check the permutations are correctly saved as matrix
+-- Next, we check the invariants are homogeneous of degrees 1, 2, and 3
+-- Then, we check they are actually invariant; note that this uses the
+-- method inherited from FiniteGroupAction of checking invariants under
+-- the generators of the matrix groups, so it is useful here because
+-- the invariants were generated from orbit sums
+-- Finally, we check the defining ideal of the invariant ring is the
+-- zero ideal, which implies the invariant ring is a polynomial ring
+-- as expected
+TEST ///
+L = {{2,1,3},{2,3,1}}
+S3 = permutationAction(L)
+matrixGens = set {(id_(QQ^3))_{1,0,2}, (id_(QQ^3))_{1,2,0}}
+assert( set gens S3 == matrixGens )
+inv = invariants S3
+assert( all(inv,isHomogeneous) )
+t = tally apply(inv, f -> first degree f)
+assert( t === new Tally from {1 => 1, 2 => 1, 3 => 1} )
+assert( all(inv, f -> isInvariant(f,S3)) )
+assert( zero definingIdeal invariantRing S3 )
+///
+
+-- Test 26
+-- Similar to the one above but uses the dihedral group D4 over ZZ/3
+-- In this case, the Hilbert series of the invariant ring computed with
+-- two different strategies should be the same
+-- Also, tests cycle entry mode
+TEST ///
+F = ZZ/3
+R = F[w,x,y,z]
+L = {{[1,2,3,4]},{[1,3]}}
+D4 = permutationAction(L,R,EntryMode=>"cycle")
+matrixGens = set {(id_(F^4))_{1,2,3,0}, (id_(F^4))_{2,1,0,3}}
+assert( set gens D4 == matrixGens )
+inv = invariants D4
+assert( all(inv,isHomogeneous) )
+t = tally apply(inv, f -> first degree f)
+assert( t === new Tally from {1 => 1, 2 => 2, 3 => 1, 4 => 1} )
+assert( all(inv, f -> isInvariant(f,D4)) )
+H1 = reduceHilbert hilbertSeries invariantRing D4
+H2 = reduceHilbert hilbertSeries invariantRing(D4,Strategy=>"King")
+assert( H1 === H2 )
+///

@@ -202,7 +202,8 @@ document {
 	    (net, RingOfInvariants),
 	    (net, DiagonalAction),
 	    (net, FiniteGroupAction),
-	    (net, LinearlyReductiveAction)
+	    (net, LinearlyReductiveAction),
+	    (net, PermutationAction)
 	    },
 	Headline => "format for printing, as a net",
 	PARA {"Format objects of the package ",
@@ -215,7 +216,8 @@ document {
 	    (texMath, RingOfInvariants),
 	    (texMath, DiagonalAction),
 	    (texMath, FiniteGroupAction),
-	    (texMath, LinearlyReductiveAction)
+	    (texMath, LinearlyReductiveAction),
+	    (texMath, PermutationAction)
 	    },
 	Headline => "format for printing, as TeX strings",
 	PARA {"Format objects of the package ",
