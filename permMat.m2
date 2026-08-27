@@ -48,14 +48,14 @@ permMat (ZZ,List) := Matrix => (n,L) -> (
 -- testing
 needsPackage "Permutations"
 n = 100
+-- check old and new code give same matrix
 all(for i to 100 list (
         p := apply(select(cycleDecomposition randomPermutation(n), c -> #c != 1),
             c -> new Array from c);
         permMat (n,p) == permutationMatrix (n,p)
         )
     )
-
+-- compare timings
 p = apply(select(cycleDecomposition randomPermutation(n), c -> #c != 1), c -> new Array from c);
 elapsedTime permMat (n,p);
 elapsedTime permutationMatrix (n,p);
-
