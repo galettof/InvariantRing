@@ -7,7 +7,8 @@ permMat Array := Matrix => p -> (
         error "permutationMatrix: Expected an array of positive integers
         representing a permutation."
         );
-    matrix table(n,n, (i,j) -> if p#j - 1 == i then 1 else 0)
+    -- shuffle columns of identity matrix
+    (id_(ZZ^n))_(apply(toList p,i->i-1))
     )
 
 -- convert single cycle to one-line notation
