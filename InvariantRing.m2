@@ -74,6 +74,7 @@ export {
     "group",	    	    	  
     "isAbelian",    	    	  
     "permutationMatrix",
+    "permMat",
     "permutationAction",
     "schreierGraph",	    	  
     "words",
