@@ -355,6 +355,59 @@ document {
 	    }
 	
 document {
+	Key => {permMat,
+	    (permMat, Array), 
+	    (permMat, ZZ, List),
+	    },
+	
+	Headline => "convert a one-line notation or cyclic notation of a permutation to a matrix representation",
+	
+	Usage => "permutationMatrix c, \n permutationMatrix(n , L)",
+	Inputs => {
+		"c" => Array => {"of positive integers representing a permutation in one-line notation"},
+	    	"L" => List =>  {"of arrays representing a permutation as a product of cycles"},
+		"n" => ZZ => {"giving the number of integers being permuted"},
+		},
+	Outputs => {
+		Matrix => {"the matrix representation of the permutation"}
+		},
+	
+	"This function is provided by the package ", TO InvariantRing,".",
+	
+	PARA {
+	    "The following example converts the one-line notation of a transposition into a matrix representation. "
+	    },
+	
+	EXAMPLE {
+		"M = permMat [2, 1, 3]",
+		},
+	
+	PARA {
+	    "The following example converts the cyclic notation of the same transposition into a matrix representation."
+	    },
+	
+	EXAMPLE {
+		"M = permMat(3,{[1,2]})",
+		},
+	    	    
+	PARA {
+	    "The following example converts the cyclic notation of a permutation of 4 into a matrix representation."
+	    },    
+        EXAMPLE {
+            "M = permMat(4,{[1,2],[3,4]})",
+            },
+
+        PARA {
+            "The cycles representing a permutation are multiplied from right to
+            left."
+            },
+    
+        EXAMPLE {
+            "permMat(3,{[1,2],[2,3]}) == permMat(3,{[1,2,3]})",
+            },
+        }
+	
+document {
 	Key => {(relations, FiniteGroupAction)},
 	Headline => "relations of a finite group",
 	Usage => "relations G",
