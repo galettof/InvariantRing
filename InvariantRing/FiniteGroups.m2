@@ -222,7 +222,7 @@ permMat Array := Matrix => p -> (
     n := max p;
     if #p =!= n or set (1..n) =!= set p then (
         error "permutationMatrix: Expected an array of positive integers
-        representing a permutation."
+        representing a permutation in one-line notation."
         );
     -- shuffle columns of identity matrix
     (id_(ZZ^n))_(apply(toList p,i->i-1))
@@ -244,9 +244,9 @@ multiplyOneLine = L -> fold(L, (P,Q) -> P_(toList apply(Q, i -> i-1)))
 
 permMat (ZZ,List) := Matrix => (n,L) -> (
     if n <= 0 then error "permutationMatrix: Expected a positive integer.";
-    if #L == 0 then error "permutationMatrix: Expected a nonempty list.";
-    if any(L, c -> not instance(c,Array)) then (
-        error "permutationMatrix: Expected a list of arrays."
+    if #L == 0 or any(L, c -> not instance(c,Array)) then (
+        error "permutationMatrix: Expected a nonempty list of arrays
+        representing the cycles of a permutation."
         );
     if any(L, c -> #(set c) =!= #c or not isSubset(c, toList(1..n))) then (
         error ("permutationMatrix: Expected cycles to be arrays of distinct integers 
@@ -273,10 +273,11 @@ oneLineFromMatrix = M -> apply(entries transpose M, col -> (position(col, e -> e
 permutationAction = method(Options => {
         CoefficientRing => QQ,
         Variable => "x",
-        EntryMode => "one-line"
         }
     )
 
+-- main constructor
+-- does not call permMat to avoid duplicating checks, but uses auxiliary functions
 permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -> (
     -- check we have at least one generator
     if P === {} then (
@@ -285,28 +286,45 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
     if not isField coefficientRing R then ( --check if field
         error "permutationAction: Expected a polynomial ring over a field."
         );
+    K := coefficientRing R;
     n := numgens R;
+    -- check permutations are well-defined and convert to one-line notation
     P = apply(P, p -> (
-            if opts.EntryMode == "cycle" then (
-                oneLineFromMatrix permutationMatrix(n, p) -- p is a list of cycles
+            if instance(p,Array) then (
+                if #p =!= n or set (1..n) =!= set p then (
+                    error "permutationAction: Expected an array of positive integers
+                    representing a permutation of the variables in one-line notation."
+                    );
+                p
+                )
+            else if instance(p,List) then (
+                if #p == 0 or any(p, c -> not instance(c,Array)) then (
+                    error "permutationAction: Expected a nonempty list of arrays
+                    representing a permutation of the variables in cycle notation."
+                    );
+                if any(p, c-> #(set c) =!= #c or not isSubset(c,toList(1..n))) then (
+                    error (
+                        "permutationAction: Expected cycles to be arrays of distinct
+                        integers between 1 and " | toString(n) | "."
+                        )
+                    );
+                -- convert cycles to one-line notation
+                C := apply(p, c -> cycleToOneLine(n,c));
+                -- multiply cycles in one-line notation
+                multiplyOneLine C
                 )
             else (
-                if not instance(p, List) or sort p =!= toList(1..#p) then (
-                    error "permutationAction: expected permutations of {1,...,k}, for some k, in one-line notation."
-                    );
-                if #p > n then (
-                    error "permutationAction: expected permutations of {1,...,n} with n less than the number of variables."	
-                    );
-                -- Extend the permutation to the number of variables.
-                p | toList(#p+1..n)
-                )
-            ));
-    K := coefficientRing R;
+                error "permutationAction: Expected permutations as one-line notation
+                arrays or as lists of cycles."
+                );
+            )
+        );
     new PermutationAction from {
         cache => new CacheTable,
         (symbol ring) => R,
-        -- Turn list into array then turn into matrices over K
-        (symbol generators) => apply(P, p -> sub(permutationMatrix new Array from p, K)),
+        -- Turn one-line notations arrays into matrices over field of definition
+        (symbol generators) => apply(P,
+            p -> sub((id_(ZZ^n))_(apply(toList p,i->i-1)), K)),
         (symbol numgens) => #P,
         (symbol permutations) => P
         }
