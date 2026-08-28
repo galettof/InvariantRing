@@ -287,6 +287,9 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
         );
     K := coefficientRing R;
     n := numgens R;
+    if n < 1 then (
+        error "permutationAction: Expected at least one variable."
+        );
     -- check permutations are well-defined and convert to one-line notation
     P = apply(P, p -> (
             if instance(p,Array) then (
