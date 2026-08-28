@@ -249,8 +249,8 @@ permMat (ZZ,List) := Matrix => (n,L) -> (
         representing the cycles of a permutation."
         );
     if any(L, c -> #(set c) =!= #c or not isSubset(c, toList(1..n))) then (
-        error ("permutationMatrix: Expected cycles to be arrays of distinct integers 
-            between 1 and " | toString(n) | "."
+        error ("permutationMatrix: Expected cycles to be arrays of distinct
+            integers between 1 and " | toString(n) | "."
             );
         );
     -- convert cycles to one-line notation
@@ -263,7 +263,8 @@ permMat (ZZ,List) := Matrix => (n,L) -> (
 
 
 
--- Permutation action is finite group action whose generators are permutations in one-line notation.
+-- Permutation action is finite group action whose generators are
+-- permutations of the variables
 
 PermutationAction = new Type of FiniteGroupAction
 
