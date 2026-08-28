@@ -349,12 +349,13 @@ permutationAction (ZZ, List) := PermutationAction => opts -> (n,P) -> (
     )
 
 --net of PermutationAction object showing permutations not matrices
+-- turns one-line notation from lists to arrays for printing
 net PermutationAction := A -> (net A.ring)|" <- "|
 horizontalJoin( {"<"} | mingle(apply(apply(A.permutations, p -> new Array from p),
             net), toList(A.numgens-1:", ")) | {">"})
 
 --tex of net of PermutationAction object
-
+-- turns one-line notation from lists to arrays for printing
 texMath PermutationAction := A -> (texMath A.ring) |"\\curvearrowleft" |
 "\\left\\langle" |
 (concatenate mingle(apply(apply(A.permutations, p -> new Array from p),
