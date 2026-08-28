@@ -403,7 +403,7 @@ document {
 	    },
     	EXAMPLE {
 	    "R = QQ[x_1..x_4]",
-	    "L = apply({[2, 3, 1, 4], [2, 1, 4, 3]}, permutationMatrix);",
+	    "L = apply({[2, 3, 1, 4], [2, 1, 4, 3]}, permMat);",
 	    "A4 = finiteAction(L, R)",
 	    "elapsedTime netList invariants A4"
 	},
@@ -458,7 +458,7 @@ document {
 	    },
     EXAMPLE {
 	"R = QQ[x_1..x_4]",
-	"L = apply({[2, 1, 3, 4], [2, 3, 4, 1]}, permutationMatrix);",
+	"L = apply({[2, 1, 3, 4], [2, 3, 4, 1]}, permMat);",
 	"S4 = finiteAction(L, R)",
 	"elapsedTime invariants S4",
 	"elapsedTime invariants(S4, DegreeBound => 4)"
@@ -833,7 +833,7 @@ document {
 	
 	EXAMPLE {
 	    "R = QQ[x_1..x_3]",
-	    "L = apply(2, i -> permutationMatrix(3, [i + 1, i + 2] ) )",
+	    "L = apply(2, i -> permMat(3, {[i + 1, i + 2]} ) )",
 	    "S3 = finiteAction(L, R)",
 	    "isInvariant(1 + x_1^2 + x_2^2 + x_3^2, S3)",
 	    "isInvariant(x_1*x_2*x_3^2, S3)"
@@ -915,7 +915,7 @@ document {
     	
 	EXAMPLE {
 	    "R = ZZ/3[x_0..x_6]",
-	    "P = permutationMatrix [2, 3, 4, 5, 6, 7, 1]",
+	    "P = permMat [2, 3, 4, 5, 6, 7, 1]",
 	    "C7 = finiteAction(P, R)",
 	    "reynoldsOperator(x_0*x_1*x_2^2, C7)",
 		},
