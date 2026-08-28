@@ -330,7 +330,7 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
         (symbol numgens) => #P,
         -- In Marcus Cassell's code one-line notation was lists, not arrays
         -- we convert to lists to use MC's code to compute invariants
-        (symbol permutations) => apply(P,toList)
+        (symbol permutations) => P
         }
     )
 
