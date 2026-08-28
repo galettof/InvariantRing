@@ -267,16 +267,14 @@ permMat (ZZ,List) := Matrix => (n,L) -> (
 
 PermutationAction = new Type of FiniteGroupAction
 
--- helper to recover one line notation from a permutation matrix:
-oneLineFromMatrix = M -> apply(entries transpose M, col -> (position(col, e -> e == 1)) + 1)
-
+-- constructor for PermutationAction
 permutationAction = method(Options => {
         CoefficientRing => QQ,
         Variable => "x",
         }
     )
 
--- main constructor
+-- general case use list of generating permutations and polynomial ring
 -- does not call permMat to avoid duplicating checks, but uses auxiliary functions
 permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -> (
     -- check we have at least one generator
@@ -335,7 +333,6 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
 -- constructor overload with no ring, just number of variables
 -- gives F[x_1..x_n], where F is passed as an option
 -- note: F defaults to QQ
-
 permutationAction (ZZ, List) := PermutationAction => opts -> (n,P) -> (
     --check if optional coefficient ring is a field
     if not isField opts.CoefficientRing then (
@@ -418,8 +415,3 @@ orbitSum (RingElement, PermutationAction) := RingElement => (r, A) -> (
     -- the orbit sum construction ignores coefficients
     sum(orbitExponents(A, flatten exponents r), i-> R_i)
     ) 
-
-
-
-
-
