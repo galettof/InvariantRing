@@ -489,8 +489,8 @@ assert(set inv == set einv)
 -- zero ideal, which implies the invariant ring is a polynomial ring
 -- as expected
 TEST ///
-L = {{2,1,3},{2,3,1}}
-S3 = permutationAction(L)
+L = {[2,1,3],[2,3,1]}
+S3 = permutationAction(3,L)
 matrixGens = set {(id_(QQ^3))_{1,0,2}, (id_(QQ^3))_{1,2,0}}
 assert( set gens S3 == matrixGens )
 inv = invariants S3
@@ -510,7 +510,7 @@ TEST ///
 F = ZZ/3
 R = F[w,x,y,z]
 L = {{[1,2,3,4]},{[1,3]}}
-D4 = permutationAction(L,R,EntryMode=>"cycle")
+D4 = permutationAction(L,R)
 matrixGens = set {(id_(F^4))_{1,2,3,0}, (id_(F^4))_{2,1,0,3}}
 assert( set gens D4 == matrixGens )
 inv = invariants D4
