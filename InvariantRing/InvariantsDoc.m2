@@ -1073,11 +1073,13 @@ document {
         PARA {
 	    "The following example computes a minimal set of generating invariants
             for the defining permutation action of the symmetric group ",
-            TEX ///$\mathfrak{S}_4$///, "."
+            TEX ///$\mathfrak{S}_4$///, ". The generating permutations can be
+            entered as one-line notation arrays or lists of cycles arrays
+            as in ", TO permMat , "."
 	    },
     	EXAMPLE {
 	    "R = QQ[x_1..x_4]",
-            "P = permutationAction({{2,1},{2,3,4,1}}, R)",
+            "P = permutationAction({{[1,2]},[2,3,4,1]}, R)",
 	    "elapsedTime netList invariants P"
 	},
 
@@ -1126,11 +1128,13 @@ document {
 
     PARA {
         "The following example recovers the monomial symmetric functions
-        of degree 5 in four variables."
+        of degree 5 in four variables. The generating permutations can be
+        entered as one-line notation arrays or lists of cycles arrays
+        as in ", TO permMat , "."
         },
     EXAMPLE {
         "R = QQ[x_1..x_4]",
-        "P = permutationAction({{2,1},{2,3,4,1}}, R)",
+        "P = permutationAction({{[1,2]},[2,3,4,1]}, R)",
         "elapsedTime netList invariants(P,5)"
         },
 

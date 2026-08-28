@@ -316,7 +316,7 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
             else (
                 error "permutationAction: Expected permutations as one-line notation
                 arrays or as lists of cycles."
-                );
+                )
             )
         );
     new PermutationAction from {
@@ -326,7 +326,9 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
         (symbol generators) => apply(P,
             p -> sub((id_(ZZ^n))_(apply(toList p,i->i-1)), K)),
         (symbol numgens) => #P,
-        (symbol permutations) => P
+        -- In Marcus Cassell's code one-line notation was lists, not arrays
+        -- we convert to lists to compute invariants
+        (symbol permutations) => apply(P,toList)
         }
     )
 
@@ -334,13 +336,13 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
 -- gives F[x_1..x_n], where F is passed as an option
 -- note: F defaults to QQ
 
-permutationAction (List) := PermutationAction => opts -> P -> (
+permutationAction (ZZ, List) := PermutationAction => opts -> (n,P) -> (
     --check if optional coefficient ring is a field
     if not isField opts.CoefficientRing then (
         error "permutationAction: Expected a field as coefficient ring."
         );
     F := opts.CoefficientRing;
-    n := max apply(P, p -> #p);
+    -- n := max apply(P, p -> #p);
     x := getSymbol opts.Variable;
     R := F(monoid[x_1..x_n]);
     permutationAction(P, R)
