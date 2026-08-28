@@ -73,7 +73,7 @@ export {
     "finiteAction",    	       	      	  
     "group",	    	    	  
     "isAbelian",    	    	  
-    "permMat",
+    "permutationMatrix",
     "permutationAction",
     "schreierGraph",	    	  
     "words",

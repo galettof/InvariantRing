@@ -25,7 +25,7 @@ assert(not isInvariant(1 + x_1^5 + x_1^4, G))
 -- Test 1
 TEST ///
 R = QQ[x_1..x_3]
-L = apply(2, i -> permMat(3, {[i + 1, i + 2]} ) )
+L = apply(2, i -> permutationMatrix(3, {[i + 1, i + 2]} ) )
 S3 = finiteAction(L,R)
 assert(#(group S3) === 6)
 assert(not isAbelian S3)
@@ -303,8 +303,8 @@ R=QQ[x_1..x_4]
 S5=finiteAction({A,B},R)
 assert(#(group S5) === 120)
 assert(not isAbelian S5)
-C=permMat [3, 1, 2, 4]
-D=permMat [2, 1, 4, 3]
+C=permutationMatrix [3, 1, 2, 4]
+D=permutationMatrix [2, 1, 4, 3]
 A4=finiteAction({C,D},R)
 assert(#(group A4) === 12)
 assert(not isAbelian A4)
@@ -349,8 +349,8 @@ assert(invariants D4 === {x*y,x^4+y^4})
 
 TEST ///
 R = QQ[x,y,z]
-r=permMat [3, 1, 2]
-s=permMat [2, 1, 3]
+r=permutationMatrix [3, 1, 2]
+s=permutationMatrix [2, 1, 3]
 S3 = finiteAction({r,s},R)
 assert(isInvariant(x*y*z,S3))
 assert(isInvariant(x+y+z,S3))
@@ -377,8 +377,8 @@ assert(value denominator H === sub((1-T)^3, ring value denominator H))
 TEST ///
 K=GF(101)
 R=K[x,y,z]
-r=permMat [3, 1, 2]
-s=permMat [2, 1, 3]
+r=permutationMatrix [3, 1, 2]
+s=permutationMatrix [2, 1, 3]
 S3 = finiteAction({r,s},R)
 setRandomSeed 0
 P=primaryInvariants(S3, Dade=>true)

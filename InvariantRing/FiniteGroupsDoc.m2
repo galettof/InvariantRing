@@ -37,7 +37,7 @@ document {
 	
 	EXAMPLE {
 	    	"R = QQ[x_1..x_3]",
-		"L = apply(2, i -> permMat(3, {[i + 1, i + 2]} ) )",
+		"L = apply(2, i -> permutationMatrix(3, {[i + 1, i + 2]} ) )",
 		"S3 = finiteAction(L, R)",
 		},
 	
@@ -47,7 +47,7 @@ document {
 	    },
 	
 	EXAMPLE {
-		"P = permMat [2, 3, 1]",
+		"P = permutationMatrix [2, 3, 1]",
 		"C3 = finiteAction(P, R)",
 		},    
 	    }
@@ -126,7 +126,7 @@ document {
 	
 	EXAMPLE {
 	    	"R = QQ[x_1..x_3]",
-		"L = apply(2, i -> permMat(3, {[i + 1, i + 2]} ) )",
+		"L = apply(2, i -> permutationMatrix(3, {[i + 1, i + 2]} ) )",
 		"S3 = finiteAction(L, R)",
 		"group S3"
 		},
@@ -164,7 +164,7 @@ document {
     	
 	EXAMPLE {
 	    "R = QQ[x_1..x_4]",
-	    "P = apply(3, i -> permMat(4, {[i + 1, i + 2]} ) )",
+	    "P = apply(3, i -> permutationMatrix(4, {[i + 1, i + 2]} ) )",
 	    "S4 = finiteAction(P, R)",
 	    "isAbelian S4",
 	    },
@@ -283,7 +283,7 @@ document {
 	
 	EXAMPLE {
 	    	"R = QQ[x_1..x_3]",
-		"L = apply(2, i -> permMat(3, {[i + 1, i + 2]} ) )",
+		"L = apply(2, i -> permutationMatrix(3, {[i + 1, i + 2]} ) )",
 		"S3 = finiteAction(L, R)",
 		"words S3"
 		},
@@ -298,14 +298,14 @@ document {
 
 
 document {
-	Key => {permMat,
-	    (permMat, Array), 
-	    (permMat, ZZ, List),
+	Key => {permutationMatrix,
+	    (permutationMatrix, Array), 
+	    (permutationMatrix, ZZ, List),
 	    },
 	
 	Headline => "convert a one-line notation or cyclic notation of a permutation to a matrix representation",
 	
-	Usage => "permMat c, \n permMat(n , L)",
+	Usage => "permutationMatrix c, \n permutationMatrix(n , L)",
 	Inputs => {
 		"c" => Array => {"of positive integers representing a permutation in one-line notation"},
 	    	"L" => List =>  {"of arrays representing a permutation as a product of cycles"},
@@ -322,7 +322,7 @@ document {
 	    },
 	
 	EXAMPLE {
-		"M = permMat [2, 1, 3]",
+		"M = permutationMatrix [2, 1, 3]",
 		},
 	
 	PARA {
@@ -330,14 +330,14 @@ document {
 	    },
 	
 	EXAMPLE {
-		"M = permMat(3,{[1,2]})",
+		"M = permutationMatrix(3,{[1,2]})",
 		},
 	    	    
 	PARA {
 	    "The following example converts the cyclic notation of a permutation of 4 into a matrix representation."
 	    },    
         EXAMPLE {
-            "M = permMat(4,{[1,2],[3,4]})",
+            "M = permutationMatrix(4,{[1,2],[3,4]})",
             },
 
         PARA {
@@ -346,7 +346,7 @@ document {
             },
     
         EXAMPLE {
-            "permMat(3,{[1,2],[2,3]}) == permMat(3,{[1,2,3]})",
+            "permutationMatrix(3,{[1,2],[2,3]}) == permutationMatrix(3,{[1,2,3]})",
             },
         }
 	
@@ -427,7 +427,7 @@ document {
             first two variables, and the second factor cycles the last three
             variables.  The generating permutations can be
             entered as one-line notation arrays or lists of cycles arrays
-            as in ", TO permMat , ", and are stored in one-line notation."
+            as in ", TO permutationMatrix , ", and are stored in one-line notation."
             },
     
         EXAMPLE {

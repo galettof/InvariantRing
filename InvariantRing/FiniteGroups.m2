@@ -177,10 +177,10 @@ addHook((relations, FiniteGroupAction), G -> (
 -- new permutationMatrix code
 -------------------------------------------
 
-permMat = method()
+permutationMatrix = method()
 
 -- permutation from one-line notation
-permMat Array := Matrix => p -> (
+permutationMatrix Array := Matrix => p -> (
     n := max p;
     if #p =!= n or set (1..n) =!= set p then (
         error "permutationMatrix: Expected an array of positive integers
@@ -204,7 +204,7 @@ cycleToOneLine = (n,c) -> (
 -- multiply permutations in one-line notation
 multiplyOneLine = L -> fold(L, (P,Q) -> P_(toList apply(Q, i -> i-1)))
 
-permMat (ZZ,List) := Matrix => (n,L) -> (
+permutationMatrix (ZZ,List) := Matrix => (n,L) -> (
     if n <= 0 then error "permutationMatrix: Expected a positive integer.";
     if #L == 0 or any(L, c -> not instance(c,Array)) then (
         error "permutationMatrix: Expected a nonempty list of arrays
@@ -238,7 +238,7 @@ permutationAction = method(Options => {
     )
 
 -- general case use list of generating permutations and polynomial ring
--- does not call permMat to avoid duplicating checks, but uses auxiliary functions
+-- does not call permutationMatrix to avoid duplicating checks, but uses auxiliary functions
 permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -> (
     -- check we have at least one generator
     if P === {} then (
