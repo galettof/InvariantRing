@@ -37,7 +37,7 @@ document {
 	
 	EXAMPLE {
 	    	"R = QQ[x_1..x_3]",
-		"L = apply(2, i -> permutationMatrix(3, [i + 1, i + 2] ) )",
+		"L = apply(2, i -> permMat(3, {[i + 1, i + 2]} ) )",
 		"S3 = finiteAction(L, R)",
 		},
 	
@@ -47,7 +47,7 @@ document {
 	    },
 	
 	EXAMPLE {
-		"P = permutationMatrix [2, 3, 1]",
+		"P = permMat [2, 3, 1]",
 		"C3 = finiteAction(P, R)",
 		},    
 	    }
@@ -126,7 +126,7 @@ document {
 	
 	EXAMPLE {
 	    	"R = QQ[x_1..x_3]",
-		"L = apply(2, i -> permutationMatrix(3, [i + 1, i + 2] ) )",
+		"L = apply(2, i -> permMat(3, {[i + 1, i + 2]} ) )",
 		"S3 = finiteAction(L, R)",
 		"group S3"
 		},
@@ -164,7 +164,7 @@ document {
     	
 	EXAMPLE {
 	    "R = QQ[x_1..x_4]",
-	    "P = apply(3, i -> permutationMatrix(4, [i + 1, i + 2] ) )",
+	    "P = apply(3, i -> permMat(4, {[i + 1, i + 2]} ) )",
 	    "S4 = finiteAction(P, R)",
 	    "isAbelian S4",
 	    },
@@ -283,7 +283,7 @@ document {
 	
 	EXAMPLE {
 	    	"R = QQ[x_1..x_3]",
-		"L = apply(2, i -> permutationMatrix(3, [i + 1, i + 2] ) )",
+		"L = apply(2, i -> permMat(3, {[i + 1, i + 2]} ) )",
 		"S3 = finiteAction(L, R)",
 		"words S3"
 		},
@@ -362,7 +362,7 @@ document {
 	
 	Headline => "convert a one-line notation or cyclic notation of a permutation to a matrix representation",
 	
-	Usage => "permutationMatrix c, \n permutationMatrix(n , L)",
+	Usage => "permMat c, \n permMat(n , L)",
 	Inputs => {
 		"c" => Array => {"of positive integers representing a permutation in one-line notation"},
 	    	"L" => List =>  {"of arrays representing a permutation as a product of cycles"},
