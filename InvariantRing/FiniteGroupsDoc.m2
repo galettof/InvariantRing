@@ -295,65 +295,8 @@ document {
 	
 	SeeAlso => {group, schreierGraph}
 	    }
-	
-	
-document {
-	Key => {permutationMatrix,
-	    (permutationMatrix, Array), 
-	    (permutationMatrix, ZZ, Array),
-	    (permutationMatrix, ZZ, List),
-	    (permutationMatrix, List),
-	    [permutationMatrix, EntryMode]	    
-	    },
-	
-	Headline => "convert a one-line notation or cyclic notation of a permutation to a matrix representation",
-	
-	Usage => "permutationMatrix c, \n permutationMatrix(n , c), \n permutationMatrix(n, p), \n permutationMatrix p",
-	Inputs => {
-		"c" => Array => {"of positive integers representing a permutation in one-line notation or 
-		    representing a cyclic permutation"},
-	    	"p" => List =>  {"of arrays representing a permutation as a product of cycles"},
-		"n" => ZZ => {"giving the number of integers being permuted"},
-		},
-	Outputs => {
-		Matrix => {"the matrix representation of the permutation"}
-		},
-	
-	"This function is provided by the package ", TO InvariantRing,".",
-	
-	PARA {
-	    "The following example converts the one-line notation of a transposition into a matrix representation. "
-	    },
-	
-	EXAMPLE {
-		"M = permutationMatrix [2, 1, 3]",
-		},
-	
-	PARA {
-	    "The following example converts the cyclic notation of the same transposition into a matrix representation."
-	    },
-	
-	EXAMPLE {
-		"M = permutationMatrix(3,[1,2])",
-		},
-	    
-	PARA {
-	    "If ",TT "n"," is the largest integer that appears in your array, the value of ", TT "n", " can be omitted by 
-	    using the option ", TT "EntryMode => \"cycle\"", "."
-	    },
-		
-	EXAMPLE {
-		"M = permutationMatrix([1,2], EntryMode => \"cycle\")",
-		},
-	    
-	PARA {
-	    "The following example converts the cyclic notation of a permutation of 4 into a matrix representation."
-	    },    
-	EXAMPLE {
-	    	"M = permutationMatrix(4,{[1,2],[3,4]})",
-	    },
-	    }
-	
+
+
 document {
 	Key => {permMat,
 	    (permMat, Array), 

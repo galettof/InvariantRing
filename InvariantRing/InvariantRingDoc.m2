@@ -78,7 +78,7 @@ document {
 		of finite groups (the authors thank N. Iammarino, T. Yu,
 		    and Q. Zhao for the fix)."
 		},
-	    {BOLD "2.2: ", "changed input of ", TO permutationMatrix,
+	    {BOLD "2.2: ", "changed input of ", TO permMat,
 		", minor documentation and internal code changes."
 		},
 	    {BOLD "2.3: ", "minor documentation updates."},
