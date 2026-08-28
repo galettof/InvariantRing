@@ -329,7 +329,7 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
             p -> sub((id_(ZZ^n))_(apply(toList p,i->i-1)), K)),
         (symbol numgens) => #P,
         -- In Marcus Cassell's code one-line notation was lists, not arrays
-        -- we convert to lists to compute invariants
+        -- we convert to lists to use MC's code to compute invariants
         (symbol permutations) => apply(P,toList)
         }
     )
