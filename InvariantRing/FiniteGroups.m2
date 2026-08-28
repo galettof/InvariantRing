@@ -330,7 +330,7 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
         (symbol numgens) => #P,
         -- In Marcus Cassell's code one-line notation was lists, not arrays
         -- we convert to lists to use MC's code to compute invariants
-        (symbol permutations) => P
+        (symbol permutations) => apply(P,toList)
         }
     )
 
@@ -350,13 +350,15 @@ permutationAction (ZZ, List) := PermutationAction => opts -> (n,P) -> (
 
 --net of PermutationAction object showing permutations not matrices
 net PermutationAction := A -> (net A.ring)|" <- "|
-horizontalJoin( {"<"} | mingle(apply(A.permutations, net), toList(A.numgens-1:", ")) | {">"})
+horizontalJoin( {"<"} | mingle(apply(apply(A.permutations, p -> new Array from p),
+            net), toList(A.numgens-1:", ")) | {">"})
 
 --tex of net of PermutationAction object
 
 texMath PermutationAction := A -> (texMath A.ring) |"\\curvearrowleft" |
 "\\left\\langle" |
-(concatenate mingle(apply(A.permutations, texMath), toList(A.numgens-1:","))) |
+(concatenate mingle(apply(apply(A.permutations, p -> new Array from p),
+            texMath), toList(A.numgens-1:","))) |
 "\\right\\rangle"
 
 -- find all special exponents, namely sorted ascending with first entry 0 and no jumps larger than 1
