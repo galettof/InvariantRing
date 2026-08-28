@@ -1075,7 +1075,7 @@ document {
             for the defining permutation action of the symmetric group ",
             TEX ///$\mathfrak{S}_4$///, ". The generating permutations can be
             entered as one-line notation arrays or lists of cycles arrays
-            as in ", TO permMat , "."
+            as in ", TO permMat , ", and are stored in one-line notation."
 	    },
     	EXAMPLE {
 	    "R = QQ[x_1..x_4]",
@@ -1130,7 +1130,7 @@ document {
         "The following example recovers the monomial symmetric functions
         of degree 5 in four variables. The generating permutations can be
         entered as one-line notation arrays or lists of cycles arrays
-        as in ", TO permMat , "."
+        as in ", TO permMat , ", and are stored in one-line notation."
         },
     EXAMPLE {
         "R = QQ[x_1..x_4]",
