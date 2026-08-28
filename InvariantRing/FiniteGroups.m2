@@ -332,7 +332,7 @@ permutationAction (List, PolynomialRing) := PermutationAction => opts -> (P,R) -
         }
     )
 
--- constructor overload with no ring
+-- constructor overload with no ring, just number of variables
 -- gives F[x_1..x_n], where F is passed as an option
 -- note: F defaults to QQ
 
@@ -342,7 +342,6 @@ permutationAction (ZZ, List) := PermutationAction => opts -> (n,P) -> (
         error "permutationAction: Expected a field as coefficient ring."
         );
     F := opts.CoefficientRing;
-    -- n := max apply(P, p -> #p);
     x := getSymbol opts.Variable;
     R := F(monoid[x_1..x_n]);
     permutationAction(P, R)
