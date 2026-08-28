@@ -484,12 +484,12 @@ document {
             first two variables, and the second factor cycles the last three
             variables.  The generating permutations can be
             entered as one-line notation arrays or lists of cycles arrays
-            as in ", TO permMat , "."
+            as in ", TO permMat , ", and are stored in one-line notation."
             },
     
         EXAMPLE {
             "R = QQ[v..z]",
-            "L = {{[1,2]},{[3,4,5]}}",
+            "L = {[2,1,3,4,5],[1,2,4,5,3]}",
             "P = permutationAction(L, R)",
             },
     
@@ -503,6 +503,6 @@ document {
             },
     
         EXAMPLE {
-            "P = permutationAction(5, L, Variable=>\"α\", CoefficientRing=>ZZ/7)",
+            "P = permutationAction(4, {{[1,2],[2,3]},{[1,2,3,4]}}, Variable=>\"α\", CoefficientRing=>ZZ/7)",
             },
         }
