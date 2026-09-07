@@ -80,7 +80,7 @@ jobs:
           for html_file in site.rglob("*.html"):
               text = html_file.read_text(encoding="utf-8")
 
-              if old_prefix not in text:
+              if old_prefix in text:
                   text = text.replace(old_prefix, 'Style')
                   html_file.write_text(text, encoding="utf-8")
                   print(f"Rewrote style paths in {html_file}")
