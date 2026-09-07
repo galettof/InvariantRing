@@ -27,9 +27,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y macaulay2
 
-      - name: Show Macaulay2 version
-        run: M2 --no-readline --silent --eval 'version'
-
       - name: Run InvariantRing tests
         shell: bash
         env:
@@ -40,4 +37,4 @@ jobs:
           check "InvariantRing";
           EOF
 
-          M2 --no-readline --silent run-tests.m2
+          M2 --script run-tests.m2
