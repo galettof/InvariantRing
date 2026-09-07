@@ -57,6 +57,46 @@ jobs:
           mkdir -p "$SITE"
           cp -a "$HTML_DIR"/. "$SITE"/
 
+          STYLE_DIR="/usr/share/Macaulay2/Style"
+
+          if [[ ! -d "$STYLE_DIR" ]]; then
+            echo "Could not find Macaulay2 style files at:"
+            echo "  $STYLE_DIR"
+            exit 1
+          fi
+
+          mkdir -p "$SITE/Style"
+          cp -a "$STYLE_DIR"/. "$SITE/Style"/
+
+          export SITE
+
+          python3 <<'PY'
+          import os
+          from pathlib import Path
+
+          site = Path(os.environ["SITE"]).resolve()
+          old_prefix = "/usr/share/Macaulay2/Style/"
+
+          for html_file in site.rglob("*.html"):
+              text = html_file.read_text(encoding="utf-8")
+
+              if old_prefix not in text:
+                  continue
+
+              relative_style_dir = os.path.relpath(
+                  site / "Style",
+                  html_file.parent,
+              ).replace(os.sep, "/")
+
+              if not relative_style_dir.endswith("/"):
+                  relative_style_dir += "/"
+
+              text = text.replace(old_prefix, relative_style_dir)
+              html_file.write_text(text, encoding="utf-8")
+
+              print(f"Rewrote style paths in {html_file}")
+          PY
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 
