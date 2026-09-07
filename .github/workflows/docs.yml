@@ -1,3 +1,5 @@
+# Workflow prepared with various models at duck.ai and reviewed by F. Galetto
+
 name: Build and publish documentation
 
 on:
