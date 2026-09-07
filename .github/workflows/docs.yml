@@ -57,15 +57,6 @@ jobs:
           mkdir -p "$SITE"
           cp -a "$HTML_DIR"/. "$SITE"/
 
-          if [[ ! -f "$SITE/index.html" ]]; then
-            PACKAGE_INDEX="$(find "$SITE" -maxdepth 1 -type f \
-              -name '*InvariantRing*.html' -print -quit)"
-
-            if [[ -n "$PACKAGE_INDEX" ]]; then
-              cp "$PACKAGE_INDEX" "$SITE/index.html"
-            fi
-          fi
-
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 
