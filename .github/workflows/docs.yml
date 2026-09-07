@@ -1,0 +1,88 @@
+name: Build and publish documentation
+
+on:
+  push:
+    branches:
+      - stable
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install Macaulay2
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y ppa:profzoom/macaulay2
+          sudo apt-get update
+          sudo apt-get install -y macaulay2
+
+      - name: Install InvariantRing and build HTML documentation
+        shell: bash
+        env:
+          M2PATH: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+
+          cat > make-docs.m2 <<'EOF'
+          installPackage "InvariantRing";
+          EOF
+
+          M2 --script make-docs.m2
+
+          HTML_DIR="$HOME/.Macaulay2/local/share/doc/Macaulay2/InvariantRing/html"
+          SITE="$RUNNER_TEMP/site"
+
+          if [[ ! -d "$HTML_DIR" ]]; then
+            echo "Could not find generated documentation at:"
+            echo "  $HTML_DIR"
+            find "$HOME/.Macaulay2" -type f -print || true
+            exit 1
+          fi
+
+          mkdir -p "$SITE"
+          cp -a "$HTML_DIR"/. "$SITE"/
+
+          if [[ ! -f "$SITE/index.html" ]]; then
+            PACKAGE_INDEX="$(find "$SITE" -maxdepth 1 -type f \
+              -name '*InvariantRing*.html' -print -quit)"
+
+            if [[ -n "$PACKAGE_INDEX" ]]; then
+              cp "$PACKAGE_INDEX" "$SITE/index.html"
+            fi
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ${{ runner.temp }}/site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
