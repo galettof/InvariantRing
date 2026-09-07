@@ -2,8 +2,9 @@ name: Build and publish documentation
 
 on:
   push:
-    branches:
-      - stable
+    branches: [ "stable" ]
+  pull_request:
+    branches: [ "stable" ]
   workflow_dispatch:
 
 permissions:
