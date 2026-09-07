@@ -525,3 +525,7 @@ H1 = reduceHilbert hilbertSeries invariantRing D4
 H2 = reduceHilbert hilbertSeries invariantRing(D4,Strategy=>"King")
 assert( H1 === H2 )
 ///
+
+TEST ///
+assert(0===1)
+///
