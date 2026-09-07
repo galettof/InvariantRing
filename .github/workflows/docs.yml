@@ -75,15 +75,21 @@ jobs:
           from pathlib import Path
 
           site = Path(os.environ["SITE"]).resolve()
-          old_prefix = "/usr/share/Macaulay2/Style/"
+          fixed_style_prefix = "/usr/share/Macaulay2/Style"
+          relative_style_prefix = "../../../../Macaulay2/Style"
 
           for html_file in site.rglob("*.html"):
               text = html_file.read_text(encoding="utf-8")
 
-              if old_prefix in text:
-                  text = text.replace(old_prefix, 'Style/')
+              if fixed_style_prefix in text:
+                  text = text.replace(fixed_style_prefix, 'Style')
                   html_file.write_text(text, encoding="utf-8")
-                  print(f"Rewrote style paths in {html_file}")
+                  print(f"Rewrote fixed style paths in {html_file}")
+
+              if relative_style_prefix in text:
+                  text = text.replace(relative_style_prefix, 'Style')
+                  html_file.write_text(text, encoding="utf-8")
+                  print(f"Rewrote relative style paths in {html_file}")
           
           PY
 
