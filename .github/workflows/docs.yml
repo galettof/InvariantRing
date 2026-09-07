@@ -77,6 +77,7 @@ jobs:
           site = Path(os.environ["SITE"]).resolve()
           fixed_style_prefix = "/usr/share/Macaulay2/Style"
           relative_style_prefix = "../../../../Macaulay2/Style"
+          fixed_doc_prefix = "/usr/share/doc/Macaulay2"
 
           for html_file in site.rglob("*.html"):
               text = html_file.read_text(encoding="utf-8")
@@ -90,6 +91,11 @@ jobs:
                   text = text.replace(relative_style_prefix, 'Style')
                   html_file.write_text(text, encoding="utf-8")
                   print(f"Rewrote relative style paths in {html_file}")
+
+              if fixed_doc_prefix in text:
+                  text = text.replace(fixed_doc_prefix, 'https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2')
+                  html_file.write_text(text, encoding="utf-8")
+                  print(f"Rewrote fixed doc paths in {html_file}")
           
           PY
 
