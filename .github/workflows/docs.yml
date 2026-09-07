@@ -81,20 +81,10 @@ jobs:
               text = html_file.read_text(encoding="utf-8")
 
               if old_prefix not in text:
-                  continue
-
-              relative_style_dir = os.path.relpath(
-                  site / "Style",
-                  html_file.parent,
-              ).replace(os.sep, "/")
-
-              if not relative_style_dir.endswith("/"):
-                  relative_style_dir += "/"
-
-              text = text.replace(old_prefix, relative_style_dir)
-              html_file.write_text(text, encoding="utf-8")
-
-              print(f"Rewrote style paths in {html_file}")
+                  text = text.replace(old_prefix, relative_style_dir)
+                  html_file.write_text(text, encoding="utf-8")
+                  print(f"Rewrote style paths in {html_file}")
+          
           PY
 
       - name: Configure GitHub Pages
