@@ -2,13 +2,9 @@ name: Run tests
 
 on:
   push:
-    branches:
-    - development
-    - 'feature/**'
+    branches-ignore: [ "stable" ]
   pull_request:
-    branches:
-    - development
-    - 'feature/**'
+    branches-ignore: [ "stable" ]
 
 jobs:
   test:
