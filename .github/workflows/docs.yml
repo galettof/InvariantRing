@@ -78,6 +78,7 @@ jobs:
           fixed_style_prefix = "/usr/share/Macaulay2/Style"
           relative_style_prefix = "../../../../Macaulay2/Style"
           fixed_doc_prefix = "/usr/share/doc/Macaulay2"
+          search_placeholder = 'placeholder="Search"'
 
           for html_file in site.rglob("*.html"):
               text = html_file.read_text(encoding="utf-8")
@@ -96,6 +97,11 @@ jobs:
                   text = text.replace(fixed_doc_prefix, 'https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2')
                   html_file.write_text(text, encoding="utf-8")
                   print(f"Rewrote fixed doc paths in {html_file}")
+
+              if search_placeholder in text:
+                  text = text.replace(search_placeholder, 'placeholder="Search M2 website"')
+                  html_file.write_text(text, encoding="utf-8")
+                  print(f"Rewrote search placeholder in {html_file}")
           
           PY
 
