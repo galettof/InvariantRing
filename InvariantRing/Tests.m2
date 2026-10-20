@@ -25,7 +25,7 @@ assert(not isInvariant(1 + x_1^5 + x_1^4, G))
 -- Test 1
 TEST ///
 R = QQ[x_1..x_3]
-L = apply(2, i -> permutationMatrix(3, [i + 1, i + 2] ) )
+L = apply(2, i -> permutationMatrix(3, {[i + 1, i + 2]} ) )
 S3 = finiteAction(L,R)
 assert(#(group S3) === 6)
 assert(not isAbelian S3)
@@ -489,8 +489,8 @@ assert(set inv == set einv)
 -- zero ideal, which implies the invariant ring is a polynomial ring
 -- as expected
 TEST ///
-L = {{2,1,3},{2,3,1}}
-S3 = permutationAction(L)
+L = {[2,1,3],[2,3,1]}
+S3 = permutationAction(3,L)
 matrixGens = set {(id_(QQ^3))_{1,0,2}, (id_(QQ^3))_{1,2,0}}
 assert( set gens S3 == matrixGens )
 inv = invariants S3
@@ -503,14 +503,17 @@ assert( zero definingIdeal invariantRing S3 )
 
 -- Test 26
 -- Similar to the one above but uses the dihedral group D4 over ZZ/3
+-- We also check cycle notation is correctly converted to one-line
 -- In this case, the Hilbert series of the invariant ring computed with
 -- two different strategies should be the same
 -- Also, tests cycle entry mode
 TEST ///
 F = ZZ/3
 R = F[w,x,y,z]
-L = {{[1,2,3,4]},{[1,3]}}
-D4 = permutationAction(L,R,EntryMode=>"cycle")
+L = {{[1,4],[1,3],[1,2]},{[1,3]}}
+D4 = permutationAction(L,R)
+perms = set {{2,3,4,1},{3,2,1,4}}
+assert( set D4.permutations == perms )
 matrixGens = set {(id_(F^4))_{1,2,3,0}, (id_(F^4))_{2,1,0,3}}
 assert( set gens D4 == matrixGens )
 inv = invariants D4

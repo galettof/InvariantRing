@@ -833,7 +833,7 @@ document {
 	
 	EXAMPLE {
 	    "R = QQ[x_1..x_3]",
-	    "L = apply(2, i -> permutationMatrix(3, [i + 1, i + 2] ) )",
+	    "L = apply(2, i -> permutationMatrix(3, {[i + 1, i + 2]} ) )",
 	    "S3 = finiteAction(L, R)",
 	    "isInvariant(1 + x_1^2 + x_2^2 + x_3^2, S3)",
 	    "isInvariant(x_1*x_2*x_3^2, S3)"
@@ -1073,11 +1073,13 @@ document {
         PARA {
 	    "The following example computes a minimal set of generating invariants
             for the defining permutation action of the symmetric group ",
-            TEX ///$\mathfrak{S}_4$///, "."
+            TEX ///$\mathfrak{S}_4$///, ". The generating permutations can be
+            entered as one-line notation arrays or lists of cycles arrays
+            as in ", TO permutationMatrix , ", and are stored in one-line notation."
 	    },
     	EXAMPLE {
 	    "R = QQ[x_1..x_4]",
-            "P = permutationAction({{2,1},{2,3,4,1}}, R)",
+            "P = permutationAction({{[1,2]},[2,3,4,1]}, R)",
 	    "elapsedTime netList invariants P"
 	},
 
@@ -1126,11 +1128,13 @@ document {
 
     PARA {
         "The following example recovers the monomial symmetric functions
-        of degree 5 in four variables."
+        of degree 5 in four variables. The generating permutations can be
+        entered as one-line notation arrays or lists of cycles arrays
+        as in ", TO permutationMatrix , ", and are stored in one-line notation."
         },
     EXAMPLE {
         "R = QQ[x_1..x_4]",
-        "P = permutationAction({{2,1},{2,3,4,1}}, R)",
+        "P = permutationAction({{[1,2]},[2,3,4,1]}, R)",
         "elapsedTime netList invariants(P,5)"
         },
 
