@@ -19,12 +19,12 @@ document {
 	UL { 
 	    {"An elimination theory algorithm that computes the Hilbert ideal for any linearly reductive group: ",
 		"Derksen, H. & Kemper, G. (2015). ",
-		HREF{"https://link.springer.com/book/10.1007%2F978-3-662-48422-7","Computational Invariant Theory"}, 
+		HREF{"https://doi.org/10.1007/978-3-662-48422-7","Computational Invariant Theory"}, 
 	   	". Heidelberg: Springer. Algorithm 4.1.9, pp 159-164"
 		},
 	    {"A simple and efficient algorithm for invariants of tori based on: ",
 		"Derksen, H. & Kemper, G. (2015). ",
-		HREF{"https://link.springer.com/book/10.1007%2F978-3-662-48422-7","Computational Invariant Theory"}, 
+		HREF{"https://doi.org/10.1007/978-3-662-48422-7","Computational Invariant Theory"}, 
 	   	". Heidelberg: Springer. Algorithm 4.3.1 pp 174-177"
 		},
 	    {"An adaptation of the tori algorithm for invariants of finite abelian groups based on: ",
@@ -39,7 +39,7 @@ document {
 		},
 	    {"King's algorithm and the linear algebra method for invariants of finite groups: ",
 		"Derksen, H. & Kemper, G. (2015). ",
-		HREF{"https://link.springer.com/book/10.1007%2F978-3-662-48422-7","Computational Invariant Theory"}, 
+		HREF{"https://doi.org/10.1007/978-3-662-48422-7","Computational Invariant Theory"}, 
 	   	". Heidelberg: Springer. Algorithm 3.8.2, pp 107-109; pp 72-74"
 		},
 	    {"The algorithms for primary and secondary invariants, and Molien series of finite groups implemented
