@@ -86,7 +86,11 @@ document {
 		abelian $p$-groups."},
 	    {BOLD "2.5: ", "the algorithm for elementary abelian $p$-groups
 		is now much faster, and is used by default when possible.
-		Includes various bug fixes and TeX output for all package classes."}
+		Includes various bug fixes and TeX output for all package classes."},
+	    {BOLD "2.6: ", "introduces the new type ", TT "PermutationAction",
+                " with the faster orbit sum method for computing invariants.
+                This version also simplifies inputs for ", TT "permutationMatrix",
+                ", a minor breaking change."}
 	    },
 	Contributors=>{
 	    "The following people worked on the algorithm for invariants of elementary
@@ -96,7 +100,11 @@ document {
 	    Mal Dolorfino,
 	    Gordie Novak,
 	    Daniel Qin,
-	    and Sumner Strom."
+	    and Sumner Strom.
+            The orbit sum method of version 2.6 was initially developed
+            by ", HREF{"https://sites.google.com/tec.mx/liliaalanislopez/","Lilia Alanís-López"},
+            ", Dalena Vien, Indalecio Ruiz, Francesca Gandini, and Summer Strom;
+            the final version was developed by Marcus Cassell."
 	    },
 	}
     
