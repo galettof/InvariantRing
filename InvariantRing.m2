@@ -22,16 +22,16 @@ newPackage(
 		 },
              {Name => "Francesca Gandini", 
 		 Email => "fra.gandi.phd@gmail.com", 
-		 HomePage => "https://sites.google.com/a/umich.edu/gandini/home"
+		 HomePage => "https://fragandi.github.io/web/"
 		 },
 	     {Name => "Hang Huang", 
 		 Email => "hhuang235@tamu.edu", 
-		 HomePage => "https://math.tamu.edu/~hhuang"
+		 HomePage => "https://artsci.tamu.edu/mathematics/contact/profiles/hang-huang.html"
 		 },
 	     {Name => "Thomas Hawes", Email => "thomas.hawes@maths.ox.ac.uk"},
 	     {Name => "Matthew Mastroeni", 
-		 Email => "mmastro@iastate.edu", 
-		 HomePage => "https://mnmastro.github.io/"
+		 Email => "mastromn@sunypoly.edu", 
+		 HomePage => "https://sunypoly.edu/faculty-and-staff/matthew-mastroeni.html"
 		 },
              {Name => "Xianglong Ni", 
 		 Email => "xlni@berkeley.edu", 
