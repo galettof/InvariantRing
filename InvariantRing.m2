@@ -9,8 +9,8 @@
 
 newPackage(
         "InvariantRing",
-        Version => "2.5", 
-        Date => "May 25, 2026",
+        Version => "2.6", 
+        Date => "October 27, 2026",
         Authors => {
 	    {Name => "Luigi Ferraro", 
 		 Email => "luigi.ferraro@utrgv.edu", 
