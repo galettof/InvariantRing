@@ -28,7 +28,7 @@ in a running session of Macaulay2.
 
 ## Documentation
 
-View the [online documentation](https://galettof.github.io/InvariantRing/)) of the current stable release, or visit the [M2 website](https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/InvariantRing/html/index.html) for the version distributed with Macaulay2.
+View the [online documentation](https://galettof.github.io/InvariantRing/) of the current stable release, or visit the [M2 website](https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/InvariantRing/html/index.html) for the documentation of the version distributed with Macaulay2.
 
 Alternatively, issue the command
 
