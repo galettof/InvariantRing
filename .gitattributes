@@ -1,0 +1,4 @@
+# exclude .git files and folders
+.git*           export-ignore
+# exclude codespace files
+.devcontainer*  export-ignore
