@@ -1,4 +1,4 @@
-# InvariantRing
+# About InvariantRing
 [Macaulay2](https://macaulay2.com) package for computing invariants of linear group actions on rings.
 For an overview, see [The InvariantRing package for Macaulay2](https://msp.org/jsag/2024/14-1/p02.xhtml).
 
@@ -20,17 +20,22 @@ For an overview, see [The InvariantRing package for Macaulay2](https://msp.org/j
   
   For a more detailed how-to with pictures, please see [fragandi/M2-codespace](https://github.com/fragandi/M2-codespace).
 
-## Documentation
-
 To start using InvariantRing, issue the command
 
 `needsPackage "InvariantRing"`
 
-in a running session of Macaulay2, then issue
+in a running session of Macaulay2.
+
+## Documentation
+
+View the [online documentation](https://galettof.github.io/InvariantRing/) of the current stable release, or visit the [M2 website](https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/InvariantRing/html/index.html) for the documentation of the version distributed with Macaulay2.
+
+Alternatively, issue the command
 
 `viewHelp "InvariantRing"`
 
-to view the documentation (also available on the [M2 website](https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/InvariantRing/html/index.html)).
+in a running session of Macaulay2 to view the documentation locally.
+
 The `examples` folder in this repository contains examples of computations that can be performed using this package.
 
 # Contributing to InvariantRing
