@@ -657,16 +657,15 @@ invariants(PermutationAction, ZZ) := List => o -> (A, d) -> (
         );
     mons := flatten entries basis(d, R);
     seen := new MutableHashTable;
-    candidates := {};
-    scan(mons, m -> (
+    candidates := for m in mons list (
         e := first exponents m;
-        if not seen#?e then (
+        if seen#?e then continue else (
             orb := orbitExponents(A, e);
             scan(orb, i -> seen#i = true);
-            candidates = append(candidates, sum(orb, g -> R_g))
-        )
-    ));
-        candidates
+            sum(orb, g -> R_g)
+            )
+        );
+    candidates
 )
 
 -------------------------------------------
