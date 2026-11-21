@@ -600,7 +600,9 @@ invariants PermutationAction := List => o -> A -> (
                 )
             );
         -- one orbit sum per orbit of special monomials
-        candidates := {};
+        -- we track them with a hashtable with values null
+        -- to avoid appending to a list in the loop below
+        candidates := new MutableHashTable;
         -- we track which special monomial already belong to a computed orbit 
         seen := new MutableHashTable; --keep hashtable of seen list
         scan(specialExponents numgens R, v -> 
@@ -610,12 +612,13 @@ invariants PermutationAction := List => o -> A -> (
                     if not seen#?i then ( 
                         orb := orbitExponents(A, i);
                         scan(orb, j -> seen#j = true);
-                        candidates = append(candidates, sum(orb, g -> R_g))
+                        candidates#(sum(orb, g -> R_g)) = null;
                         )
                     ))
             );
+        -- turn keys into a list and
         -- add in x_1 * x_2 * ... * x_n, the product of all variables
-        candidates = append(candidates, product gens R);
+        candidates = append(keys candidates, product gens R);
         -- Goebel's algorithm gives a generating set, but not a minimal one,
         -- so we minimize below
         -- We walk from low degree to high and use groebner basis
